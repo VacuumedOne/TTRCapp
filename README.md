@@ -24,7 +24,10 @@ node -v
 
 # 作業するときは...
 ちゃんとforkして、自分のリポジトリをclone。
-間違えてもmasterにpushせず、branchを切ってから編集し、pull-requestを送ってね。
+間違えてもmasterにpushしないこと。
+1. 作業のはじめにpull
+2. branchを切ってから編集
+3. コミットしてからpull-requestを送る
 
 ---
 ---

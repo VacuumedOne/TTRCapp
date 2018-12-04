@@ -1,5 +1,5 @@
 # 開発のはじめかた
-
+### 根幹のソフト
 - homebrewのインストール
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew -v
@@ -14,15 +14,6 @@ mkdir -p ~/.nodebrew/src
 nodebrew ls-remote //バージョンを選ぶ
 nodebrew install-binary {version}
 node -v
-
----
----
-
-- expressパッケージのインストール
-npm install -g express
-
-- vue-cliパッケージのインストール
-npm install -g vue-cli
 
 ---
 ---

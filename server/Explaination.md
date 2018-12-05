@@ -55,3 +55,41 @@ npm start
 ---
 
 ### rowingkuramae:RecordGroups
+記録のグループを保持する。記録のグループとは、例えばエルゴ、ウェイト、体組成などの、グループである。RecordGroupと以下に記載するRecordItemで、一つの種目("エルゴ"の"2000m"など)を一意に決定する。
+
+|カラム名|型|属性|説明|
+|:--|:-:|:--|:--|
+|group_id|INT|NOT NULL, PRIMARY KEY, AUTO_INCREMENT|一意に決定するためのID|
+|group_name|||グループ名|
+|||||
+|||||
+|||||
+
+### rowingkuramae:RecordItems
+記録の種目を保持する。*種目とは、2000mやベンチプレスなどを指す。親となるRecordGroupを一つ持つ。
+
+|カラム名|型|属性|説明|
+|:--|:-:|:--|:--|
+|item_id|INT|NOT NULL, PRIMARY KEY, AUTO_INCREMENT|一意に決定するためのID|
+|item_name|||種目名|
+|group_id||FOREIGN KEY|親となるRecordGroupのIDを持つ。|
+|unit|||単位。記録の単位を入れる。"kg"や"s"などの文字列。|
+|||||
+|||||
+
+*"エルゴ"の"2000m"と"ラン"の"2000m"は異なるタプルに入る。
+
+### rowingkuramae:Records
+毎回の記録を保持する。
+
+|カラム名|型|属性|説明|
+|:--|:-:|:--|:--|
+|record_id|INT|NOT NULL, PRIMARY KEY, AUTO_INCREMENT|一意に決定するためのID|
+|record_name|||種目名|
+|item_id|||親となるRecordItemのIDを持つ。|
+|player_id|||メニュー等を行った選手のuser_id|
+|registerer_id|||記録を登録した者のuser_id。自分で登録すればplayer_idと一致するが、コックス等に登録してもらうときは一致しない。|
+|result|||結果を入力する。エルゴなら"06:50,00"、ウェイトなら"50"などと入れる。|
+|reps||||
+|||||
+|||||

@@ -6,8 +6,14 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/test/login/regster', function(req, res, next) {
+router.get('/test/login/register', function(req, res, next) {
   res.render('index', { title: 'UserRegister' });
 });
+
+router.get('/test/json', function(req, res, next) {
+  res.json({
+    "message": "やったぜ。"
+  })
+})
 
 module.exports = router;

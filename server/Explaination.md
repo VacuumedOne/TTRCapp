@@ -9,19 +9,12 @@ npm start
 |method|URL|説明|
 |:-:|:-|:-|
 |GET|/|Expressにごあいさつ|
-|GET|/test/login/register|新規ユーザ追加画面(テスト用)|
-|GET|/test/login/login|ログイン情報入力画面(テスト用)|
-|GET|/test/login/success|ログイン完了画面(テスト用)|
-|GET|/test/user/list|ユーザ一覧(テスト用)|
-|POST|/user/register|新規ユーザ情報をPOST|
-|POST|/user/get|ユーザ名とパスワードをPOSTして、ユーザ情報入手(ログイン時に使う)|
-|POST|/user/delete|ユーザを削除(ユーザ退会)|
-|POST|/user/update|ユーザ情報を更新|
-|GET|/test/record/ergo|エルゴ記録入力画面(テスト)|
-|GET|/test/record/success|記録入力完了画面(テスト)|
-|GET|/test/record/list|エルゴ記録の全取得(テスト)|
-|POST|/record/ergo/register|エルゴ情報のPOST|
-|POST|/record/ergo/delete|エルゴ記録の削除|
+|POST|/user/register/api|新規ユーザ情報をPOST|
+|POST|/user/get/api|ユーザ名とパスワードをPOSTして、ユーザ情報入手(ログイン時に使う)|
+|POST|/user/delete/api|ユーザを削除(ユーザ退会)|
+|POST|/user/update/api|ユーザ情報を更新|
+|POST|/record/register/api|情報のPOST|
+|POST|/record/delete/api|記録の削除|
 
 ---
 ---

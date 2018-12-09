@@ -15,6 +15,7 @@ npm start
 |POST|/user/update/api|ユーザ情報を更新|
 |POST|/record/register/api|情報のPOST|
 |POST|/record/delete/api|記録の削除|
+|POST|/test/post/api|テスト用。POSTされた内容をそのまま表示する。|
 
 ---
 ---

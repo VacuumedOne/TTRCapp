@@ -10,4 +10,5 @@
 |GET|/#/record/team|みんなの記録の閲覧画面|
 |GET|/#/info|ユーザ管理画面|
 |GET|/#/login|ログイン画面|
+|GET|/#/user/register|ユーザ追加画面|
 

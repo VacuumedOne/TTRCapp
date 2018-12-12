@@ -5,14 +5,10 @@ module.exports = function(body, res) {
   //express-validatorを使うと良さげ
 
   /* DB格納 */
-  const mongodbClient = require('mongodb').MongoClient;
-  const connectUrl = 'mongodb://127.0.0.1:27017';
-  
-  mongodbClient.connect(connectUrl, (err, db) => {
-    if(err) throw err;
-    console.log('MongoDBに接続中');
-    db.close();
-  });
+  var dbConnect = require('../DataBase/DataBaseConnect.js');
+  dbConnect();  //DB接続
 
-  res.send("Not Implemented.");
+  dbConnect.close();
+
+  return "Not Implemented.";
 }

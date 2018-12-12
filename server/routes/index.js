@@ -3,6 +3,7 @@ var router = express.Router();
 
 /* ローカルモジュール */
 var UserRegister = require('../local_modules/user/UserRegister.js');
+var UserGetter = require('../local_modules/user/UserGetter.js');
 
 
 /* GET home page. */
@@ -20,14 +21,20 @@ router.get('/test/json', function(req, res, next) {
   })
 })
 
-/* POST API */
+router.get('/test/user/get', function(req, res, next) {
+  var result = UserGetter();
+  res.json(result);
+})
+
+/* API */
 router.post('/test/post/api', function(req, res, next) {
   console.log(req.body);
   res.send(req.body);
 })
 
 router.post('/user/register/api', function(req, res, next) {
-  UserRegister(req.body, res);
+  var result = UserRegister(req.body, res);
+  res.send(result);
 })
 
 module.exports = router;

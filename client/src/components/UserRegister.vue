@@ -3,8 +3,8 @@
     <h2>{{ msg }}</h2>
     <div>
       <form action='http://localhost:3000/user/register/api' method="post">
-        
-        <span>名前([0-9a-zA-Z])</span>
+
+        <span>名前([0-9a-zA-Z])</span>
         <input type="text" name="user_name">
 
         <span>パスワード</span>
@@ -16,7 +16,7 @@
           <option value="male">女</option>
         </select>
 
-        <span>生年月日</span>
+        <span>生年月日</span>
         <input type="date" name="birth_ymd">
 
         <input type="submit">

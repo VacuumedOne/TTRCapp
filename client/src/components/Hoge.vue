@@ -1,7 +1,7 @@
 <template>
   <div class="hoge">
     <h1>{{ msg }}</h1>
-    <h2>POSTテスト用ページ</h2>
+    <h2>POSTテスト ああああああ 用ページ</h2>
     <div>
       <form action='http://localhost:3000/test/post/api' method="post">
         <input type="text" name="username">

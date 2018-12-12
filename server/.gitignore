@@ -59,3 +59,8 @@ typings/
 
 # next.js build output
 .next
+
+# MySQL user
+# User Name: ttrc
+# Host Name: ttrc
+# Password: 7LHm4aVAMmBnmxQ

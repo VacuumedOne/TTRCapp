@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Hoge from '@/components/Hoge'
+import UserRegister from '@/components/UserRegister'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/hoge',
       name: 'Hoge',
       component: Hoge
+    },
+    {
+      path: '/user/register',
+      name: 'UserRegister',
+      component: UserRegister
     }
   ]
 })

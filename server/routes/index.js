@@ -3,7 +3,6 @@ var router = express.Router();
 
 /* ローカルモジュール */
 var UserRegister = require('../local_modules/user/UserRegister.js');
-var UserGetter = require('../local_modules/user/UserGetter.js');
 
 
 /* GET home page. */
@@ -19,11 +18,6 @@ router.get('/test/json', function(req, res, next) {
   res.json({
     "message": "やったぜ。"
   })
-})
-
-router.get('/test/user/get', function(req, res, next) {
-  var result = UserGetter();
-  res.json(result);
 })
 
 /* API */

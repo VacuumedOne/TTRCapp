@@ -8,7 +8,5 @@ module.exports = function(body, res) {
   var dbConnect = require('../DataBase/DataBaseConnect.js');
   dbConnect();  //DB接続
 
-  dbConnect.close();
-
   return "Not Implemented.";
 }

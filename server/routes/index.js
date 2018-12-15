@@ -11,10 +11,10 @@ var connection = mysql.createConnection({
   user: 'root',
   password: 'password',
   port: 3306,
+  database: 'ttrc_app',
   insecureAuth: true
 });
 connection.connect();
-
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

@@ -16,11 +16,15 @@ module.exports = function(body, res, connection) {
    */
   
   /* 入力のバリデーション */
+  console.log(body);
   var err = [];
   if(!body.user_name) {
     err.push('ユーザ名が入力されていません。');
   }
-  if(!body.password) {
+  // if(!body.password) {
+  //   err.push('パスワードが入力されていません。');
+  // }
+  if(!body.hashed_pw) {
     err.push('パスワードが入力されていません。');
   }
   if(!body.mail) {
@@ -56,36 +60,36 @@ module.exports = function(body, res, connection) {
   }
   sql += ', k_lastname' +
          ', k_firstname';
-  if(!body.h_lasttname) {
+  if(body.h_lastname) {
     sql += ', h_lastname';
   }
-  if(!body.h_firstname) {
+  if(body.h_firstname) {
     sql += ', h_firstname';
   }
   sql += ') VALUES (' +
-         body.user_name + 
-         ', ' + body.hashed_pw + 
-         ', ' + body.mail + 
-         ', ' + body.sex +
+         ' "' + body.user_name + '"'+ 
+         ', "' + body.hashed_pw + '"' +
+         ', "' + body.mail + '"' +
+         ', "' + body.sex + '"' +
          ', ' + body.auth;
   if(!body.birth_ymd) {
-    sql += ', ' + body.birth_ymd;
+    sql += ', "' + body.birth_ymd + '"';
   }
-  sql += ', ' + body.k_lastname +
-         ', ' + body.k_firstname;
-  if(!body.h_lasttname) {
-    sql += ', ' + body.h_lasttname;
+  sql += ', "' + body.k_lastname + '"' +
+         ', "' + body.k_firstname + '"';
+  if(body.h_lastname) {
+    sql += ', "' + body.h_lastname + '"';
   }
-  if(!body.h_firstname) {
-    sql += ', ' + body.h_firstname;
+  if(body.h_firstname) {
+    sql += ', "' + body.h_firstname + '"';
   }
-  sql += ')';
+  sql += ');';
   
   console.log('Query: ' + sql);
 
   /* DB格納 */
   var promise = new Promise(function(resolve, reject) {
-    connection.query('SHOW DATABASES;', (error, results, fields) => {
+    connection.query(sql, (error, results, fields) => {
       if(error){
         reject(error);
       }else{
@@ -98,7 +102,7 @@ module.exports = function(body, res, connection) {
     res.json(results);
   }).catch((error) => {
     throw error;
-  })
+  });
 
   // connection.query('SHOW DATABASES;', function (error, results, fields) {
   //   if(error) throw error;

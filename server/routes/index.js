@@ -4,6 +4,17 @@ var router = express.Router();
 /* ローカルモジュール */
 var UserRegister = require('../local_modules/user/UserRegister.js');
 
+//DB接続
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  port: 3306,
+  insecureAuth: true
+});
+connection.connect();
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -20,14 +31,14 @@ router.get('/test/json', function(req, res, next) {
   })
 })
 
-/* POST API */
+/* API */
 router.post('/test/post/api', function(req, res, next) {
   console.log(req.body);
   res.send(req.body);
 })
 
 router.post('/user/register/api', function(req, res, next) {
-  UserRegister(req.body, res);
+  result = UserRegister(req.body, res, connection);
 })
 
 module.exports = router;

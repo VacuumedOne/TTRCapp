@@ -79,6 +79,11 @@
           awesome-vue
         </a>
       </li>
+      <li>
+        <h2>
+          <router-link to="/hoge">Go to Hoge</router-link>
+        </h2>
+      </li>
     </ul>
   </div>
 </template>

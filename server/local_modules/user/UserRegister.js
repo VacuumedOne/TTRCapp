@@ -4,7 +4,7 @@ module.exports = function(body, res, connection) {
   /**
    * POST内容
    * user_name: ログイン用のアルファベット名
-   * password: 素のパスワード。ハッシュ化前。
+   * hashed_pw: 素のパスワード。ハッシュ化前。
    * mail: メールアドレス。
    * sex: 性別。"male" or "female"
    * auth: 権限。
@@ -21,9 +21,6 @@ module.exports = function(body, res, connection) {
   if(!body.user_name) {
     err.push('ユーザ名が入力されていません。');
   }
-  // if(!body.password) {
-  //   err.push('パスワードが入力されていません。');
-  // }
   if(!body.hashed_pw) {
     err.push('パスワードが入力されていません。');
   }
@@ -43,11 +40,13 @@ module.exports = function(body, res, connection) {
     err.push('名が入力されていません。');
   }
 
+  //エラーが発生して入ればエラーをJSONで返して終了。
   if(err.length > 0) {
     res.json(err);
     return;
   }
 
+  //SQL発行
   var sql = '';
   sql += 'INSERT INTO User (' +
          'user_name' +
@@ -103,10 +102,4 @@ module.exports = function(body, res, connection) {
   }).catch((error) => {
     throw error;
   });
-
-  // connection.query('SHOW DATABASES;', function (error, results, fields) {
-  //   if(error) throw error;
-  //   console.log(results);
-  //   result = results;
-  // });
 }

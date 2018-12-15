@@ -3,6 +3,8 @@ var router = express.Router();
 
 /* ローカルモジュール */
 var UserRegister = require('../local_modules/user/UserRegister.js');
+var UserLogin = require('../local_modules/user/UserLogin.js');
+
 
 //DB接続
 var mysql = require('mysql');
@@ -37,9 +39,13 @@ router.post('/test/post/api', function(req, res, next) {
   console.log(req.body);
   res.send(req.body);
 });
-//ユーザを追加するAPI
+//ユーザ追加
 router.post('/user/register/api', function(req, res, next) {
   result = UserRegister(req.body, res, connection);
 });
+//ユーザ認証
+router.post('/user/login/api', function(req, res, next) {
+  result = UserLogin(req.body, res, connection);
+})
 
 module.exports = router;

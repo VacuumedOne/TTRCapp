@@ -1,5 +1,5 @@
 module.exports = function(body, res, connection) {
-  var Promise = require('promise')
+  var Promise = require('promise');
 
   /**
    * POST内容
@@ -102,4 +102,5 @@ module.exports = function(body, res, connection) {
   }).catch((error) => {
     throw error;
   });
+  return;
 }

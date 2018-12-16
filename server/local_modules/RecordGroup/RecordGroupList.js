@@ -1,20 +1,12 @@
-module.exports = function(body, res, connection) {
+module.exports = function(res, connection) {
   var Promise = require('promise');
 
   /**
-   * POST内容
-   * group_name: 記録グループ名。
+   * GETで受け取るので引数はなし
    */
 
-   //入力のバリデーション
-   console.log(body);
-   if(!body.group_name) {
-     res.json(['グループ名が入力されていません。']);
-     return;
-   }
-
    //SQL発行
-   var sql = 'INSERT INTO RecordGroup (group_name) VALUES ("' + body.group_name + '";';
+   var sql = 'SELECT * FROM RecordGroup;';
 
    //DB格納
    var promise = new Promise(function(resolve, reject) {

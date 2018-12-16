@@ -52,7 +52,7 @@ router.post('/user/login/api', function(req, res, next) {
 });
 //ユーザ全取得
 router.post('/user/list/api', function(req, res, next) {
-  UserList(req.body, res, connection);
+  UserList(res, connection);
 });
 
 //記録グループの登録

@@ -16,7 +16,7 @@
         <span>性別</span>
         <select name='sex'>
           <option value='male'>男</option>
-          <option value='male'>女</option>
+          <option value='female'>女</option>
         </select>
 
         <span>役職</span>
@@ -40,16 +40,22 @@
         <input type='submit'>
       </form>
     </div>
+    <text-form></text-form>
   </div>
 </template>
 
 <script>
+import TextForm from './Input/TextForm'
+
 export default {
   name: 'UserRegister',
   data () {
     return {
       msg: 'ユーザ登録ページ'
     }
+  },
+  components: {
+    'text-form': TextForm
   }
 }
 </script>

@@ -1,53 +1,30 @@
 <template>
   <div class='UserRegister'>
     <h2>{{ msg }}</h2>
-    <div>
-      <form action='http://localhost:3000/user/register/api' method='post'>
-
-        <span>名前([0-9a-zA-Z])</span>
-        <input type='text' name='user_name'>
-
-        <span>パスワード</span>
-        <input type='password' name='hashed_pw'>
-
-        <span>メールアドレス</span>
-        <input type='text' name='mail'>
-
-        <span>性別</span>
-        <select name='sex'>
-          <option value='male'>男</option>
-          <option value='female'>女</option>
-        </select>
-
-        <span>役職</span>
-        <select name='auth'>
-          <option value='2'>コックスorトレーナー</option>
-          <option value='3'>漕手</option>
-          <option value='4'>監督</option>
-        </select>
-
-        <span>生年月日</span>
-        <input type='date' name='birth_ymd'>
-
-        <span>名前</span>
-        <input type='text' name='k_lastname'>
-        <input type='text' name='k_firstname'>
-
-        <span>ふりがな</span>
-        <input type='text' name='h_lastname'>
-        <input type='text' name='h_firstname'>
-
-        <input type='submit'>
-      </form>
+    <div id="user_register_form">
+      ユーザ名<text-form name="user_name"></text-form>
+      漢字姓<text-form name="k_lastname"></text-form>
+      漢字名<text-form name="k_firstname"></text-form>
+      ひらがな姓<text-form name="h_lastname"></text-form>
+      ひらがな名<text-form name="h_firstname"></text-form>
+      パスワード<password-form name="hashed_pw"></password-form>
+      メールアドレス<email-form name="mail"></email-form>
+      性別<sex-form name="sex"></sex-form>
+      生年月日<date-form name="birth_ymd"></date-form>
+      役職<auth-form name="auth"></auth-form>
+      <submit value="登録"></submit>
     </div>
-    <text-form></text-form>
-    <auth-form name="auth"></auth-form>
   </div>
 </template>
 
 <script>
 import TextForm from './Input/TextForm'
 import AuthForm from './Input/AuthForm'
+import DateForm from './Input/DateForm'
+import EmailForm from './Input/EmailForm'
+import PasswordForm from './Input/PasswordForm'
+import SexForm from './Input/SexForm'
+import Submit from './Input/Submit'
 
 export default {
   name: 'UserRegister',
@@ -56,9 +33,19 @@ export default {
       msg: 'ユーザ登録ページ'
     }
   },
+  method: {
+    postUserRegisterAPI: function () {
+
+    }
+  },
   components: {
     'text-form': TextForm,
-    'auth-form': AuthForm
+    'auth-form': AuthForm,
+    'date-form': DateForm,
+    'email-form': EmailForm,
+    'password-form': PasswordForm,
+    'sex-form': SexForm,
+    'submit': Submit
   }
 }
 </script>

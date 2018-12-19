@@ -54,17 +54,21 @@ router.post('/user/login/api', function(req, res, next) {
 router.post('/user/list/api', function(req, res, next) {
   UserList(res, connection);
 });
-
 //記録グループの登録
-router.post('/recordgroup/register/api', function(req, res, next) {
+router.post('/record-group/register/api', function(req, res, next) {
   RecordGroupRegister(req.body, res, connection);
 });
 //記録グループの全取得
-router.post('/recordgroup/list/api', function(req, res, next) {
+router.post('/record-group/list/api', function(req, res, next) {
   RecordGroupList(req.body, res, connection);
 })
-
-
 //記録アイテムの登録
+router.post('/record-item/register/api', function(req, res, next) {
+  RecordItemRegister(req.body, res, connection);
+})
+//記録アイテムの登録
+router.post('/record-item/list/api', function(req, res, next) {
+  RecordItemList(req.body, res, connection);
+})
 
 module.exports = router;

@@ -3,18 +3,18 @@ module.exports = function(body, res, connection) {
 
   /**
    * POST内容
-   * group_name: 記録グループ名。
+   * item_name: 記録グループ名。
    */
 
    //入力のバリデーション
    console.log(body);
-   if(!body.group_name) {
+   if(!body.item_name) {
      res.json(['グループ名が入力されていません。']);
      return;
    }
 
    //SQL発行
-   var sql = 'INSERT INTO RecordGroup (group_name) VALUES ("' + body.group_name + '");';
+   var sql = 'INSERT INTO RecordItem (item_name) VALUES ("' + body.item_name + '");';
 
    //DB格納
    var promise = new Promise(function(resolve, reject) {

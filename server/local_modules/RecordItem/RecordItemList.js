@@ -1,20 +1,13 @@
-module.exports = function(body, res, connection) {
+module.exports = function(res, connection) {
   var Promise = require('promise');
 
   /**
    * POST内容
-   * group_name: 記録グループ名。
+   * 現状なし。追加実装。
    */
 
-   //入力のバリデーション
-   console.log(body);
-   if(!body.group_name) {
-     res.json(['グループ名が入力されていません。']);
-     return;
-   }
-
    //SQL発行
-   var sql = 'INSERT INTO RecordGroup (group_name) VALUES ("' + body.group_name + '");';
+   var sql = 'SELECT * FROM RecordItem;';
 
    //DB格納
    var promise = new Promise(function(resolve, reject) {
@@ -26,9 +19,9 @@ module.exports = function(body, res, connection) {
       }
     });
   });
-  
+
   promise.then((results) => {
-    res.json(result);
+    res.json(results);
   }).catch((error) => {
     throw error;
   });

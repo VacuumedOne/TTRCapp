@@ -1,6 +1,6 @@
 <template>
   <div class='sex_form'>
-    <select name="sex">
+    <select v-bind:name="name">
       <option value='male'>男</option>
       <option value='female'>女</option>
     </select>
@@ -9,7 +9,8 @@
 
 <script>
 export default {
-  name: 'sex_form'
+  name: 'sex_form',
+  props: ['name']
 }
 </script>
 

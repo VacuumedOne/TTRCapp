@@ -1,12 +1,13 @@
 <template>
   <div class='text_form'>
-    <input type='text'>
+    <input type='text' v-bind:name="name">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'text_form'
+  name: 'text_form',
+  props: ['name']
 }
 </script>
 

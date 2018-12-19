@@ -41,11 +41,13 @@
       </form>
     </div>
     <text-form></text-form>
+    <auth-form name="auth"></auth-form>
   </div>
 </template>
 
 <script>
 import TextForm from './Input/TextForm'
+import AuthForm from './Input/AuthForm'
 
 export default {
   name: 'UserRegister',
@@ -55,7 +57,8 @@ export default {
     }
   },
   components: {
-    'text-form': TextForm
+    'text-form': TextForm,
+    'auth-form': AuthForm
   }
 }
 </script>

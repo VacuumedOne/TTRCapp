@@ -1,7 +1,7 @@
 <template>
   <div class='email_form'>
     <input
-    id="form"
+    class="form"
     type='email'
     v-bind:name="name"
     v-bind:placeholder="placeholder"

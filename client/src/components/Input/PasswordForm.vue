@@ -1,6 +1,8 @@
 <template>
   <div class='password_form'>
-    <input type='password' v-bind:name="name">
+    <input type='password'
+    v-bind:name="name"
+    v-on:input="$emit('input', $event.target.value)">
   </div>
 </template>
 

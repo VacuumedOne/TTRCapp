@@ -1,6 +1,8 @@
 <template>
   <div class='email_form'>
-    <input type='email' v-bind:name="name">
+    <input type='email'
+    v-bind:name="name"
+    v-on:input="$emit('input', $event.target.value)">
   </div>
 </template>
 

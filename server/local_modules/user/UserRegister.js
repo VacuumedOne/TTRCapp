@@ -93,7 +93,7 @@ module.exports = function(body, res, connection) {
   }
   sql += ');';
   
-  console.log('Query: ' + sql);
+  console.log('Query: ¥n' + sql);
 
   /* DB格納 */
   var promise = new Promise(function(resolve, reject) {

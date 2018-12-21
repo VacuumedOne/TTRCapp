@@ -1,7 +1,7 @@
 <template>
   <div class='password_form'>
     <input
-    id="form"
+    class="form"
     type='password'
     v-bind:name="name"
     v-bind:placeholder="placeholder"

@@ -1,7 +1,7 @@
 <template>
   <div class='text_form'>
     <input
-    id="form"
+    class="form"
     type='text'
     v-bind:name="name"
     v-bind:placeholder="placeholder"

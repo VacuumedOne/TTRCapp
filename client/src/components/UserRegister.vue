@@ -41,7 +41,7 @@ export default {
   name: 'UserRegister',
   data: () => {
     return {
-      msg: 'Lets make Account!',
+      msg: 'Sign Up for Free!',
       form: {
         user_name: '',
         k_lastname: '',
@@ -58,7 +58,6 @@ export default {
   },
   methods: {
     postUserRegisterAPI: function () {
-      console.log(1111)
       axios.post('/user/register/api', this.form)
         .then((result) => {
           console.log(result)

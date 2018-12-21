@@ -1,5 +1,6 @@
 module.exports = function(body, res, connection) {
   var Promise = require('promise');
+  var Hash = require('../util/Hash.js');
 
   /**
    * POST内容
@@ -21,7 +22,7 @@ module.exports = function(body, res, connection) {
   if(!body.user_name) {
     err.push('ユーザ名が入力されていません。');
   }
-  if(!body.hashed_pw) {
+  if(!body.password) {
     err.push('パスワードが入力されていません。');
   }
   if(!body.mail) {
@@ -39,12 +40,18 @@ module.exports = function(body, res, connection) {
   if(!body.k_firstname) {
     err.push('名が入力されていません。');
   }
+  if(!body.birth_ymd) {
+    err.push('生年月日が入力されていません。')
+  }
 
   //エラーが発生して入ればエラーをJSONで返して終了。
   if(err.length > 0) {
     res.json(err);
     return;
   }
+
+  //パスワードのハッシュ化
+  body.hashed_pw = Hash.getHashedText(body.password);
 
   //SQL発行
   var sql = '';
@@ -53,7 +60,8 @@ module.exports = function(body, res, connection) {
          ', hashed_pw' +
          ', mail' +
          ', sex' +
-         ', auth';
+         ', auth' +
+         ', birth_ymd';
   if(!body.birth_ymd) {
     sql += ', birth_ymd';
   }
@@ -70,7 +78,8 @@ module.exports = function(body, res, connection) {
          ', "' + body.hashed_pw + '"' +
          ', "' + body.mail + '"' +
          ', "' + body.sex + '"' +
-         ', ' + body.auth;
+         ', ' + body.auth +
+         ', "' + body.birth_ymd + '"';
   if(!body.birth_ymd) {
     sql += ', "' + body.birth_ymd + '"';
   }

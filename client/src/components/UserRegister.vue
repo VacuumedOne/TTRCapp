@@ -46,14 +46,14 @@ export default {
         mail: '',
         sex: 'male',
         birth_ymd: '',
-        auth: 0
+        auth: '0'
       }
     }
   },
   methods: {
     postUserRegisterAPI: function () {
       console.log(1111)
-      axios.post('/test/post/api', this.form)
+      axios.post('/user/register/api', this.form)
         .then((result) => {
           console.log(result)
         }).catch((err) => {

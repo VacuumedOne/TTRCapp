@@ -1,61 +1,90 @@
 <template>
-  <div class='UserRegister'>
-    <h2>{{ msg }}</h2>
-    <div>
-      <form action='http://localhost:3000/user/register/api' method='post'>
-
-        <span>名前([0-9a-zA-Z])</span>
-        <input type='text' name='user_name'>
-
-        <span>パスワード</span>
-        <input type='password' name='hashed_pw'>
-
-        <span>メールアドレス</span>
-        <input type='text' name='mail'>
-
-        <span>性別</span>
-        <select name='sex'>
-          <option value='male'>男</option>
-          <option value='female'>女</option>
-        </select>
-
-        <span>役職</span>
-        <select name='auth'>
-          <option value='2'>コックスorトレーナー</option>
-          <option value='3'>漕手</option>
-          <option value='4'>監督</option>
-        </select>
-
-        <span>生年月日</span>
-        <input type='date' name='birth_ymd'>
-
-        <span>名前</span>
-        <input type='text' name='k_lastname'>
-        <input type='text' name='k_firstname'>
-
-        <span>ふりがな</span>
-        <input type='text' name='h_lastname'>
-        <input type='text' name='h_firstname'>
-
-        <input type='submit'>
-      </form>
+  <div id='UserRegister'>
+    <h2 id="title">{{ msg }}</h2>
+    <div id="user_register_form">
+      <div>
+        <text-form class="text" name="user_name" placeholder=" ユーザ名(英数字)" v-model="form.user_name"></text-form>
+      </div>
+      <div>
+        <text-form class="text" name="k_lastname" placeholder=" 姓" v-model="form.k_lastname"></text-form>
+        <text-form class="text" name="k_firstname" placeholder=" 名" v-model="form.k_firstname"></text-form>
+      </div>
+      <div>
+        <text-form class="text" name="h_lastname" placeholder=" 姓(ふりがな)" v-model="form.h_lastname"></text-form>
+        <text-form class="text" name="h_firstname" placeholder=" 名(ふりがな)" v-model="form.h_firstname"></text-form>
+      </div>
+      <password-form name="hashed_pw" placeholder=" パスワード(8文字以上英数字)" v-model="form.password"></password-form>
+      <email-form name="mail" placeholder="メールアドレス" v-model="form.mail"></email-form>
+      <label>性別</label><sex-form name="sex" v-model="form.sex"></sex-form>
+      <label>生年月日</label><date-form name="birth_ymd" v-model="form.birth_ymd"></date-form>
+      <label>役職</label><auth-form name="auth" v-model="form.auth"></auth-form>
+      <submit type="button" value="登録" v-on:click="postUserRegisterAPI"></submit>
+      {{ form }}
     </div>
-    <text-form></text-form>
   </div>
 </template>
 
 <script>
 import TextForm from './Input/TextForm'
+import AuthForm from './Input/AuthForm'
+import DateForm from './Input/DateForm'
+import EmailForm from './Input/EmailForm'
+import PasswordForm from './Input/PasswordForm'
+import SexForm from './Input/SexForm'
+import Submit from './Input/Submit'
+
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.withCredentials = true
 
 export default {
   name: 'UserRegister',
-  data () {
+  data: () => {
     return {
-      msg: 'ユーザ登録ページ'
+      msg: 'Lets make Account!',
+      form: {
+        user_name: '',
+        k_lastname: '',
+        k_firstname: '',
+        h_lastname: '',
+        h_firstname: '',
+        password: '',
+        mail: '',
+        sex: 'male',
+        birth_ymd: '',
+        auth: '0'
+      }
+    }
+  },
+  methods: {
+    postUserRegisterAPI: function () {
+      console.log(1111)
+      axios.post('/user/register/api', this.form)
+        .then((result) => {
+          console.log(result)
+        }).catch((err) => {
+          console.log(err)
+        })
     }
   },
   components: {
-    'text-form': TextForm
+    'text-form': TextForm,
+    'auth-form': AuthForm,
+    'date-form': DateForm,
+    'email-form': EmailForm,
+    'password-form': PasswordForm,
+    'sex-form': SexForm,
+    'submit': Submit
   }
 }
 </script>
+
+<style lang="sass" scoped>
+  #UserRegister
+    background-color: #1955A6
+    color: #EEE
+    padding-top: 50px
+    height: 100vh
+  .text
+    display: inline
+</style>

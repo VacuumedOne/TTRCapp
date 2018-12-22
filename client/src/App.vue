@@ -18,6 +18,13 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  height: 100%;
+  width: 100%
+}
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 * {
   margin: 0px;

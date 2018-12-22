@@ -1,7 +1,12 @@
 <template>
   <div id="ergo_register_button">
-    <span>エルゴ</span>
-    <span>を記録する</span>
+    <div>
+      <span class="text1">エルゴ</span>
+      <span class="text2">を</span>
+    </div>
+    <div>
+      <span class="text3">記録する</span>
+    </div>
   </div>
 </template>
 
@@ -14,5 +19,18 @@ export default {
 
 <style lang="sass" scoped>
 #ergo_register_button
-  background-color: #EEE
+  width: 240px
+  height: 100px
+  display: inline-block
+  text-decolation: none
+  background-color: #FEE
+  border: solid 2px orange
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29)
+.text1 
+  font-size: 30px
+  font-family: ''
+.text2
+  font-size: 25px
+.text3
+  font-size: 25px
 </style>

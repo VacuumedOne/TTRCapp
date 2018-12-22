@@ -23,4 +23,7 @@ export default {
 <style lang="sass" scoped>
 #index
   margin-top: 100px
+  text-align: center
+  height: 100%
+  width: 100%
 </style>

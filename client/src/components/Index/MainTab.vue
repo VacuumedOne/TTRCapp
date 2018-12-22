@@ -5,12 +5,12 @@
       <div class="view tab view_tab" v-on:click="switchTabToView">見る</div>
     </div>
     <div class="tab_contents">
-      <div class="register register_content" v-show="selected === 'register'">
-        <ergo-register-button></ergo-register-button>
-        <weight-register-button></weight-register-button>
-        <other-register-button></other-register-button>
+      <div class="register content register_content" v-show="selected === 'register'">
+        <ergo-register-button class="button"></ergo-register-button>
+        <weight-register-button class="button"></weight-register-button>
+        <other-register-button class="button"></other-register-button>
       </div>
-      <div class="view view_content" v-show="selected === 'view'">
+      <div class="view content view_content" v-show="selected === 'view'">
         コンテンツ２
       </div>
     </div>
@@ -45,6 +45,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+#main_tab
+  width: 50%
+  display: inline-block
 .register
   border: solid 1px orange
   background-color: #EEE
@@ -60,4 +63,9 @@ export default {
   padding: 10px
   margin: 5px
 .tabs
+  height: auto
+.content
+  position: relative
+.button
+  margin: 10px
 </style>

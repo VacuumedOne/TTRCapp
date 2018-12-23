@@ -7,6 +7,7 @@ var UserLogin = require('../local_modules/User/UserLogin.js');
 var UserList = require('../local_modules/User/UserList.js');
 var RecordGroupRegister = require('../local_modules/RecordGroup/RecordGroupRegister.js');
 var RecordGroupList = require('../local_modules/RecordGroup/RecordGroupList.js');
+var RecordRegister = require('../local_modules/Record/RecordRegister.js');
 
 
 //DB接続
@@ -69,6 +70,10 @@ router.post('/record-item/register/api', function(req, res, next) {
 //記録アイテムの登録
 router.post('/record-item/list/api', function(req, res, next) {
   RecordItemList(req.body, res, connection);
+})
+//記録の登録
+router.post('/record/register/api', function(req, res, next) {
+  RecordRegister(req.body, res, connection);
 })
 
 module.exports = router;

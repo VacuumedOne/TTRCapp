@@ -1,4 +1,4 @@
-<template>
+<template>
   <div id="ergo_register_button">
     <div>
       <span class="text1">ウェイト</span>
@@ -26,7 +26,7 @@ export default {
   background-color: #EFE
   border: solid 2px orange
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29)
-.text1 
+.text1
   font-size: 30px
   font-family: ''
 .text2

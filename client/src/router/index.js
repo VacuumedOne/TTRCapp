@@ -5,6 +5,7 @@ import Hoge from '@/components/Hoge'
 import UserRegister from '@/components/UserRegister'
 import Login from '@/components/Login'
 import Index from '@/components/Index'
+import ErgoRegister from '@/components/ErgoRegister'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/index',
       name: 'Index',
       component: Index
+    },
+    {
+      path: '/register/ergo',
+      name: 'ErgoRegister',
+      component: ErgoRegister
     }
   ]
 })

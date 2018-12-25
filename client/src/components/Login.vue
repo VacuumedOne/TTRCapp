@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     loginAPI: function () {
-      console.log(11)
       axios.post('/user/login/api', this.form)
         .then((result) => {
           console.log(result)

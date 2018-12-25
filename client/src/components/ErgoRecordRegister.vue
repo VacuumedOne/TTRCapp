@@ -2,7 +2,7 @@
   <div class="ergo-register">
     <div class="box">
       <h2>エルゴを記録</h2>
-      <record-item-select></record-item-select>
+      <record-item-select group_id="3"></record-item-select>
     </div>
   </div>
 </template>

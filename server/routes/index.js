@@ -2,12 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 /* ローカルモジュール */
-var UserRegister = require('../local_modules/User/UserRegister.js');
-var UserLogin = require('../local_modules/User/UserLogin.js');
-var UserList = require('../local_modules/User/UserList.js');
-var RecordGroupRegister = require('../local_modules/RecordGroup/RecordGroupRegister.js');
-var RecordGroupList = require('../local_modules/RecordGroup/RecordGroupList.js');
-var RecordRegister = require('../local_modules/Record/RecordRegister.js');
+var UserRegister = require('../lib/User/UserRegister.js');
+var UserLogin = require('../lib/User/UserLogin.js');
+var UserList = require('../lib/User/UserList.js');
+var RecordGroupRegister = require('../lib/RecordGroup/RecordGroupRegister.js');
+var RecordGroupList = require('../lib/RecordGroup/RecordGroupList.js');
+var RecordItemRegister = require('../lib/RecordItem/RecordItemRegister.js');
+var RecordItemList = require('../lib/RecordItem/RecordItemList.js');
+var RecordRegister = require('../lib/Record/RecordRegister.js');
 
 
 //DB接続

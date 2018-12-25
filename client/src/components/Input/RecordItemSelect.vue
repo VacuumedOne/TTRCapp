@@ -1,31 +1,33 @@
 <template>
   <div class="record-item-select">
     <select>
-      <option v-for="item in input" v-bind:value="item.item_id" v-bind:label="item.item_name" v-bind:key="item.item_id"></option>
+      <option v-for="item in items" v-bind:value="item.item_id" v-bind:label="item.item_name" v-bind:key="item.item_id"></option>
     </select>
   </div>
 </template>
 
 <script>
-var input = [
-  {
-    item_id: 1,
-    item_name: '2000m',
-    unit: '[xx:xx.xx]'
-  },
-  {
-    item_id: 2,
-    item_name: '10分間',
-    unit: '[xx:xx.xx]'
-  }
-]
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.withCredentials = true
 
 export default {
   name: 'RecordItemSelect',
   data: () => {
     return {
-      input: input
+      items: null
     }
+  },
+  props: ['group_id'],
+  created: () => {
+    console.log(this.group_id)
+    axios.post('/record-item/list/api', {group_id: 3})
+      .then((result) => {
+        console.log(result)
+        this.items = result
+      }).catch((err) => {
+        console.log(err)
+      })
   }
 }
 

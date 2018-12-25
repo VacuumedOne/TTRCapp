@@ -13,20 +13,28 @@ module.exports = function(body, res, connection) {
 
    //入力のバリデーション
    console.log(body);
+   var err = [];
    if(!body.item_id) {
-     res.json(['種目が入力されていません。']);
+     err.push('種目が入力されていません。');
      return;
    }
    if(!body.player_id) {
-    res.json(['選手が入力されていません。']);
+    err.push('選手が入力されていません。');
     return;
   }
   if(!body.registerer_id) {
-    res.json(['記録者が入力されていません。']);
+    err.push('記録者が入力されていません。');
     return;
   }
   if(!body.result) {
-    res.json(['結果が入力されていません。']);
+    err.push('結果が入力されていません。');
+  }
+
+  if(err.length > 0){
+    res.json({
+      state: "failure",
+      text: err
+    });
     return;
   }
 

@@ -6,13 +6,13 @@
     </div>
     <div class="tab_contents">
       <div class="register content register_content" v-show="selected === 'register'">
-        <ergo-register-button class="button"></ergo-register-button>
-        <weight-register-button class="button"></weight-register-button>
-        <other-register-button class="button"></other-register-button>
+        <a href="/#/register/ergo"><ergo-register-button class="button"></ergo-register-button></a>
+        <a href="/#/register/weight"><weight-register-button class="button"></weight-register-button></a>
+        <a href="/#/register/other"><other-register-button class="button"></other-register-button></a>
       </div>
       <div class="view content view_content" v-show="selected === 'view'">
-        <personal-record-view-button class="button"></personal-record-view-button>
-        <team-record-view-button class="button"></team-record-view-button>
+        <a href="/#/view/personal"><personal-record-view-button class="button"></personal-record-view-button></a>
+        <a href="/#/view/team"><team-record-view-button class="button"></team-record-view-button></a>
       </div>
     </div>
   </div>

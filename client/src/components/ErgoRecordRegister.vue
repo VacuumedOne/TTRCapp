@@ -3,7 +3,8 @@
     <div class="box">
       <h2>エルゴを記録</h2>
       種目を選ぶ<record-item-select group_id="3"></record-item-select>
-      タイム(average)を入力<result-form></result-form>
+      アベレージタイムを入力(例:6:55.2)<result-form></result-form>
+      <submit value="記録を送信！"></submit>
     </div>
   </div>
 </template>
@@ -11,11 +12,13 @@
 <script>
 import RecordItemSelect from './Input/RecordItemSelect'
 import ResultForm from './Input/ResultForm'
+import Submit from './Input/Submit'
 export default {
   name: 'ErgoRecordRegister',
   components: {
     'record-item-select': RecordItemSelect,
-    'result-form': ResultForm
+    'result-form': ResultForm,
+    'submit': Submit
   }
 }
 </script>

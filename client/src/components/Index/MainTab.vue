@@ -11,7 +11,8 @@
         <other-register-button class="button"></other-register-button>
       </div>
       <div class="view content view_content" v-show="selected === 'view'">
-        コンテンツ２
+        <personal-record-view-button class="button"></personal-record-view-button>
+        <team-record-view-button class="button"></team-record-view-button>
       </div>
     </div>
   </div>
@@ -21,6 +22,8 @@
 import ErgoRegisterButton from './ErgoRegisterButton'
 import WeightRegisterButton from './WeightRegisterButton'
 import OtherRegisterButton from './OtherRegisterButton'
+import PersonalRecordViewButton from './PersonalRecordviewButton'
+import TeamRecordViewButton from './TeamRecordviewButton'
 export default {
   name: 'MainTab',
   data: () => {
@@ -39,7 +42,9 @@ export default {
   components: {
     'ergo-register-button': ErgoRegisterButton,
     'weight-register-button': WeightRegisterButton,
-    'other-register-button': OtherRegisterButton
+    'other-register-button': OtherRegisterButton,
+    'personal-record-view-button': PersonalRecordViewButton,
+    'team-record-view-button': TeamRecordViewButton
   }
 }
 </script>

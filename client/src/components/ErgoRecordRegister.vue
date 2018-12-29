@@ -2,17 +2,20 @@
   <div class="ergo-register">
     <div class="box">
       <h2>エルゴを記録</h2>
-      <record-item-select group_id="3"></record-item-select>
+      種目を選ぶ<record-item-select group_id="3"></record-item-select>
+      タイム(average)を入力<result-form></result-form>
     </div>
   </div>
 </template>
 
 <script>
 import RecordItemSelect from './Input/RecordItemSelect'
+import ResultForm from './Input/ResultForm'
 export default {
-  name: 'ErgoRegister',
+  name: 'ErgoRecordRegister',
   components: {
-    'record-item-select': RecordItemSelect
+    'record-item-select': RecordItemSelect,
+    'result-form': ResultForm
   }
 }
 </script>
@@ -25,6 +28,6 @@ export default {
   padding-top: 100px
 .box
   display: inline-block
-  width: 300px
+  width: 500px
   backgroun-color: #EEE
 </style>

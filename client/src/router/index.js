@@ -38,7 +38,7 @@ export default new Router({
     },
     {
       path: '/register/ergo',
-      name: 'ErgoRegister',
+      name: 'ErgoRecordRegister',
       component: ErgoRecordRegister
     }
   ]

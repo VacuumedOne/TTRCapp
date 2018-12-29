@@ -1,5 +1,6 @@
 <template>
   <div class="record-item-select">
+    {{ items }}
     <select>
       <option v-for="item in items" v-bind:value="item.item_id" v-bind:label="item.item_name" v-bind:key="item.item_id"></option>
     </select>
@@ -15,7 +16,7 @@ export default {
   name: 'RecordItemSelect',
   data: () => {
     return {
-      items: null
+      items: ['a']
     }
   },
   props: ['group_id'],

@@ -1,6 +1,5 @@
 <template>
   <div class="record-item-select">
-    {{ items }}
     <select>
       <option v-for="item in items" v-bind:value="item.item_id" v-bind:label="item.item_name" v-bind:key="item.item_id"></option>
     </select>
@@ -16,16 +15,28 @@ export default {
   name: 'RecordItemSelect',
   data: () => {
     return {
-      items: ['a']
+      result: []
     }
   },
-  props: ['group_id'],
-  created: () => {
+  computed: {
+    items: function () {
+      return this.result
+    }
+  },
+  props: {
+    'group_id': Number
+  },
+  methods: {
+    out: function () {
+      console.log(this.group_id)
+    }
+  },
+  created: function () {
     console.log(this.group_id)
     axios.post('/record-item/list/api', {group_id: 3})
       .then((result) => {
         console.log(result)
-        this.items = result
+        this.result = result.data.text
       }).catch((err) => {
         console.log(err)
       })

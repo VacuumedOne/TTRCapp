@@ -2,8 +2,8 @@
   <div class="ergo-register">
     <div class="box">
       <h2>エルゴを記録</h2>
-      種目を選ぶ<record-item-select group_id="3"></record-item-select>
-      アベレージタイムを入力(例:6:55.2)<result-form></result-form>
+      種目を選ぶ<record-item-select v-bind:group_id="3"></record-item-select>
+      アベレージタイムを入力(例:1:40.0)<result-form></result-form>
       <submit value="記録を送信！"></submit>
     </div>
   </div>

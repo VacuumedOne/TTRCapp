@@ -19,8 +19,6 @@ export default {
 
 <style lang="sass" scoped>
 .team-record-view-button
-  width: 240px
-  height: 100px
   display: inline-block
   text-decolation: none
   background-color: #EFE

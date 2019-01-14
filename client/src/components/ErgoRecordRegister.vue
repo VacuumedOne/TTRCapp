@@ -1,11 +1,43 @@
 <template>
   <div class="ergo-register">
-    <div class="box">
+    <md-card class="md-primary card" md-theme="green-card">
       <h2>エルゴを記録</h2>
-      種目を選ぶ<record-item-select v-bind:group_id="3"></record-item-select>
-      アベレージタイムを入力(例:1:40.0)<result-form></result-form>
-      <submit value="記録を送信！"></submit>
-    </div>
+      <div class="item">
+        <span>種目を選ぶ</span>
+        <record-item-select v-bind:group_id="3"></record-item-select>
+      </div>
+      <div class="item">
+        <span>アベレージタイムを入力(例:1:40.0)</span>
+        <result-form></result-form>
+      </div>
+      <el-switch
+        v-model="ext_col_disp_flg"
+        active-text="さらに入力する">
+      </el-switch>
+      <div class="ext_col" v-show="ext_col_disp_flg">
+        <div class="item">
+          <span>レート(stroke/min)</span>
+          <el-input-number class="number_form" size="medium" min="1" max="100"></el-input-number>
+        </div>
+        <div class="item">
+          <span>トータルタイムを追加</span>
+          <result-form></result-form>
+        </div>
+        <div class="item">
+          <el-checkbox v-model="checked">ダイナミックエルゴで漕いだ</el-checkbox>
+        </div>
+        <div class="item">
+          <span>実施日を入れる(当日入力の場合は自動で設定されます)</span>
+          <el-date-picker
+            v-model="value2"
+            type="date"
+            placeholder="実施日"
+            :picker-options="pickerOptions1">
+          </el-date-picker>
+        </div>
+      </div>
+      <el-button class="button" type="danger">記録を送信！</el-button>
+    </md-card>
   </div>
 </template>
 
@@ -15,6 +47,11 @@ import ResultForm from './Input/ResultForm'
 import Submit from './Input/Submit'
 export default {
   name: 'ErgoRecordRegister',
+  data: () => {
+    return {
+      ext_col_disp_flg: false
+    }
+  },
   components: {
     'record-item-select': RecordItemSelect,
     'result-form': ResultForm,
@@ -25,12 +62,15 @@ export default {
 
 <style lang="sass" scoped>
 .ergo-register
-  background-color: #FEE
   height: 100%
   text-align: center
-  padding-top: 100px
-.box
+  vertical-align: middle
+.card
   display: inline-block
   width: 500px
-  backgroun-color: #EEE
+  background-color: springgreen
+.item
+  margin: 30px
+.button
+  margin: 30px
 </style>

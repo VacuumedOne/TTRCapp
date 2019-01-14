@@ -1,8 +1,12 @@
 <template>
   <div class="record-item-select">
-    <select>
-      <option v-for="item in items" v-bind:value="item.item_id" v-bind:label="item.item_name" v-bind:key="item.item_id"></option>
-    </select>
+    <el-select placeholder="種目を選ぶ">
+      <el-option
+        v-for="item in items"
+        v-bind:value="item.item_id"
+        v-bind:label="item.item_name"
+        v-bind:key="item.item_id"></el-option>
+    </el-select>
   </div>
 </template>
 

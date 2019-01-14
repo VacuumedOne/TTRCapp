@@ -8,11 +8,13 @@ import { MdButton, MdContent, MdTabs, MdCard } from 'vue-material/dist/component
 import 'vue-material/dist/vue-material.min.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import locale from 'element-ui/lib/locale/lang/ja'
+
 Vue.use(MdButton)
 Vue.use(MdContent)
 Vue.use(MdTabs)
 Vue.use(MdCard)
-Vue.use(ElementUI)
+Vue.use(ElementUI, {locale})
 
 Vue.config.productionTip = false
 

@@ -1,22 +1,20 @@
 <template>
   <div class="main_tab">
     <el-tabs type="border-card" class="tabs">
-      <el-tab-pane label="記録する" v-on:click="switchTabToRegister">
-        <md-card class="register" v-show="selected === 'register'">
+      <el-tab-pane label="記録する">
+        <md-card class="content register">
           <a href="/#/register/ergo"><md-card class="card ergo_register" md-with-hover>エルゴを記録する</md-card></a>
           <a href="/#/register/weight"><md-card class="card weight_register" md-with-hover>ウェイトを記録する</md-card></a>
           <a href="/#/register/other"><md-card class="card other_register" md-with-hover>その他の種目を記録する</md-card></a>
         </md-card>
       </el-tab-pane>
-      <el-tab-pane label="見る" v-on:click="switchTabToViewer">
-        <md-card class="view" v-show="selected === 'view'">
-          <a href="/#/view/personal"><personal-record-view-button class="button"></personal-record-view-button></a>
-          <a href="/#/view/team"><team-record-view-button class="button"></team-record-view-button></a>
+      <el-tab-pane label="見る">
+        <md-card class="content view">
+          <a href="/#/view/personal"><md-card class="card personal_view" md-with-hover>自分の記録を見る</md-card></a>
+          <a href="/#/view/team"><md-card class="card team_view" md-with-hover>みんなの記録を見る</md-card></a>
         </md-card>
       </el-tab-pane>
     </el-tabs>
-    <div class="tab_contents">
-    </div>
   </div>
 </template>
 
@@ -52,14 +50,21 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+$register_color: orange
+$view_color: springgreen
+
 .main_tab
   display: inline-block
+.content
+  width: 500px
+  height: 300px
+  vertical-align: middle
 .register
-  border: solid 1px orange
+  border: solid 1px $register_color
   background-color: #EEE
   color: orange
 .view
-  border: solid 1px springgreen
+  border: solid 1px $view_color
   background-color: #EEE
   color: springgreen
 .card

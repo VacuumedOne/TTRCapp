@@ -1,5 +1,5 @@
 <template>
-  <div id="index">
+  <div class="index">
     <!-- サイドメニュー -->
 
     <!-- ヘッダー(メニュー起動ボタンとロゴ等) -->
@@ -21,8 +21,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-#index
-  margin-top: 100px
+.index
   text-align: center
   height: 100%
   width: 100%

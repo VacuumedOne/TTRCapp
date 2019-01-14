@@ -1,19 +1,21 @@
 <template>
-  <div id="main_tab">
-    <div class="tabs">
-      <div class="register tab register_tab" v-on:click="switchTabToRegister">記録する</div>
-      <div class="view tab view_tab" v-on:click="switchTabToView">見る</div>
-    </div>
+  <div class="main_tab">
+    <el-tabs type="border-card" class="tabs">
+      <el-tab-pane label="記録する" v-on:click="switchTabToRegister">
+        <md-card class="register" v-show="selected === 'register'">
+          <a href="/#/register/ergo"><md-card class="card ergo_register" md-with-hover>エルゴを記録する</md-card></a>
+          <a href="/#/register/weight"><md-card class="card weight_register" md-with-hover>ウェイトを記録する</md-card></a>
+          <a href="/#/register/other"><md-card class="card other_register" md-with-hover>その他の種目を記録する</md-card></a>
+        </md-card>
+      </el-tab-pane>
+      <el-tab-pane label="見る" v-on:click="switchTabToViewer">
+        <md-card class="view" v-show="selected === 'view'">
+          <a href="/#/view/personal"><personal-record-view-button class="button"></personal-record-view-button></a>
+          <a href="/#/view/team"><team-record-view-button class="button"></team-record-view-button></a>
+        </md-card>
+      </el-tab-pane>
+    </el-tabs>
     <div class="tab_contents">
-      <div class="register content register_content" v-show="selected === 'register'">
-        <a href="/#/register/ergo"><ergo-register-button class="button"></ergo-register-button></a>
-        <a href="/#/register/weight"><weight-register-button class="button"></weight-register-button></a>
-        <a href="/#/register/other"><other-register-button class="button"></other-register-button></a>
-      </div>
-      <div class="view content view_content" v-show="selected === 'view'">
-        <a href="/#/view/personal"><personal-record-view-button class="button"></personal-record-view-button></a>
-        <a href="/#/view/team"><team-record-view-button class="button"></team-record-view-button></a>
-      </div>
     </div>
   </div>
 </template>
@@ -35,7 +37,7 @@ export default {
     switchTabToRegister: function () {
       this.selected = 'register'
     },
-    switchTabToView: function () {
+    switchTabToViewer: function () {
       this.selected = 'view'
     }
   },
@@ -50,8 +52,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-#main_tab
-  width: 50%
+.main_tab
   display: inline-block
 .register
   border: solid 1px orange
@@ -61,16 +62,9 @@ export default {
   border: solid 1px springgreen
   background-color: #EEE
   color: springgreen
-.tab
-  display: inline
-  width: 400px
-  border-radius: 3px
-  padding: 10px
-  margin: 5px
-.tabs
-  height: auto
-.content
-  position: relative
-.button
-  margin: 10px
+.card
+  margin: 30px
+  padding: 20px
+  font-size: 30px
+
 </style>

@@ -2,11 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 /* ローカルモジュール */
-var UserRegister = require('../local_modules/User/UserRegister.js');
-var UserLogin = require('../local_modules/User/UserLogin.js');
-var UserList = require('../local_modules/User/UserList.js');
-var RecordGroupRegister = require('../local_modules/RecordGroup/RecordGroupRegister.js');
-var RecordGroupList = require('../local_modules/RecordGroup/RecordGroupList.js');
+var UserRegister = require('../lib/User/UserRegister.js');
+var UserLogin = require('../lib/User/UserLogin.js');
+var UserList = require('../lib/User/UserList.js');
+var RecordGroupRegister = require('../lib/RecordGroup/RecordGroupRegister.js');
+var RecordGroupList = require('../lib/RecordGroup/RecordGroupList.js');
+var RecordItemRegister = require('../lib/RecordItem/RecordItemRegister.js');
+var RecordItemList = require('../lib/RecordItem/RecordItemList.js');
+var RecordRegister = require('../lib/Record/RecordRegister.js');
 
 
 //DB接続
@@ -69,6 +72,10 @@ router.post('/record-item/register/api', function(req, res, next) {
 //記録アイテムの登録
 router.post('/record-item/list/api', function(req, res, next) {
   RecordItemList(req.body, res, connection);
+})
+//記録の登録
+router.post('/record/register/api', function(req, res, next) {
+  RecordRegister(req.body, res, connection);
 })
 
 module.exports = router;

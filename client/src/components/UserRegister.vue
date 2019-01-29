@@ -18,7 +18,7 @@
       <label>性別</label><sex-form name="sex" v-model="form.sex"></sex-form>
       <label>生年月日</label><date-form name="birth_ymd" v-model="form.birth_ymd"></date-form>
       <label>役職</label><auth-form name="auth" v-model="form.auth"></auth-form>
-      <submit type="button" value="登録" v-on:click="postUserRegisterAPI"></submit>
+      <submit type="button" value="Sign Up" v-on:click="postUserRegisterAPI"></submit>
       {{ form }}
     </div>
   </div>

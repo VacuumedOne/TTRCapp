@@ -6,8 +6,11 @@
         <text-form name="user_name" placeholder=" ユーザ名(英数字)" v-model="form.user_name"></text-form>
       </div>
       <password-form name="hashed_pw" placeholder=" パスワード(8文字以上英数字)" v-model="form.password"></password-form>
-      <submit type="button" value="登録" v-on:click="loginAPI"></submit>
+      <submit type="button" value="Log in" v-on:click="loginAPI"></submit>
       {{ form }}
+    </div>
+    <div>
+      <span>{{ msg2 }}</span><a href="/#/user/register">こちら</a>
     </div>
   </div>
 </template>
@@ -26,6 +29,7 @@ export default {
   data: () => {
     return {
       msg: 'Welcome Back!',
+      msg2: 'アカウントを持っていない方は',
       form: {
         user_name: '',
         password: ''
@@ -33,7 +37,7 @@ export default {
     }
   },
   methods: {
-    postUserRegisterAPI: function () {
+    loginAPI: function () {
       axios.post('/user/login/api', this.form)
         .then((result) => {
           console.log(result)

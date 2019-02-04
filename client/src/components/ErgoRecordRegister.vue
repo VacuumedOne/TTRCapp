@@ -10,10 +10,10 @@
         <span>アベレージタイムを入力(例:1:40.0)</span>
         <result-form></result-form>
       </div>
-      <el-switch
-        v-model="ext_col_disp_flg"
-        active-text="さらに入力する">
-      </el-switch>
+      さらに入力する
+      <v-ons-switch
+        v-model="ext_col_disp_flg">
+      </v-ons-switch>
       <div class="ext_col" v-show="ext_col_disp_flg">
         <div class="item">
           <span>レート(stroke/min)</span>
@@ -24,7 +24,10 @@
           <result-form></result-form>
         </div>
         <div class="item">
-          <el-checkbox v-model="checked">ダイナミックエルゴで漕いだ</el-checkbox>
+          ダイナミックエルゴで漕いだ
+          <v-ons-switch input-id="switch1"
+            v-model="checked"
+          ></v-ons-switch>
         </div>
         <div class="item">
           <span>実施日を入れる(当日入力の場合は自動で設定されます)</span>
@@ -49,14 +52,23 @@ export default {
   name: 'ErgoRecordRegister',
   data: () => {
     return {
-      ext_col_disp_flg: false
+      ext_col_disp_flg: false,
+      form: {
+        record_item_id: -1,
+        result: ''
+      },
+      env: process.env.VUE_APP_SERVER_URL_BASE,
+      checked: true,
+      func: function () {
+        return process.env
+      }
     }
   },
   components: {
     'record-item-select': RecordItemSelect,
     'result-form': ResultForm,
     'submit': Submit
-  }
+  },
 }
 </script>
 

@@ -4,11 +4,11 @@
       <h2>エルゴを記録</h2>
       <div class="item">
         <span>種目を選ぶ</span>
-        <record-item-select v-bind:group_id="3"></record-item-select>
+        <record-item-select v-bind:group_id="3" v-model="form.record_item_id"></record-item-select>
       </div>
       <div class="item">
         <span>アベレージタイムを入力(例:1:40.0)</span>
-        <result-form></result-form>
+        <result-form v-model="form.result"></result-form>
       </div>
       さらに入力する
       <v-ons-switch
@@ -40,6 +40,7 @@
         </div>
       </div>
       <el-button class="button" type="danger">記録を送信！</el-button>
+      {{form}}
     </md-card>
   </div>
 </template>
@@ -68,7 +69,7 @@ export default {
     'record-item-select': RecordItemSelect,
     'result-form': ResultForm,
     'submit': Submit
-  },
+  }
 }
 </script>
 

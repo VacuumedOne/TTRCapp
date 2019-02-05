@@ -16,6 +16,17 @@ import SideBar from './Index/SideBar'
 
 export default {
   name: 'Index',
+  data: () => {
+    return {
+      login_user: {
+        user_id: 4,
+        user_name: 'シモン',
+        sex: 'male',
+        auth: 2,
+        is_active: true
+      }
+    }
+  },
   components: {
     'main-tab': MainTab,
     'side-bar': SideBar

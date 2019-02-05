@@ -1,11 +1,13 @@
 <template>
   <div class="record-item-select">
-    <el-select placeholder="種目を選ぶ">
+    <el-select placeholder="種目を選ぶ" v-model="value">
       <el-option
         v-for="item in items"
         v-bind:value="item.item_id"
         v-bind:label="item.item_name"
-        v-bind:key="item.item_id"></el-option>
+        v-bind:key="item.item_id"
+        v-on:input="$emit('input', item_id)"
+        ></el-option>
     </el-select>
   </div>
 </template>
@@ -19,12 +21,14 @@ export default {
   name: 'RecordItemSelect',
   data: () => {
     return {
-      result: []
+      resultItem: [],
+      value: -1
     }
   },
   computed: {
     items: function () {
-      return this.result
+      console.log(this.resultItem)
+      return this.resultItem
     }
   },
   props: {
@@ -40,7 +44,7 @@ export default {
     axios.post('/record-item/list/api', {group_id: 3})
       .then((result) => {
         console.log(result)
-        this.result = result.data.text
+        this.resultItem = result.data.text
       }).catch((err) => {
         console.log(err)
       })

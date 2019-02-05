@@ -2,7 +2,6 @@
   <div class="top">
     <!-- サイドメニュー -->
     <side-bar class="sidebar"></side-bar>
-
     <!-- メインタブ -->
     <div class="main">
       <main-tab

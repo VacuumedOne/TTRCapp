@@ -40,7 +40,7 @@ export default {
       .then((result) => {
         this.resultItem = result.data.text
       }).catch((err) => {
-        console.log(err)
+        console.error(err)
       })
   }
 }

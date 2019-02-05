@@ -1,6 +1,6 @@
 <template>
   <div class="ergo-register">
-    <md-card class="md-primary card" md-theme="green-card">
+    <md-content class="md-primary card" md-theme="green-card">
       <h2>エルゴを記録</h2>
       <div class="item">
         <span>種目を選ぶ</span>
@@ -10,10 +10,12 @@
         <span>アベレージタイムを入力(例:1:40.0)</span>
         <result-form v-model="form.result"></result-form>
       </div>
-      さらに入力する
-      <v-ons-switch
-        v-model="ext_col_disp_flg">
-      </v-ons-switch>
+      <div>
+        さらに入力する
+        <v-ons-switch
+          v-model="ext_col_disp_flg"></v-ons-switch>
+      </div>
+      
       <div class="ext_col" v-show="ext_col_disp_flg">
         <div class="item">
           <span>レート(stroke/min)</span>
@@ -41,7 +43,7 @@
       </div>
       <el-button class="button" type="danger">記録を送信！</el-button>
       {{form}}
-    </md-card>
+    </md-content>
   </div>
 </template>
 

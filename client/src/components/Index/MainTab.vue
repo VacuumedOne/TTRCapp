@@ -2,42 +2,42 @@
   <div class="main_tab">
     <el-tabs type="border-card" class="tabs">
       <el-tab-pane label="記録する">
-        <md-card class="content register">
-          <md-card
+        <md-content class="content register">
+          <md-content
             class="card ergo_register"
-            v-on="sendToParent('ErgoRegister')"
-            md-with-hover>
+            v-on:click="sendToParent('ErgoRegister')"
+            >
             エルゴを記録する
-          </md-card>
-          <md-card
+          </md-content>
+          <md-content
             class="card weight_register"
-            v-on="sendToParent('WeightRegister')"
-            md-with-hover>
+            v-on:click="sendToParent('WeightRegister')"
+            >
             ウェイトを記録する
-          </md-card>
-          <md-card
+          </md-content>
+          <md-content
             class="card other_register"
-            v-on="sendToParent('OtherRegister')"
-            md-with-hover>
+            v-on:click="sendToParent('OtherRegister')"
+            >
             その他の種目を記録する
-          </md-card>
-        </md-card>
+          </md-content>
+        </md-content>
       </el-tab-pane>
       <el-tab-pane label="見る">
-        <md-card class="content view">
-          <md-card
+        <md-content class="content view">
+          <md-content
             class="card personal_view"
-            v-on="sendToParent('PersonalView')"
-            md-with-hover>
+            v-on:click="sendToParent('PersonalView')"
+            >
             自分の記録を見る
-          </md-card>
-          <md-card
+          </md-content>
+          <md-content
             class="card team_view"
-            v-on="sendToParent('TeamView')"
-            md-with-hover>
+            v-on:click="sendToParent('TeamView')"
+            >
             みんなの記録を見る
-          </md-card>
-        </md-card>
+          </md-content>
+        </md-content>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -58,10 +58,10 @@ export default {
     switchTabToViewer: function () {
       this.selected = 'view'
     },
-    sendToParent: function (state) {
+    sendToParent: function (data) {
       //親に遷移したいstateを送る
-      this.$emit('send', state)
-    } 
+      this.$emit('send', data)
+    }
   },
   components: {
   }

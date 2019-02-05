@@ -5,7 +5,10 @@
 
     <!-- メインタブ -->
     <div class="main">
-      <main-tab class="main-tab"></main-tab>
+      <main-tab
+        class="main-tab"
+        v-on:send="sendToParent"
+        ></main-tab>
     </div>
   </div>
 </template>
@@ -16,6 +19,12 @@ import SideBar from './Index/SideBar'
 
 export default {
   name: 'Top',
+  methods: {
+    sendToParent: function (data) {
+      //親に遷移したいstateを送る
+      this.$emit('send', data)
+    }
+  },
   components: {
     'main-tab': MainTab,
     'side-bar': SideBar

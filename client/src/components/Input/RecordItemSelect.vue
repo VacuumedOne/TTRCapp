@@ -22,7 +22,7 @@ export default {
   data: () => {
     return {
       resultItem: [],
-      value: -1
+      value: '選択してください'
     }
   },
   computed: {

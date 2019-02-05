@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <ergo-register v-if="state==ergo"></ergo-register>
+    <ergo-register v-if="state==='ergo'"></ergo-register>
   </div>
 </template>
 

@@ -1,13 +1,19 @@
 <template>
   <div class="index">
-    <top v-if="state=='top'"></top>
-    <!-- <register v-if="state=='register'"></register> -->
+    <top
+      v-if="state==='top'"
+      v-on:send="receiveFromTop"
+      ></top>
+    <register
+      v-if="state==='register'"
+      ></register>
   </div>
 </template>
 
 <script>
 
-import Top from './Top'
+import Top from '@/components/Top'
+import Register from '@/components/Register'
 
 export default {
   name: 'Index',
@@ -49,10 +55,18 @@ export default {
     gotoView: function () {
       //記録画面に遷移する
       this.state = 'view'
+    },
+    receiveFromTop: function (data) {
+      if (data === 'ErgoRegister' || data === 'WeightRegister' || data === 'OtherRegister') {
+        this.gotoRegister()
+      } else if (data === 'PersonalView' || data === 'TeamView') {
+        this.gotoView()
+      }
     }
   },
   components: {
-    'top': Top
+    'top': Top,
+    'register': Register
   }
 }
 </script>

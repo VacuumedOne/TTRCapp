@@ -26,7 +26,6 @@ export default {
   },
   computed: {
     items: function () {
-      let arr = []
       return this.input
     }
   },

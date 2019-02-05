@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'view',
-  props: ['loginUser']
+  props: ['loginUser'],
   data: () => {
     return {
       mode: ''

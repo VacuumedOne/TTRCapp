@@ -4,7 +4,7 @@
       class="number_form"
       size="medium"
       :min="0"
-      :max="9"
+      :max="99"
       v-model="form.minute"
       v-on:input="emitResult"></el-input-number>:
     <el-input-number

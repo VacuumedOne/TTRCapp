@@ -5,7 +5,8 @@
       <div class="item">
         <span>種目を選ぶ</span>
         <record-item-select
-          v-bind:group_id="3" v-model="form.record_item_id"></record-item-select>
+          v-bind:group_id="3"
+          v-model="form.record_item_id"></record-item-select>
       </div>
       <div class="item">
         <span>アベレージタイムを入力(例:1:50.0)</span>
@@ -56,9 +57,10 @@ import ResultForm from '@/components/Input/ResultForm'
 import Submit from '@/components/Input/Submit'
 export default {
   name: 'ErgoRecordRegister',
+  props: ['loginUser'],
   data: () => {
     return {
-      ext_col_disp_flg: false,
+      ext_col_disp_flg: false, //拡張項目表示フラグ
       form: {
         record_item_id: -1,
         result: ''

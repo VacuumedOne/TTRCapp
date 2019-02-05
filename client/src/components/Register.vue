@@ -1,6 +1,9 @@
 <template>
   <div class="register">
-    <ergo-register v-if="state==='ergo'"></ergo-register>
+    <ergo-register
+      v-if="state==='ergo'"
+      v-bind:login-user="loginUser"
+      ></ergo-register>
   </div>
 </template>
 
@@ -9,6 +12,7 @@ import ErgoRegister from '@/components/Register/ErgoRecordRegister'
 
 export default {
   name: 'Register',
+  props: ['loginUser'],
   data: () => {
     return {
       state: 'ergo'
@@ -37,4 +41,3 @@ export default {
 <style lang="sass" scoped>
 
 </style>
-

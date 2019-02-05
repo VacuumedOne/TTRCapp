@@ -1,8 +1,26 @@
 <template>
   <div>
-    <el-input-number class="number_form" size="medium" min="0" max="9" v-model="form.minute" v-on:input="emitResult"></el-input-number>:
-    <el-input-number class="number_form" size="medium" min="0" max="5" v-model="form.second_10" v-on:input="emitResult"></el-input-number>
-    <el-input-number class="number_form" size="medium" min="0" max="9" v-model="form.second_1" v-on:input="emitResult"></el-input-number>
+    <el-input-number
+      class="number_form"
+      size="medium"
+      :min="0"
+      :max="9"
+      v-model="form.minute"
+      v-on:input="emitResult"></el-input-number>:
+    <el-input-number
+      class="number_form"
+      size="medium"
+      :min="0"
+      :max="5"
+      v-model="form.second_10"
+      v-on:input="emitResult"></el-input-number>
+    <el-input-number
+      class="number_form"
+      size="medium"
+      :min="0"
+      :max="9"
+      v-model="form.second_1"
+      v-on:input="emitResult"></el-input-number>
   </div>
 </template>
 

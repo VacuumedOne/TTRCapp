@@ -27,7 +27,6 @@ export default {
   },
   computed: {
     items: function () {
-      console.log(this.resultItem)
       return this.resultItem
     }
   },
@@ -35,15 +34,10 @@ export default {
     'group_id': Number
   },
   methods: {
-    out: function () {
-      console.log(this.group_id)
-    }
   },
   created: function () {
-    console.log(this.group_id)
     axios.post('/record-item/list/api', {group_id: 3})
       .then((result) => {
-        console.log(result)
         this.resultItem = result.data.text
       }).catch((err) => {
         console.log(err)

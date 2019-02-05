@@ -6,6 +6,7 @@
       ></top>
     <register
       v-if="state==='register'"
+      v-bind:login-user="login_user"
       ></register>
   </div>
 </template>

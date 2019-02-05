@@ -4,22 +4,25 @@
       <h2>エルゴを記録</h2>
       <div class="item">
         <span>種目を選ぶ</span>
-        <record-item-select v-bind:group_id="3" v-model="form.record_item_id"></record-item-select>
+        <record-item-select
+          v-bind:group_id="3" v-model="form.record_item_id"></record-item-select>
       </div>
       <div class="item">
-        <span>アベレージタイムを入力(例:1:40.0)</span>
+        <span>アベレージタイムを入力(例:1:50.0)</span>
         <result-form v-model="form.result"></result-form>
       </div>
       <div>
         さらに入力する
-        <v-ons-switch
-          v-model="ext_col_disp_flg"></v-ons-switch>
+        <v-ons-switch v-model="ext_col_disp_flg"></v-ons-switch>
       </div>
-      
       <div class="ext_col" v-show="ext_col_disp_flg">
         <div class="item">
           <span>レート(stroke/min)</span>
-          <el-input-number class="number_form" size="medium" min="1" max="100"></el-input-number>
+          <el-input-number
+            class="number_form"
+            size="medium"
+            :min="1"
+            :max="100"></el-input-number>
         </div>
         <div class="item">
           <span>トータルタイムを追加</span>

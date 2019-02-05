@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import TextForm from './Input/TextForm'
-import AuthForm from './Input/AuthForm'
-import DateForm from './Input/DateForm'
-import EmailForm from './Input/EmailForm'
-import PasswordForm from './Input/PasswordForm'
-import SexForm from './Input/SexForm'
-import Submit from './Input/Submit'
+import TextForm from '@/components/Input/TextForm'
+import AuthForm from '@/components/Input/AuthForm'
+import DateForm from '@/components/Input/DateForm'
+import EmailForm from '@/components/Input/EmailForm'
+import PasswordForm from '@/components/Input/PasswordForm'
+import SexForm from '@/components/Input/SexForm'
+import Submit from '@/components/Input/Submit'
 
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000'

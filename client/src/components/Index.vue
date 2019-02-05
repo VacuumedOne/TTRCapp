@@ -1,23 +1,20 @@
 <template>
   <div class="index">
-    <!-- サイドメニュー -->
-    <side-bar class="sidebar"></side-bar>
-
-    <!-- メインタブ -->
-    <div class="main">
-      <main-tab class="main-tab"></main-tab>
-    </div>
+    <top v-if="state=='top'"></top>
+    <!-- <register v-if="state=='register'"></register> -->
   </div>
 </template>
 
 <script>
-import MainTab from './Index/MainTab'
-import SideBar from './Index/SideBar'
+
+import Top from './Top'
 
 export default {
   name: 'Index',
   data: () => {
     return {
+      is_login: true,
+      state: 'top',
       login_user: {
         user_id: 4,
         user_name: 'シモン',
@@ -27,28 +24,39 @@ export default {
       }
     }
   },
+  methods: {
+    isAuthenticated: function () {
+      //認証してログイン情報を取得する
+    },
+    logout: function () {
+      //ログアウトする
+    },
+    gotoAuth: function () {
+      //認証画面に遷移する
+    },
+    gotoTop: function () {
+      //トップ画面に遷移する
+      this.state = 'top'
+    },
+    gotoConfig: function () {
+      //設定画面に遷移する
+      this.state = 'config'
+    },
+    gotoRegister: function () {
+      //記録画面に遷移する
+      this.state = 'register'
+    },
+    gotoView: function () {
+      //記録画面に遷移する
+      this.state = 'view'
+    }
+  },
   components: {
-    'main-tab': MainTab,
-    'side-bar': SideBar
+    'top': Top
   }
 }
 </script>
 
 <style lang="sass" scoped>
-.index
-  text-align: left
-  height: 100%
-  width: 100%
-  margin: 0px
-  display: table
-.sidebar
-  display: table-cell
-  width: 300px
-  height: 100%
-  vertical-align: top
-.main
-  display: table-cell
-  height: 100%
-  text-align: center
-  vertical-align: middle
+
 </style>

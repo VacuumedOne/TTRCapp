@@ -46,9 +46,9 @@
 </template>
 
 <script>
-import RecordItemSelect from './Input/RecordItemSelect'
-import ResultForm from './Input/ResultForm'
-import Submit from './Input/Submit'
+import RecordItemSelect from '@/components/Input/RecordItemSelect'
+import ResultForm from '@/components/Input/ResultForm'
+import Submit from '@/components/Input/Submit'
 export default {
   name: 'ErgoRecordRegister',
   data: () => {

@@ -34,10 +34,23 @@ db
     console.error('Unable to connect to the database:', err);
   });
 //model定義
-var Record = require('../lib/model/Record')(db)
+var User = require('../lib/model/User')(db)
 db.sync(function(errs){
   console.log('Model definition has been updated.', errs);
 })
+let user = new User({
+  name: 'aaa',
+  hashed_pw: 'lhibnjdlfkmvsdflb',
+  mail: 'vac@gmail.com',
+  sex: 'male',
+  auth: 1,
+  birth_ymd: '1997-09-20',
+  k_lastname: '奥村',
+  k_firstname: '直仁',
+  h_lastname: 'おくむら',
+  h_firstname: 'なおひと'
+})
+user.save()
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({

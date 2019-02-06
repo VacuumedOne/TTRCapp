@@ -11,8 +11,34 @@ var RecordItemRegister = require('../lib/RecordItem/RecordItemRegister.js');
 var RecordItemList = require('../lib/RecordItem/RecordItemList.js');
 var RecordRegister = require('../lib/Record/RecordRegister.js');
 
+/* ローカルDB関連モジュール */
+
+
 
 //DB接続
+var Sequelize = require('sequelize').Sequelize;
+var db = new Sequelize(
+  'tsubakuro',
+  'root',
+  'password',
+  {host: 'localhost',
+   dialect: 'mysql',
+   port: 3306});
+//接続チェック
+db
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+//model定義
+var Record = require('../lib/model/Record')(db)
+db.sync(function(errs){
+  console.log('Model definition has been updated.', errs);
+})
+
 var mysql = require('mysql');
 var connection = mysql.createConnection({
   host: 'localhost',

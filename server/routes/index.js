@@ -35,22 +35,12 @@ db
   });
 //model定義
 var User = require('../lib/model/User')(db)
+var RecordGroup = require('../lib/model/RecordGroup')(db)
+var RecordItem = require('../lib/model/RecordItem')(db)
+var Record = require('../lib/model/Record')(db)
 db.sync(function(errs){
   console.log('Model definition has been updated.', errs);
 })
-let user = new User({
-  name: 'aaa',
-  hashed_pw: 'lhibnjdlfkmvsdflb',
-  mail: 'vac@gmail.com',
-  sex: 'male',
-  auth: 1,
-  birth_ymd: '1997-09-20',
-  k_lastname: '奥村',
-  k_firstname: '直仁',
-  h_lastname: 'おくむら',
-  h_firstname: 'なおひと'
-})
-user.save()
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({

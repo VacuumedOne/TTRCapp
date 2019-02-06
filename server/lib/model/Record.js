@@ -1,8 +1,8 @@
 var Sequelize = require('sequelize');
-var RecordItem = require('./RecordItem')
-var User = require('./User')
 
 module.exports = function (db) {
+  var RecordItem = require('./RecordItem')(db)
+  var User = require('./User')(db)
   let Record = db.define('Record', {
     player_id: {
       type: Sequelize.INTEGER,

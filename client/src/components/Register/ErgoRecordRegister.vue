@@ -113,7 +113,7 @@ export default {
         err.push('日付の取得に失敗しました')
       }
       if (this.loginUser.user_id !== -1) {
-        body.user_id = this.loginUser.user_id
+        body.player_id = this.loginUser.user_id
         body.registerer_id = this.loginUser.user_id
       } else {
         err.push('ユーザ情報が取得できませんでした')
@@ -142,7 +142,7 @@ export default {
       } else {
         this.dialog_disp_flg = true
         await axios
-          .post('/record/register/api')
+          .post('/record/register/api', this.submit_body)
           .then(result => {
             console.log(result)
           }).catch(err => {

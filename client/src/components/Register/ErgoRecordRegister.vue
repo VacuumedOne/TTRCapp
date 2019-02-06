@@ -44,8 +44,19 @@
           </date-picker>
         </div>
       </div>
+      <div class="error" v-show="err_disp_flg">
+        {{err}}
+      </div>
       <el-button class="button" type="danger" v-on:click="submitRecord">記録を送信！</el-button>
-      {{form}}
+      <el-dialog
+        title="記録の送信"
+        :visible.sync="dialog_disp_flg"
+        width="30%">
+        <span>{{ submit_body }}</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="dialog_disp_flg=false">確認</el-button>
+        </span>
+      </el-dialog>
     </md-content>
   </div>
 </template>
@@ -55,12 +66,18 @@ import RecordItemSelect from '@/components/Input/RecordItemSelect'
 import ResultForm from '@/components/Input/ResultForm'
 import Submit from '@/components/Input/Submit'
 import DatePicker from '@/components/Input/DatePicker'
+import axios from 'axios'
+axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
+axios.defaults.withCredentials = true
+
 export default {
   name: 'ErgoRecordRegister',
   props: ['loginUser'],
   data: () => {
     return {
       ext_col_disp_flg: false, //拡張項目表示フラグ
+      dialog_disp_flg: false,
+      err_disp_flg: false,
       form: {
         record_item_id: -1,
         result: '',
@@ -69,15 +86,14 @@ export default {
         is_dinamic: false,
         date: ''
       },
+      err: null,
       env: process.env.VUE_APP_SERVER_URL_BASE,
       checked: true,
-      func: function () {
-        return process.env
-      }
+      submit_body: null
     }
   },
   methods: {
-    submitRecord: function () {
+    beforeSubmit: function () {
       let body = {}
       let err = []
 
@@ -93,7 +109,6 @@ export default {
       }
       if (this.form.date !== '') {
         body.date = this.form.date
-        console.log(body.date)
       } else {
         err.push('日付の取得に失敗しました')
       }
@@ -116,9 +131,24 @@ export default {
         }
         body.extend = extend
       }
-
-      console.log(err)
-      console.log(body)
+      this.err = err
+      this.submit_body = body
+    },
+    submitRecord: async function () {
+      this.beforeSubmit()
+      //エラーがあれば止める
+      if (this.err !== null && this.err.length > 0) {
+        this.err_disp_flg = true
+      } else {
+        this.dialog_disp_flg = true
+        await axios
+          .post('/record/register/api')
+          .then(result => {
+            console.log(result)
+          }).catch(err => {
+            console.error(err)
+          })
+      }
     }
   },
   components: {
@@ -143,4 +173,6 @@ export default {
   margin: 30px
 .button
   margin: 30px
+.error
+  color: red
 </style>

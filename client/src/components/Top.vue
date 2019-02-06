@@ -1,5 +1,7 @@
 <template>
   <div class="top">
+    <!-- ヘッダー -->
+
     <!-- サイドメニュー -->
     <side-bar class="sidebar"></side-bar>
     <!-- メインタブ -->

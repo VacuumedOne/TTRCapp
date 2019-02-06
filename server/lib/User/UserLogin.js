@@ -10,10 +10,10 @@ module.exports = function(body, res, connection) {
    //入力のバリデーション
   console.log(body);
   var err = [];
-  if(!body.user_name) {
+  if(body.user_name == null) {
     err.push('ユーザ名が入力されていません。');
   }
-  if(!body.hashed_pw) {
+  if(body.hashed_pw == null) {
     err.push('パスワードが入力されていません。');
   }
 

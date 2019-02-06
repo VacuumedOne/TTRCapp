@@ -19,28 +19,28 @@ module.exports = function(body, res, connection) {
   /* 入力のバリデーション */
   console.log(body);
   var err = [];
-  if(!body.user_name) {
+  if(body.user_name == null) {
     err.push('ユーザ名が入力されていません。');
   }
-  if(!body.password) {
+  if(body.password == null) {
     err.push('パスワードが入力されていません。');
   }
-  if(!body.mail) {
+  if(body.mail == null) {
     err.push('メールアドレスが入力されていません。');
   }
-  if(!body.sex) {
+  if(body.sex == null) {
     err.push('性別が入力されていません。');
   }
-  if(!body.auth) {
+  if(body.auth == null) {
     err.push('役職が入力されていません。');
   }
-  if(!body.k_lastname) {
+  if(body.k_lastname == null) {
     err.push('姓が入力されていません。');
   }
-  if(!body.k_firstname) {
+  if(body.k_firstname == null) {
     err.push('名が入力されていません。');
   }
-  if(!body.birth_ymd) {
+  if(body.birth_ymd == null) {
     err.push('生年月日が入力されていません。')
   }
 

@@ -8,7 +8,7 @@ module.exports = function(body, res, connection) {
 
    //入力のバリデーション
    console.log(body);
-   if(!body.group_name) {
+   if(body.group_name == null) {
      res.json(['グループ名が入力されていません。']);
      return;
    }

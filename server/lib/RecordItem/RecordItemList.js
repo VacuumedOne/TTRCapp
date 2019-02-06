@@ -6,7 +6,7 @@ module.exports = function(body, res, connection) {
    * group_id 指定するグループID
    */
     console.log(body);
-    if(!body.group_id){
+    if(body.group_id == null){
       res.json({
         state: "failure",
         text: "グループIDが指定されていません。"

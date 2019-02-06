@@ -7,29 +7,24 @@ module.exports = function(body, res, connection) {
    * player_id: 練習をした者のuser_id
    * registerer_id: 記録をおこなったもののuser_id
    * result: 結果
-   * reps: 回数
-   * attr: json
+   * extend: 拡張情報
    */
 
-   //入力のバリデーション
-   console.log(body);
-   var err = [];
-   if(!body.item_id) {
-     err.push('種目が入力されていません。');
-     return;
-   }
-   if(!body.player_id) {
+  //入力のバリデーション
+  console.log(body);
+  var err = [];
+  if(body.item_id == null) {
+    err.push('種目が入力されていません。');
+  }
+  if(body.player_id == null) {
     err.push('選手が入力されていません。');
-    return;
   }
-  if(!body.registerer_id) {
+  if(body.registerer_id == null) {
     err.push('記録者が入力されていません。');
-    return;
   }
-  if(!body.result) {
+  if(body.result == null) {
     err.push('結果が入力されていません。');
   }
-
   if(err.length > 0){
     res.json({
       state: "failure",
@@ -52,31 +47,28 @@ module.exports = function(body, res, connection) {
   ', ' + body.player_id +
   ', ' + body.registerer_id +
   ', "' + body.result + '"';
-  if(body.reps){
+  if(body.extend){
     sql += ', ' + body.reps;
-  }
-  if(body.attr){
-    sql += ', ' + body.attr;
   }
   sql += ');';
 
   console.log(sql);
 
    //DB格納
-   var promise = new Promise(function(resolve, reject) {
-    connection.query(sql, (error, results, fields) => {
+  var promise = new Promise(function(resolve, reject) {
+    connection.query(sql, (error, result, fields) => {
       if(error){
         reject(error);
       }else{
-        resolve(results);
+        resolve(result);
       }
     });
   });
   
-  promise.then((results) => {
+  promise.then((result) => {
     res.json(result);
-  }).catch((error) => {
-    throw error;
+  }).catch((err) => {
+    res.status(400).json(err)
   });
   return;
 }

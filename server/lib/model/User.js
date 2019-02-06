@@ -2,9 +2,10 @@ const Sequelize = require('sequelize');
 
 module.exports = function (db) {
   let User = db.define('User', {
-    name: {
+    user_name: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     hashed_pw: {
       type: Sequelize.STRING,
@@ -15,7 +16,8 @@ module.exports = function (db) {
       allowNull: false,
       validate: {
         isEmail: true
-      }
+      },
+      unique: true
     },
     sex: {
       type: Sequelize.STRING,

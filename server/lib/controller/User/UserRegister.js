@@ -5,7 +5,7 @@ module.exports = function(body, res, db) {
   /**
    * POST内容
    * user_name: ログイン用のアルファベット名
-   * hashed_pw: 素のパスワード。ハッシュ化前。
+   * password: 素のパスワード。ハッシュ化前。
    * mail: メールアドレス。
    * sex: 性別。"male" or "female"
    * auth: 権限。
@@ -52,7 +52,7 @@ module.exports = function(body, res, db) {
 
   //エラーが発生して入ればエラーをJSONで返して終了。
   if(err.length > 0) {
-    res.state(400).json(err);
+    res.status(400).json(err);
     return;
   }
 
@@ -77,7 +77,7 @@ module.exports = function(body, res, db) {
     .then(result => {
       res.status(200).json(result)
     }).catch(err => {
-      res.state(500).json(err)
+      res.status(500).json(err)
     })
   
   return;

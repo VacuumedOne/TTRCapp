@@ -14,8 +14,13 @@ module.exports = function(body, res, db) {
   }
 
   RecordItem.findAll({
+    attributes: [
+      'id',
+      'item_name',
+      'unit'
+    ],
     where: {
-      group_id: body.group_id
+      id: body.group_id
     }
   }).then(result => {
     res.status(200).json(result)

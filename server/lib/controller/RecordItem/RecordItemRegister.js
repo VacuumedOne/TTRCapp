@@ -13,9 +13,15 @@ module.exports = function(body, res, db) {
     return;
   }
 
-  var new_recorditem = new RecordItem({
+  var data = {
     item_name: body.item_name
-  })
+  }
+
+  if(body.unit !== null){
+    data.unit = body.unit
+  }
+
+  var new_recorditem = new RecordItem(data)
 
   new_recorditem
     .save()

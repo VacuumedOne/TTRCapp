@@ -2,14 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 /* ローカルモジュール */
-var UserRegister = require('../lib/User/UserRegister.js');
-var UserLogin = require('../lib/User/UserLogin.js');
-var UserList = require('../lib/User/UserList.js');
-var RecordGroupRegister = require('../lib/RecordGroup/RecordGroupRegister.js');
-var RecordGroupList = require('../lib/RecordGroup/RecordGroupList.js');
-var RecordItemRegister = require('../lib/RecordItem/RecordItemRegister.js');
-var RecordItemList = require('../lib/RecordItem/RecordItemList.js');
-var RecordRegister = require('../lib/Record/RecordRegister.js');
+var UserRegister = require('../lib/controller/User/UserRegister.js');
+var UserLogin = require('../lib/controller/User/UserLogin.js');
+var UserList = require('../lib/controller/User/UserList.js');
+var RecordGroupRegister = require('../lib/controller/RecordGroup/RecordGroupRegister.js');
+var RecordGroupList = require('../lib/controller/RecordGroup/RecordGroupList.js');
+var RecordItemRegister = require('../lib/controller/RecordItem/RecordItemRegister.js');
+var RecordItemList = require('../lib/controller/RecordItem/RecordItemList.js');
+var RecordRegister = require('../lib/controller/Record/RecordRegister.js');
 
 /* ローカルDB関連モジュール */
 
@@ -76,15 +76,15 @@ router.post('/test/post/api', function(req, res, next) {
 });
 //ユーザ追加
 router.post('/user/register/api', function(req, res, next) {
-  UserRegister(req.body, res, connection);
+  UserRegister(req.body, res, db);
 });
 //ユーザ認証
 router.post('/user/login/api', function(req, res, next) {
-  UserLogin(req.body, res, connection);
+  UserLogin(req.body, res, db);
 });
 //ユーザ全取得
 router.post('/user/list/api', function(req, res, next) {
-  UserList(res, connection);
+  UserList(res, db);
 });
 //記録グループの登録
 router.post('/record-group/register/api', function(req, res, next) {

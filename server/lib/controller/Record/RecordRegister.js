@@ -1,5 +1,5 @@
+var Promise = require('promise');
 module.exports = function(body, res, connection) {
-  var Promise = require('promise');
 
   /**
    * POST内容

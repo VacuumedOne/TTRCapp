@@ -116,7 +116,7 @@
   + RecordGroupは記録のグループを保持します。
   + 記録のグループとは、例えばエルゴ、ウェイト、体組成などの、グループです。
   + RecordGroupと以下に記載するRecordItemで、一つの種目("エルゴ"の"2000m"など)を一意に決定します。
-  + 操作の頻度はかなり少ない。
+  + 操作の頻度はかなり少ないです。
 
 ## 新規記録グループ登録 [/record-group/register/api]
 
@@ -136,13 +136,12 @@
   + Body
     ```json
       {
-        "id": 0,
+        "id": 1,
         "group_name": "エルゴ"
       }
     ```
 + Response 400
   + 入力に不足があった場合です。
-
   + Body
     ```json
       [
@@ -177,6 +176,84 @@
   + Body
 
 # Group RecordItem
+
+## 記録アイテム登録 [/record-item/register/api]
+
+### 記録アイテム登録 [POST]
+
++ Request example
+  + Body
+    ```json
+      {
+        "group_id": 1,
+        "item_name": "2000m",
+        "unit": ""
+      }
+    ```
+
++ Response 200
+  + Body
+    ```json
+      {
+        "id": 1,
+        "item_name": "2000m",
+        "group_id": 1,
+        "unit": ""
+      }
+    ```
++ Response 400
+  + 入力に不足があった場合です。
+  + Body
+    ```json
+      [
+        "グループ名が入力されていません"
+      ]
+    ```
++ Response 500
+  + サーバ側の問題です。
+  + Body
+
+## 記録アイテム取得 [/record-item/list/api]
+
+### 記録アイテム登録 [POST]
+
++ Request example
+  + Body
+    ```json
+      {
+        "group_id": 1
+      }
+    ```
+
++ Response 200
+  + Body
+    ```json
+      [
+        {
+          "id": 1,
+          "item_name": "2000m",
+          "unit": ""
+        },
+        {
+          "id": 2,
+          "item_name": "10分",
+          "group_id": 1,
+          "unit": ""
+        }
+      ]
+    ```
++ Response 400
+  + 入力に不足があった場合です。
+  + Body
+    ```json
+      [
+        "グループIDが入力されていません"
+      ]
+    ```
++ Response 500
+  + サーバ側の問題です。
+  + Body
+
 
 # Group Record
 

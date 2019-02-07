@@ -153,7 +153,7 @@
   + サーバ側の問題です。
   + Body
 
-## 記録グループ一覧取得 [/record-group/register/api]
+## 記録グループ一覧取得 [/record-group/list/api]
 
 ### 記録グループ一覧取得 [POST]
 記録グループの全件取得です。
@@ -176,4 +176,40 @@
   + サーバ側の問題です。
   + Body
 
-## Group RecordItem
+# Group RecordItem
+
+# Group Record
+
+## 記録登録 [/record/register/api]
+
+### 記録登録 [POST]
+記録を追加します。
++ Request example
+  + Body
+    ```json
+      {
+        "id": 2,
+        "item_id": "11",
+        "player_id": "1",
+        "registerer_id": "1",
+        "result": "1:40",
+        "date": "2019-01-01",
+      }
+    ```
++ Response 200
+  + Body
+    ```json
+      {
+        "id": 2,
+        "item_id": "11",
+        "player_id": "1",
+        "registerer_id": "1",
+        "result": "1:40",
+        "date": "2019-01-01T00:00:00.000Z",
+        "updatedAt": "2019-02-07T10:46:20.014Z",
+        "createdAt": "2019-02-07T10:46:20.014Z"
+      }
+    ```
++ Response 500
+  + サーバ側の問題です。
+  + Body

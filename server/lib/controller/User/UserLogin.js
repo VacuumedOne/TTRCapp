@@ -1,19 +1,19 @@
-module.exports = function(body, res, connection) {
-  var Promise = require('promise')
+module.exports = function(body, res, db) {
+  var User = require('../../model/User')(db);
 
   /**
    * POST内容
-   * user_name: ログイン用ユーザ名。
+   * email: ログイン用メールアドレス。
    * hashed_pw: ハッシュ化されたパスワード。
    */
 
    //入力のバリデーション
   console.log(body);
   var err = [];
-  if(body.user_name == null) {
-    err.push('ユーザ名が入力されていません。');
+  if(body.email == null) {
+    err.push('メールアドレスが入力されていません。');
   }
-  if(body.hashed_pw == null) {
+  if(body.password == null) {
     err.push('パスワードが入力されていません。');
   }
 
@@ -23,24 +23,17 @@ module.exports = function(body, res, connection) {
     return;
   }
 
-  var sql = '';
-  sql += 'SELECT user_id, user_name, k_lastname, k_firstname FROM User ' +
-         'WHERE user_name="' + body.user_name + '" ' +
-         'AND hashed_pw="' + body.hashed_pw + '" ';
+  //パスワードのハッシュ化
+  body.hashed_pw = Hash.getHashedText(body.password);
 
-  var promise = new Promise(function(resolve, reject) {
-    connection.query(sql, (error, results, fields) => {
-      if(error){
-        reject(error);
-      }else{
-        resolve(results);
-      }
-    });
-  });
-
-  promise.then((results) => {
-    res.json(results);
-  }).catch((error) => {
-    throw error;
-  });
+  User.findOne({
+    where: {
+      email: body.email,
+      hashed_pw: body.hashed_pw
+    }
+  }).then(result => {
+    res.status(200).json(result)
+  }).catch(err => {
+    res.status(500).json(result)
+  })
 }

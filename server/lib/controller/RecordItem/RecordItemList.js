@@ -1,39 +1,27 @@
-module.exports = function(body, res, connection) {
-  var Promise = require('promise');
+module.exports = function(body, res, db) {
+  var RecordItem = require('../../model/RecordItem')(db);
 
   /**
    * POST内容
    * group_id 指定するグループID
    */
-    console.log(body);
-    if(body.group_id == null){
-      res.json({
-        state: "failure",
-        text: "グループIDが指定されていません。"
-      });
-    }
-
-    //SQL発行
-    var sql = 'SELECT * FROM RecordItem where group_id =' + body.group_id + ';';
-
-    //DB格納
-    var promise = new Promise(function(resolve, reject) {
-    connection.query(sql, (error, results, fields) => {
-      if(error){
-        reject(error);
-      }else{
-        resolve(results);
-      }
-    });
-  });
-
-  promise.then((results) => {
+  console.log(body);
+  if(body.group_id == null){
     res.json({
-      state: "success",
-      text: results
+      state: "failure",
+      text: "グループIDが指定されていません。"
     });
-  }).catch((error) => {
-    throw error;
-  });
+  }
+
+  RecordItem.findAll({
+    where: {
+      group_id: body.group_id
+    }
+  }).then(result => {
+    res.status(200).json(result)
+  }).catch(err => {
+    resu.status(500).json(err)
+  })
+  
   return;
 }

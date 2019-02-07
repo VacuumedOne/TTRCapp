@@ -1,5 +1,5 @@
 module.exports = function(body, res, db) {
-  var User = require('../../model/User')
+  var User = require('../../model/User')(db);
   var Hash = require('../../util/Hash');
 
   /**
@@ -79,64 +79,6 @@ module.exports = function(body, res, db) {
     }).catch(err => {
       res.state(500).json(err)
     })
-
-  //SQL発行
-  // var sql = '';
-  // sql += 'INSERT INTO User (' +
-  //        'user_name' +
-  //        ', hashed_pw' +
-  //        ', mail' +
-  //        ', sex' +
-  //        ', auth' +
-  //        ', birth_ymd';
-  // if(!body.birth_ymd) {
-  //   sql += ', birth_ymd';
-  // }
-  // sql += ', k_lastname' +
-  //        ', k_firstname';
-  // if(body.h_lastname) {
-  //   sql += ', h_lastname';
-  // }
-  // if(body.h_firstname) {
-  //   sql += ', h_firstname';
-  // }
-  // sql += ') VALUES (' +
-  //        ' "' + body.user_name + '"'+ 
-  //        ', "' + body.hashed_pw + '"' +
-  //        ', "' + body.mail + '"' +
-  //        ', "' + body.sex + '"' +
-  //        ', ' + body.auth +
-  //        ', "' + body.birth_ymd + '"';
-  // if(!body.birth_ymd) {
-  //   sql += ', "' + body.birth_ymd + '"';
-  // }
-  // sql += ', "' + body.k_lastname + '"' +
-  //        ', "' + body.k_firstname + '"';
-  // if(body.h_lastname) {
-  //   sql += ', "' + body.h_lastname + '"';
-  // }
-  // if(body.h_firstname) {
-  //   sql += ', "' + body.h_firstname + '"';
-  // }
-  // sql += ');';
   
-  // console.log('Query: ¥n' + sql);
-
-  /* DB格納 */
-  // var promise = new Promise(function(resolve, reject) {
-  //   connection.query(sql, (error, results, fields) => {
-  //     if(error){
-  //       reject(error);
-  //     }else{
-  //       resolve(results);
-  //     }
-  //   });
-  // });
-
-  // promise.then((results) => {
-  //   res.json(results);
-  // }).catch((error) => {
-  //   throw error;
-  // });
   return;
 }

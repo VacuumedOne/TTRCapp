@@ -1,5 +1,5 @@
 module.exports = function(res, db) {
-  var User = require('../../model/User')
+  var User = require('../../model/User')(db)
 
   /**
    * POST内容

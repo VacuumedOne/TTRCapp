@@ -1,36 +1,29 @@
-module.exports = function(body, res, connection) {
-  var Promise = require('promise');
+module.exports = function(body, res, db) {
+  var RecordItem = require('../../model/RecordItem')(db);
 
   /**
    * POST内容
    * item_name: 記録グループ名。
    */
 
-   //入力のバリデーション
-   console.log(body);
-   if(body.item_name == null) {
-     res.json(['グループ名が入力されていません。']);
-     return;
-   }
+  //入力のバリデーション
+  console.log(body);
+  if(body.item_name == null) {
+    res.json(['グループ名が入力されていません。']);
+    return;
+  }
 
-   //SQL発行
-   var sql = 'INSERT INTO RecordItem (item_name) VALUES ("' + body.item_name + '");';
+  var new_recorditem = new RecordItem({
+    item_name: body.item_name
+  })
 
-   //DB格納
-   var promise = new Promise(function(resolve, reject) {
-    connection.query(sql, (error, results, fields) => {
-      if(error){
-        reject(error);
-      }else{
-        resolve(results);
-      }
-    });
-  });
+  new_recorditem
+    .save()
+    .then(result => {
+      res.statu(200).json(result)
+    }).catch(err => {
+      res.status(500).json(err)
+    })
   
-  promise.then((results) => {
-    res.json(result);
-  }).catch((error) => {
-    throw error;
-  });
   return;
 }

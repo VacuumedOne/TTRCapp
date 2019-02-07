@@ -20,7 +20,7 @@ module.exports = function(body, res, db) {
       'unit'
     ],
     where: {
-      id: body.group_id
+      group_id: body.group_id
     }
   }).then(result => {
     res.status(200).json(result)

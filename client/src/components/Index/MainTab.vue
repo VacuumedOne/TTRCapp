@@ -2,28 +2,48 @@
   <div class="main_tab">
     <el-tabs type="border-card" class="tabs">
       <el-tab-pane label="記録する">
-        <md-card class="content register">
-          <a href="/#/register/ergo"><md-card class="card ergo_register" md-with-hover>エルゴを記録する</md-card></a>
-          <a href="/#/register/weight"><md-card class="card weight_register" md-with-hover>ウェイトを記録する</md-card></a>
-          <a href="/#/register/other"><md-card class="card other_register" md-with-hover>その他の種目を記録する</md-card></a>
-        </md-card>
+        <md-content class="content register">
+          <md-content
+            class="card ergo_register"
+            v-on:click="sendToParent('ErgoRegister')"
+            >
+            エルゴを記録する
+          </md-content>
+          <md-content
+            class="card weight_register"
+            v-on:click="sendToParent('WeightRegister')"
+            >
+            ウェイトを記録する
+          </md-content>
+          <md-content
+            class="card other_register"
+            v-on:click="sendToParent('OtherRegister')"
+            >
+            その他の種目を記録する
+          </md-content>
+        </md-content>
       </el-tab-pane>
       <el-tab-pane label="見る">
-        <md-card class="content view">
-          <a href="/#/view/personal"><md-card class="card personal_view" md-with-hover>自分の記録を見る</md-card></a>
-          <a href="/#/view/team"><md-card class="card team_view" md-with-hover>みんなの記録を見る</md-card></a>
-        </md-card>
+        <md-content class="content view">
+          <md-content
+            class="card personal_view"
+            v-on:click="sendToParent('PersonalView')"
+            >
+            自分の記録を見る
+          </md-content>
+          <md-content
+            class="card team_view"
+            v-on:click="sendToParent('TeamView')"
+            >
+            みんなの記録を見る
+          </md-content>
+        </md-content>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
-import ErgoRegisterButton from './ErgoRegisterButton'
-import WeightRegisterButton from './WeightRegisterButton'
-import OtherRegisterButton from './OtherRegisterButton'
-import PersonalRecordViewButton from './PersonalRecordviewButton'
-import TeamRecordViewButton from './TeamRecordviewButton'
 export default {
   name: 'MainTab',
   data: () => {
@@ -37,14 +57,13 @@ export default {
     },
     switchTabToViewer: function () {
       this.selected = 'view'
+    },
+    sendToParent: function (data) {
+      //親に遷移したいstateを送る
+      this.$emit('send', data)
     }
   },
   components: {
-    'ergo-register-button': ErgoRegisterButton,
-    'weight-register-button': WeightRegisterButton,
-    'other-register-button': OtherRegisterButton,
-    'personal-record-view-button': PersonalRecordViewButton,
-    'team-record-view-button': TeamRecordViewButton
   }
 }
 </script>

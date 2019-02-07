@@ -1,48 +1,45 @@
 <template>
   <div class="record-item-select">
-    <el-select placeholder="種目を選ぶ">
+    <el-select placeholder="種目を選ぶ" v-model="value" v-on:input="$emit('input', value)">
       <el-option
         v-for="item in items"
         v-bind:value="item.item_id"
         v-bind:label="item.item_name"
-        v-bind:key="item.item_id"></el-option>
+        v-bind:key="item.item_id"
+        ></el-option>
     </el-select>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
 
 export default {
   name: 'RecordItemSelect',
   data: () => {
     return {
-      result: []
+      input: [],
+      value: null
     }
   },
   computed: {
     items: function () {
-      return this.result
+      return this.input
     }
   },
   props: {
     'group_id': Number
   },
   methods: {
-    out: function () {
-      console.log(this.group_id)
-    }
   },
   created: function () {
-    console.log(this.group_id)
     axios.post('/record-item/list/api', {group_id: 3})
       .then((result) => {
-        console.log(result)
-        this.result = result.data.text
+        this.input = result.data.text
       }).catch((err) => {
-        console.log(err)
+        console.error(err)
       })
   }
 }

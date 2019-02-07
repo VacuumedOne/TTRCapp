@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import TextForm from './Input/TextForm'
-import PasswordForm from './Input/PasswordForm'
-import Submit from './Input/Submit'
+import TextForm from '@/components/Input/TextForm'
+import PasswordForm from '@/components/Input/PasswordForm'
+import Submit from '@/components/Input/Submit'
 
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000'

@@ -25,7 +25,8 @@ module.exports = function(body, res, db) {
   }).then(result => {
     res.status(200).json(result)
   }).catch(err => {
-    resu.status(500).json(err)
+    console.log(err)
+    res.status(500).end()
   })
   
   return;

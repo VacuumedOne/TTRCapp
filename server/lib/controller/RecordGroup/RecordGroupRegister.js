@@ -1,5 +1,5 @@
-module.exports = function(body, res, connection) {
-  var RecordGroup = require('../../model/Recordgroup')(db)
+module.exports = function(body, res, db) {
+  var RecordGroup = require('../../model/RecordGroup')(db)
 
   /**
    * POST内容

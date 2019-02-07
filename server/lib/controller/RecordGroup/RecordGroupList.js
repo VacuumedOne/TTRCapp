@@ -1,5 +1,5 @@
-module.exports = function(res, connection) {
-  var RecordGroup = require('../../model/Recordgroup')(db)
+module.exports = function(res, db) {
+  var RecordGroup = require('../../model/RecordGroup')(db)
 
   /**
    * GETで受け取るので引数はなし

@@ -42,17 +42,6 @@ db.sync(function(errs){
   console.log('Model definition has been updated.', errs);
 })
 
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  port: 3306,
-  database: 'ttrc_app',
-  insecureAuth: true
-});
-connection.connect();
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -88,23 +77,23 @@ router.post('/user/list/api', function(req, res, next) {
 });
 //記録グループの登録
 router.post('/record-group/register/api', function(req, res, next) {
-  RecordGroupRegister(req.body, res, connection);
+  RecordGroupRegister(req.body, res, db);
 });
 //記録グループの全取得
 router.post('/record-group/list/api', function(req, res, next) {
-  RecordGroupList(req.body, res, connection);
+  RecordGroupList(res, db);
 })
 //記録アイテムの登録
 router.post('/record-item/register/api', function(req, res, next) {
-  RecordItemRegister(req.body, res, connection);
+  RecordItemRegister(req.body, res, db);
 })
 //記録アイテムの登録
 router.post('/record-item/list/api', function(req, res, next) {
-  RecordItemList(req.body, res, connection);
+  RecordItemList(req.body, res, db);
 })
 //記録の登録
 router.post('/record/register/api', function(req, res, next) {
-  RecordRegister(req.body, res, connection);
+  RecordRegister(req.body, res, db);
 })
 
 module.exports = router;

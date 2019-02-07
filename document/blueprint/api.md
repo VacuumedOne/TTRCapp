@@ -155,7 +155,7 @@
 
 ## 記録グループ一覧取得 [/record-group/register/api]
 
-### 記録グループ一覧取得 [GET]
+### 記録グループ一覧取得 [POST]
 記録グループの全件取得です。
 
 + Response 200
@@ -171,11 +171,9 @@
           "group_name": "ウェイト"
         }
       ]
-      
     ```
 + Response 500
   + サーバ側の問題です。
   + Body
-
 
 ## Group RecordItem

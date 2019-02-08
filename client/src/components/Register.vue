@@ -3,6 +3,7 @@
     <ergo-register
       v-if="state==='ergo'"
       v-bind:login-user="loginUser"
+      v-on:send="receiveFromChild"
       ></ergo-register>
   </div>
 </template>
@@ -30,6 +31,9 @@ export default {
     gotoOtherRegister: function () {
       //その他記録モード
       this.state = 'other'
+    },
+    receiveFromChild: function (data) {
+      this.$emit('send', data)
     }
   },
   components: {

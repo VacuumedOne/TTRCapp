@@ -48,6 +48,7 @@
         {{err}}
       </div>
       <el-button class="button" type="danger" v-on:click="submitRecord">記録を送信！</el-button>
+      <el-button type="warning" v-on:click="sendToParent">戻る</el-button>
       <el-dialog
         title="記録の送信"
         :visible.sync="dialog_disp_flg"
@@ -149,6 +150,10 @@ export default {
             console.error(err)
           })
       }
+    },
+    sendToParent: function () {
+      console.log('gotoTop')
+      this.$emit('send', 'top')
     }
   },
   components: {

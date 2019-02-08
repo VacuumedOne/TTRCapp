@@ -36,10 +36,10 @@ export default {
 <style lang="sass" scoped>
 .top
   text-align: left
+  display: table
   height: 100vh
   width: 100vw
   margin: 0px
-  display: table
 .sidebar
   display: table-cell
   width: 300px

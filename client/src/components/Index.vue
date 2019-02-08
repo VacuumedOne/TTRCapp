@@ -1,19 +1,19 @@
 <template>
   <div class="index">
-    <top
-      class="item top"
-      v-if="state==='top'"
-      v-on:send="receiveFromChild"
-      v-transition
-      ></top>
-    <register
-      class="item register"
-      v-if="state==='register'"
-      v-bind:login-user="login_user"
-      v-bind:mode="register_mode"
-      v-on:send="receiveFromChild"
-      v-transition
-      ></register>
+    <transition name="fade">
+      <top
+        class="item top"
+        v-if="state==='top'"
+        v-on:send="receiveFromChild"
+        ></top>
+      <register
+        class="item register"
+        v-if="state==='register'"
+        v-bind:login-user="login_user"
+        v-bind:mode="register_mode"
+        v-on:send="receiveFromChild"
+        ></register>
+    </transition>
   </div>
 </template>
 
@@ -65,6 +65,10 @@ export default {
       //記録画面に遷移する
       this.state = 'view'
     },
+    loading: function () {
+      //読み込み中
+      this.state = 'loading'
+    },
     receiveFromChild: function (data) {
       if (data === 'ErgoRegister') {
         this.gotoRegister('ergo')
@@ -87,12 +91,18 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.v-transition
+.item
   position: relative
-  transition: all 1s ease
-  top: 0px
-
-.item.v-enter
-  top: 100vh
-
+.fade-enter
+  opacity: 0
+.fade-enter-active
+  transition: all 0.5s ease
+.fade-enter-to
+  opacity: 1
+.fade-leave
+  opacity: 1
+.fade-fade-active
+  transition: all 0.5 ease
+.fade-leave-to
+  opacity: 0
 </style>

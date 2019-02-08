@@ -1,13 +1,18 @@
 <template>
   <div class="index">
     <top
+      class="item top"
       v-if="state==='top'"
       v-on:send="receiveFromChild"
+      v-transition
       ></top>
     <register
+      class="item register"
       v-if="state==='register'"
       v-bind:login-user="login_user"
+      v-bind:mode="register_mode"
       v-on:send="receiveFromChild"
+      v-transition
       ></register>
   </div>
 </template>
@@ -29,7 +34,8 @@ export default {
         sex: 'male',
         auth: 2,
         is_active: true
-      }
+      },
+      register_mode: ''
     }
   },
   methods: {
@@ -50,8 +56,9 @@ export default {
       //設定画面に遷移する
       this.state = 'config'
     },
-    gotoRegister: function () {
+    gotoRegister: function (mode) {
       //記録画面に遷移する
+      this.register_mode = mode
       this.state = 'register'
     },
     gotoView: function () {
@@ -59,8 +66,12 @@ export default {
       this.state = 'view'
     },
     receiveFromChild: function (data) {
-      if (data === 'ErgoRegister' || data === 'WeightRegister' || data === 'OtherRegister') {
-        this.gotoRegister()
+      if (data === 'ErgoRegister') {
+        this.gotoRegister('ergo')
+      } else if (data === 'WeightRegister') {
+        this.gotoRegister('weight')
+      } else if (data === 'OtherRegister') {
+        this.gotoRegister('others')
       } else if (data === 'PersonalView' || data === 'TeamView') {
         this.gotoView()
       } else if (data === 'top') {
@@ -76,5 +87,12 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.v-transition
+  position: relative
+  transition: all 1s ease
+  top: 0px
+
+.item.v-enter
+  top: 100vh
 
 </style>

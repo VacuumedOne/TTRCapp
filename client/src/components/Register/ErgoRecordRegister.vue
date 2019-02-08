@@ -152,7 +152,6 @@ export default {
       }
     },
     sendToParent: function () {
-      console.log('gotoTop')
       this.$emit('send', 'top')
     }
   },

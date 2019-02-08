@@ -8,7 +8,7 @@
         年間予定
       </md-card>
       <md-card md-with-hover class="button">
-        ログイン管理
+        ユーザ管理
       </md-card>
       <md-card md-with-hover class="button">
         メニュー管理

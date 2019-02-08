@@ -2,11 +2,12 @@
   <div class="index">
     <top
       v-if="state==='top'"
-      v-on:send="receiveFromTop"
+      v-on:send="receiveFromChild"
       ></top>
     <register
       v-if="state==='register'"
       v-bind:login-user="login_user"
+      v-on:send="receiveFromChild"
       ></register>
   </div>
 </template>
@@ -57,11 +58,13 @@ export default {
       //記録画面に遷移する
       this.state = 'view'
     },
-    receiveFromTop: function (data) {
+    receiveFromChild: function (data) {
       if (data === 'ErgoRegister' || data === 'WeightRegister' || data === 'OtherRegister') {
         this.gotoRegister()
       } else if (data === 'PersonalView' || data === 'TeamView') {
         this.gotoView()
+      } else if (data === 'top') {
+        this.gotoTop()
       }
     }
   },

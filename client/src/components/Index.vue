@@ -29,7 +29,7 @@ export default {
       is_login: true,
       state: 'top',
       login_user: {
-        user_id: 4,
+        user_id: 1,
         user_name: 'シモン',
         sex: 'male',
         auth: 2,

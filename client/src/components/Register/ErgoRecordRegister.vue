@@ -99,6 +99,7 @@ export default {
       let err = []
 
       if (this.form.record_item_id !== -1) {
+        console.log(this.form.record_item_id)
         body.item_id = this.form.record_item_id
       } else {
         err.push('種目が選択されていません')

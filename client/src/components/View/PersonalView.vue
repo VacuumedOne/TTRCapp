@@ -1,26 +1,52 @@
 <template>
   <div class="personal_view">
-    <el-button @click="sendToParent">戻る</el-button>
-    <md-app>
-      <md-app-toolbar class="md-primary">
-        <span class="md-title">個人の記録を見る</span>
-      </md-app-toolbar>
-      <md-app-drawer md-permanent="full">
-        <md-toolbar class="md-transparent menu-title" md-elevation="0">
-          Menu
-        </md-toolbar>
-        <md-list>
-          <span class="md-list-item-text menu-item">最近の記録</span>
-        </md-list>
-        <md-list>
-          <span class="md-list-item-text menu-item">表で見る</span>
-        </md-list>
-      </md-app-drawer>
-    </md-app>
+    <v-app>
+      <v-navigation-drawer
+        fixed
+        v-model="drawer"
+        app
+      >
+        <v-btn class="white gray--text" @click="sendToParent">戻る</v-btn>
+        <v-list dense>
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon>library_books</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>最近のログ</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon>notes</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>表で見る</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon>show_chart</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>グラフで見る</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
+      <v-toolbar color="indigo" dark fixed app>
+        <v-toolbar-title>自分の記録を見る</v-toolbar-title>
+      </v-toolbar>
+      <v-content>
+        <recent-records></recent-records>
+      </v-content>
+    </v-app>
   </div>
 </template>
 
 <script>
+import RecentRecords from '@/components/View/PersonalView/RecentRecords'
+
 export default {
   name: 'PersonalView',
   props: {
@@ -35,6 +61,9 @@ export default {
     sendToParent: function () {
       this.$emit('send', 'top')
     }
+  },
+  components: {
+    'recent-records': RecentRecords
   }
 }
 </script>

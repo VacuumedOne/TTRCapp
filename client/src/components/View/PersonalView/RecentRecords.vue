@@ -18,6 +18,9 @@
 <script>
 export default {
   name: 'RecentRecords',
+  props: {
+    loginUser: Object
+  },
   data: () => {
     return {
       headers: [

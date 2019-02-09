@@ -5,16 +5,16 @@
     </md-card-header>
     <md-card-content>
       <md-card md-with-hover class="button">
-        年間予定
+        年間予定(未)
       </md-card>
       <md-card md-with-hover class="button">
-        ユーザ管理
+        ユーザ管理(未)
       </md-card>
       <md-card md-with-hover class="button">
-        メニュー管理
+        メニュー管理(未)
       </md-card>
       <md-card md-with-hover class="button">
-        Wiki
+        Wiki(未)
       </md-card>
     </md-card-content>
   </md-card>

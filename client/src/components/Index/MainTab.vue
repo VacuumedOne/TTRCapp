@@ -13,13 +13,13 @@
             class="card weight_register"
             v-on:click="sendToParent('WeightRegister')"
             >
-            ウェイトを記録する
+            ウェイトを記録する(未)
           </md-content>
           <md-content
             class="card other_register"
             v-on:click="sendToParent('OtherRegister')"
             >
-            その他の種目を記録する
+            その他の種目を記録する(未)
           </md-content>
         </md-content>
       </el-tab-pane>
@@ -35,7 +35,7 @@
             class="card team_view"
             v-on:click="sendToParent('TeamView')"
             >
-            みんなの記録を見る
+            みんなの記録を見る(未)
           </md-content>
         </md-content>
       </el-tab-pane>

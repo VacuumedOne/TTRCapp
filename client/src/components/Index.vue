@@ -6,6 +6,8 @@
         v-if="state==='top'"
         v-on:send="receiveFromChild"
         ></top>
+    </transition>
+    <transition name="fade">
       <register
         class="item register"
         v-if="state==='register'"
@@ -14,6 +16,15 @@
         v-on:send="receiveFromChild"
         ></register>
     </transition>
+    <transition name="fade">
+      <c-view
+        class="item view"
+        v-if="state==='view'"
+        v-bind:login-user="login_user"
+        v-bind:mode="view_mode"
+        v-on:send="receiveFromChild"
+        ></c-view>
+    </transition>
   </div>
 </template>
 
@@ -21,6 +32,7 @@
 
 import Top from '@/components/Top'
 import Register from '@/components/Register'
+import View from '@/components/View'
 
 export default {
   name: 'Index',
@@ -35,7 +47,8 @@ export default {
         auth: 2,
         is_active: true
       },
-      register_mode: ''
+      register_mode: '',
+      view_mode: ''
     }
   },
   methods: {
@@ -61,8 +74,9 @@ export default {
       this.register_mode = mode
       this.state = 'register'
     },
-    gotoView: function () {
+    gotoView: function (mode) {
       //記録画面に遷移する
+      this.view_mode = mode
       this.state = 'view'
     },
     loading: function () {
@@ -76,8 +90,10 @@ export default {
         this.gotoRegister('weight')
       } else if (data === 'OtherRegister') {
         this.gotoRegister('others')
-      } else if (data === 'PersonalView' || data === 'TeamView') {
-        this.gotoView()
+      } else if (data === 'PersonalView') {
+        this.gotoView('personal')
+      } else if (data === 'TeamView') {
+        this.gotoView('team')
       } else if (data === 'top') {
         this.gotoTop()
       }
@@ -85,7 +101,8 @@ export default {
   },
   components: {
     'top': Top,
-    'register': Register
+    'register': Register,
+    'c-view': View
   }
 }
 </script>

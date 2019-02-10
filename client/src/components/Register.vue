@@ -65,7 +65,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.register
-  height: 100vh
-  width: 100vw
+
 </style>

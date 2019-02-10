@@ -54,7 +54,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.view
-  height: 100vh
-  width: 100vw
+
 </style>

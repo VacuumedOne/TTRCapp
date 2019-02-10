@@ -1,6 +1,5 @@
 <template>
   <div class="ergo-register">
-    <el-button @click="sendToParent">戻る</el-button>
     <md-content class="md-primary card" md-theme="green-card">
       <h2>エルゴを記録</h2>
       <div class="item">
@@ -167,12 +166,8 @@ export default {
 
 <style lang="sass" scoped>
 .ergo-register
-  height: 100%
-  text-align: center
-  vertical-align: middle
 .card
   display: inline-block
-  width: 500px
   background-color: springgreen
 .item
   margin: 30px

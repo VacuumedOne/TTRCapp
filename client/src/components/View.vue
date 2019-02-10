@@ -30,6 +30,12 @@ export default {
   mounted: function () {
     this.state = this.mode
   },
+  watch: {
+    mode: function () {
+      console.log(this.mode)
+      this.state = this.mode
+    }
+  },
   methods: {
     gotoPersonalView: function () {
       this.state = 'personal'

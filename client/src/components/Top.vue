@@ -3,7 +3,7 @@
     <!-- ヘッダー -->
 
     <!-- サイドメニュー -->
-    <side-bar class="sidebar"></side-bar>
+    <!-- <side-bar class="sidebar"></side-bar> -->
     <!-- メインタブ -->
     <div class="main">
       <main-tab
@@ -37,8 +37,6 @@ export default {
 .top
   text-align: left
   display: table
-  height: 100vh
-  width: 100vw
   margin: 0px
 .sidebar
   display: table-cell

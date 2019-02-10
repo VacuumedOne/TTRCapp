@@ -1,30 +1,115 @@
 <template>
   <div class="index">
-    <transition name="fade">
-      <top
-        class="item top"
-        v-if="state==='top'"
-        v-on:send="receiveFromChild"
-        ></top>
-    </transition>
-    <transition name="fade">
-      <register
-        class="item register"
-        v-if="state==='register'"
-        v-bind:login-user="login_user"
-        v-bind:mode="register_mode"
-        v-on:send="receiveFromChild"
-        ></register>
-    </transition>
-    <transition name="fade">
-      <c-view
-        class="item view"
-        v-if="state==='view'"
-        v-bind:login-user="login_user"
-        v-bind:mode="view_mode"
-        v-on:send="receiveFromChild"
-        ></c-view>
-    </transition>
+    <v-app>
+      <v-toolbar color="indigo" dark fixed app>
+        <v-toolbar-side-icon
+          @click="drawer_disp_flg=!drawer_disp_flg"
+        ></v-toolbar-side-icon>
+        <v-toolbar-title>Tsubakuro</v-toolbar-title>
+      </v-toolbar>
+      <v-navigation-drawer
+        v-model="drawer_disp_flg"
+        app
+        dark
+      >
+        <v-list dense>
+          <v-list-tile>
+            <v-list-tile-content>
+              <v-list-tile-title class="title">
+                Menu
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-divider></v-divider>
+          <v-list-tile class="drawer_column">
+            <v-list-tile-action>
+              <v-icon>arrow_downward</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="title">記録する</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile class="drawer_column" @click="gotoRegister('ergo')">
+            <v-list-tile-action>
+              <v-icon>library_books</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="subheading">エルゴを記録</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile class="drawer_column" @click="gotoRegister('weight')">
+            <v-list-tile-action>
+              <v-icon>library_books</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="subheading">ウェイトを記録</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile class="drawer_column" @click="gotoRegister('others')">
+            <v-list-tile-action>
+              <v-icon>library_books</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="subheading">その他の種目を記録</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile class="drawer_column">
+            <v-list-tile-action>
+              <v-icon>arrow_downward</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="title">見る</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile class="drawer_column" @click="gotoView('personal')">
+            <v-list-tile-action>
+              <v-icon>library_books</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="subheading">自分の記録を見る</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile class="drawer_column" @click="gotoView('team')">
+            <v-list-tile-action>
+              <v-icon>library_books</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="subheading">チームの記録を見る</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
+      <v-content>
+        <v-container>
+          <transition name="fade">
+            <top
+              class="item top"
+              v-if="state==='top'"
+              v-on:send="receiveFromChild"
+              ></top>
+          </transition>
+          <transition name="fade">
+            <register
+              class="item register"
+              v-if="state==='register'"
+              v-bind:login-user="login_user"
+              v-bind:mode="register_mode"
+              v-on:send="receiveFromChild"
+              ></register>
+          </transition>
+          <transition name="fade">
+            <c-view
+              class="item view"
+              v-if="state==='view'"
+              v-bind:login-user="login_user"
+              v-bind:mode="view_mode"
+              v-on:send="receiveFromChild"
+              ></c-view>
+          </transition>
+        </v-container>
+      </v-content>
+      
+    </v-app>
   </div>
 </template>
 
@@ -48,7 +133,8 @@ export default {
         is_active: true
       },
       register_mode: '',
-      view_mode: ''
+      view_mode: '',
+      drawer_disp_flg: true
     }
   },
   methods: {
@@ -122,4 +208,6 @@ export default {
   transition: all 0.5 ease
 .fade-leave-to
   opacity: 0
+.drawer_column
+  height: 50px
 </style>

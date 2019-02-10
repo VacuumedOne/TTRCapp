@@ -1,59 +1,27 @@
 <template>
   <div class="personal_view">
-    <v-app>
-      <v-navigation-drawer
-        fixed
-        v-model="drawer"
-        app
-      >
-        <v-btn class="white gray--text" @click="sendToParent">戻る</v-btn>
-        <v-list dense>
-          <v-list-tile @click="gotoRecendRecords">
-            <v-list-tile-action>
-              <v-icon>library_books</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>最近のログ</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile @click="gotoTableView">
-            <v-list-tile-action>
-              <v-icon>notes</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>表で見る</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile @click="gotoGraphView">
-            <v-list-tile-action>
-              <v-icon>show_chart</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>グラフで見る</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-navigation-drawer>
-      <v-toolbar color="indigo" dark fixed app>
-        <v-toolbar-title>自分の記録を見る</v-toolbar-title>
-      </v-toolbar>
-      <v-content>
-        <recent-records
-          v-if="this.state==='recent-records'"
-          :login-user="loginUser"
-        ></recent-records>
-        <table-view
-          v-if="this.state==='table-view'"
-          :login-user="loginUser"
-        ></table-view>
-      </v-content>
-    </v-app>
+    <v-btn @click="gotoRecendRecords">最近のログ</v-btn>
+    <v-btn @click="gotoTableView">表で記録を見る</v-btn>
+    <v-btn @click="gotoGraphView">グラフで記録を見る</v-btn>
+    <recent-records
+      v-if="this.state==='recent-records'"
+      :login-user="loginUser"
+    ></recent-records>
+    <table-view
+      v-if="this.state==='table-view'"
+      :login-user="loginUser"
+    ></table-view>
+    <graph-view
+      v-if="this.state==='graph-view'"
+      :login-user="loginUser"
+    ></graph-view>
   </div>
 </template>
 
 <script>
 import RecentRecords from '@/components/View/PersonalView/RecentRecords'
 import TableView from '@/components/View/PersonalView/TableView'
+import GraphView from '@/components/View/PersonalView/GraphView'
 
 export default {
   name: 'PersonalView',
@@ -81,7 +49,8 @@ export default {
   },
   components: {
     'recent-records': RecentRecords,
-    'table-view': TableView
+    'table-view': TableView,
+    'graph-view': GraphView
   }
 }
 </script>

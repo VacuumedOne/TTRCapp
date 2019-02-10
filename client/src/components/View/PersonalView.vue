@@ -16,7 +16,7 @@
               <v-list-tile-title>最近のログ</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile @click="gotoRecendRecords">
+          <v-list-tile @click="gotoTableView">
             <v-list-tile-action>
               <v-icon>notes</v-icon>
             </v-list-tile-action>
@@ -24,7 +24,7 @@
               <v-list-tile-title>表で見る</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile>
+          <v-list-tile @click="gotoGraphView">
             <v-list-tile-action>
               <v-icon>show_chart</v-icon>
             </v-list-tile-action>
@@ -42,6 +42,10 @@
           v-if="this.state==='recent-records'"
           :login-user="loginUser"
         ></recent-records>
+        <table-view
+          v-if="this.state==='table-view'"
+          :login-user="loginUser"
+        ></table-view>
       </v-content>
     </v-app>
   </div>
@@ -49,6 +53,7 @@
 
 <script>
 import RecentRecords from '@/components/View/PersonalView/RecentRecords'
+import TableView from '@/components/View/PersonalView/TableView'
 
 export default {
   name: 'PersonalView',
@@ -64,8 +69,8 @@ export default {
     gotoRecendRecords: function () {
       this.state = 'recent-records'
     },
-    gotoListView: function () {
-      this.state = 'list-view'
+    gotoTableView: function () {
+      this.state = 'table-view'
     },
     gotoGraphView: function () {
       this.state = 'graph-view'
@@ -75,7 +80,8 @@ export default {
     }
   },
   components: {
-    'recent-records': RecentRecords
+    'recent-records': RecentRecords,
+    'table-view': TableView
   }
 }
 </script>

@@ -3,9 +3,9 @@
     <v-app>
       <v-toolbar color="indigo" dark fixed app>
         <v-toolbar-side-icon
-          @click="drawer_disp_flg=!drawer_disp_flg"
+          @click="toggleDrawer"
         ></v-toolbar-side-icon>
-        <v-toolbar-title>Tsubakuro</v-toolbar-title>
+        <v-toolbar-title v-ripple @click="gotoTop">Tsubakuro</v-toolbar-title>
       </v-toolbar>
       <v-navigation-drawer
         v-model="drawer_disp_flg"
@@ -162,7 +162,16 @@ export default {
       },
       register_mode: '',
       view_mode: '',
-      drawer_disp_flg: true
+      drawer_disp_flg: null
+    }
+  },
+  mounted: function () {
+    if (this.$vuetify.breakpoint.width < 1013) {
+      //小さい画面の時、デフォルトでDrawerは閉じている
+      this.drawer_disp_flg = false
+    } else {
+      //大きい画面の時、デフォルトでDrawerは開いている
+      this.drawer_disp_flg = true
     }
   },
   methods: {
@@ -177,25 +186,35 @@ export default {
     },
     gotoTop: function () {
       //トップ画面に遷移する
+      this.beforeGoto()
       this.state = 'top'
     },
     gotoConfig: function () {
       //設定画面に遷移する
+      this.beforeGoto()
       this.state = 'config'
     },
     gotoRegister: function (mode) {
       //記録画面に遷移する
+      this.beforeGoto()
       this.register_mode = mode
       this.state = 'register'
     },
     gotoView: function (mode) {
       //記録画面に遷移する
+      this.beforeGoto()
       this.view_mode = mode
       this.state = 'view'
     },
     loading: function () {
       //読み込み中
       this.state = 'loading'
+    },
+    beforeGoto: function () {
+
+    },
+    toggleDrawer: function () {
+      this.drawer_disp_flg = !this.drawer_disp_flg
     },
     receiveFromChild: function (data) {
       if (data === 'ErgoRegister') {

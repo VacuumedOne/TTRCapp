@@ -32,7 +32,6 @@ export default {
   },
   watch: {
     mode: function () {
-      console.log(this.mode)
       this.state = this.mode
     }
   },

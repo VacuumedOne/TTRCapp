@@ -21,9 +21,18 @@
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
+          <v-list-tile class="drawer_column" @click="gotoTop()">
+            <v-list-tile-action>
+              <v-icon>home</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="title">トップ</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-divider></v-divider>
           <v-list-tile class="drawer_column">
             <v-list-tile-action>
-              <v-icon>arrow_downward</v-icon>
+              <v-icon>expand_more</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="title">記録する</v-list-tile-title>
@@ -53,9 +62,10 @@
               <v-list-tile-title class="subheading">その他の種目を記録</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
+          <v-divider></v-divider>
           <v-list-tile class="drawer_column">
             <v-list-tile-action>
-              <v-icon>arrow_downward</v-icon>
+              <v-icon>expand_more</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="title">見る</v-list-tile-title>
@@ -77,6 +87,7 @@
               <v-list-tile-title class="subheading">チームの記録を見る</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
+          <v-divider></v-divider>
         </v-list>
       </v-navigation-drawer>
       <v-content>

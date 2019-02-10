@@ -32,8 +32,12 @@ export default {
     }
   },
   mounted: function () {
-    console.log(this.mode)
     this.state = this.mode
+  },
+  watch: {
+    mode: function () {
+      this.state = this.mode
+    }
   },
   methods: {
     gotoErgoRegister: function () {

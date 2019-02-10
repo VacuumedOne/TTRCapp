@@ -5,7 +5,7 @@
         <v-flex d-flex xs12 md6>
           <v-layout column wrap>
             <v-flex grow d-flex md4>
-              <v-card v-ripple color="orange">
+              <v-card v-ripple color="orange" @click="sendToParent('ErgoRegister')">
                 <v-card-title primary class="title">エルゴを記録する</v-card-title>
                 <v-card-text>エルゴの高みを目指す人に。</v-card-text>
               </v-card>
@@ -18,8 +18,8 @@
             </v-flex>
             <v-flex grow d-flex md4>
               <v-card v-ripple color="orange">
-                <v-card-title primary class="title">エルゴを記録する</v-card-title>
-                <v-card-text>エルゴの高みを目指す人に。</v-card-text>
+                <v-card-title primary class="title">その他の種目を記録する</v-card-title>
+                <v-card-text>自由になんでも管理したい人に。</v-card-text>
               </v-card>
             </v-flex>
           </v-layout>

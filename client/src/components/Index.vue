@@ -88,6 +88,23 @@
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
+          <v-list-tile class="drawer_column" @click="gotoConfig()">
+            <v-list-tile-action>
+              <v-icon>home</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="title">設定</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-divider></v-divider>
+          <v-list-tile class="drawer_column" @click="gotoTop()">
+            <v-list-tile-action>
+              <v-icon>home</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="title">Wiki</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
         </v-list>
       </v-navigation-drawer>
       <v-content>
@@ -219,6 +236,4 @@ export default {
   transition: all 0.5 ease
 .fade-leave-to
   opacity: 0
-.drawer_column
-  height: 50px
 </style>

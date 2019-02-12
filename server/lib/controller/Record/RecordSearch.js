@@ -15,7 +15,31 @@ module.exports = function(body, res, db) {
   let cond_item_id = body.item_id || false
   let cond_group_id = body.group_id || false
 
-  res.send('' + cond_user_id + cond_item_id + cond_group_id)
+  Record.findAll({
+    where: {
+      player_id: cond_user_id,
+      item_id: cond_item_id
+    },
+    include: [
+      {
+        model: RecordItem,
+        attributes: [
+          'item_name',
+          'group_id',
+          'unit'
+        ],
+        where: {
+          group_id: cond_group_id
+        }
+      }
+    ]
+  }).then(result => {
+    res.json(result);
+  }).catch(err => {
+    console.log(err)
+    res.sendStatus(500);
+  })
+
   // RecordGroup.findAll()
   //   .then(result => {
   //     res.status(200).json(result)

@@ -83,11 +83,11 @@ export default {
   display: inline-block
   background-color: white
   border-radius: 4px
-  padding:  10px 30px
+  padding:  10px 15px
 .num
   font-size: 50px
 .unit
-  font-size: 20px
+  font-size: 16px
 .buttons
   display: flex
 </style>

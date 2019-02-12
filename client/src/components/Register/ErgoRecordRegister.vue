@@ -1,6 +1,6 @@
 <template>
   <div class="ergo-register">
-    <md-content class="md-primary card" md-theme="green-card">
+    <div class="card elevation-5">
       <h2>エルゴを記録</h2>
       <div class="item">
         <span>種目を選ぶ</span>
@@ -10,8 +10,7 @@
       </div>
       <div class="item">
         <span>アベレージタイムを入力(例:1:50.0)</span>
-        <result-form v-model="form.result"></result-form>
-        <time-result-form default="1:50.0"></time-result-form>
+        <time-result-form :default="form.result" v-model="form.result" ></time-result-form>
       </div>
       <div>
         さらに入力する
@@ -45,9 +44,9 @@
           </date-picker>
         </div>
       </div>
-      <div class="error" v-show="err_disp_flg">
-        {{err}}
-      </div>
+      <v-template v-for="(error, index) in err" :key="index">
+        <v-alert type="error" :value="err_disp_flg">{{error}}</v-alert>
+      </v-template>
       <el-button class="button" type="danger" v-on:click="submitRecord">記録を送信！</el-button>
       <el-dialog
         title="記録の送信"
@@ -58,7 +57,7 @@
           <el-button type="primary" @click="dialog_disp_flg=false">確認</el-button>
         </span>
       </el-dialog>
-    </md-content>
+    </div>
   </div>
 </template>
 
@@ -82,7 +81,7 @@ export default {
       err_disp_flg: false,
       form: {
         record_item_id: -1,
-        result: '',
+        result: '1:50.0',
         rate: 20,
         total_time: '',
         is_dinamic: false,
@@ -177,6 +176,4 @@ export default {
   margin: 30px
 .button
   margin: 30px
-.error
-  color: red
 </style>

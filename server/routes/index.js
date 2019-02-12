@@ -97,7 +97,7 @@ router.post('/record/register/api', function(req, res, next) {
   RecordRegister(req.body, res, db);
 })
 //記録の取得
-router.post('/record/search/item', function(req, res, next) {
+router.post('/record/search/api', function(req, res, next) {
   RecordSearch(req.body, res, db);
 })
 

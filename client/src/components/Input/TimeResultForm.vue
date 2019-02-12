@@ -90,4 +90,5 @@ export default {
   font-size: 16px
 .buttons
   display: flex
+  justify-content: center
 </style>

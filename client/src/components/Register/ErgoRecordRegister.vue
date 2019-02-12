@@ -12,9 +12,8 @@
         <span>アベレージタイムを入力(例:1:50.0)</span>
         <time-result-form :default="form.result" v-model="form.result" ></time-result-form>
       </div>
-      <div>
-        さらに入力する
-        <v-switch v-model="ext_col_disp_flg"></v-switch>
+      <div class="item checkbox">
+        <v-checkbox v-model="ext_col_disp_flg" color="indigo" label="さらに入力する"></v-checkbox>
       </div>
       <div class="ext_col" v-show="ext_col_disp_flg">
         <div class="item">
@@ -27,14 +26,17 @@
             :max="100"></el-input-number>
         </div>
         <div class="item">
-          <span>トータルタイムを追加</span>
-          <result-form v-model="form.total_time"></result-form>
-        </div>
-        <div class="item">
-          ダイナミックエルゴで漕いだ
-          <v-ons-switch input-id="switch1"
-            v-model="form.is_dinamic"
-          ></v-ons-switch>
+          エルゴの種類
+          <v-radio-group v-model="form.type">
+            <v-radio
+              label="ノーマル"
+              value="normal"
+            ></v-radio>
+            <v-radio
+              label="ダイナミック"
+              value="dinamic"
+            ></v-radio>
+          </v-radio-group>
         </div>
         <div class="item">
           <span>実施日を入れる(当日入力の場合は自動で設定されます)</span>
@@ -83,8 +85,7 @@ export default {
         record_item_id: -1,
         result: '1:50.0',
         rate: 20,
-        total_time: '',
-        is_dinamic: false,
+        type: 'normal',
         date: ''
       },
       err: null,
@@ -125,11 +126,8 @@ export default {
         if (this.form.rate !== null) {
           extend.rate = this.form.rate
         }
-        if (this.form.total_time !== null) {
-          extend.total_time = this.form.total_time
-        }
-        if (this.form.is_dinamic !== null) {
-          extend.is_dinamic = this.form.is_dinamic
+        if (this.form.type !== null) {
+          extend.type = this.form.type
         }
         body.extend = extend
       }
@@ -169,11 +167,19 @@ export default {
 <style lang="sass" scoped>
 .ergo-register
 .card
-  display: inline-block
+  display: flex
+  flex-direction: column
+  justify-items: start
   border: solid 2px #fd7e00
   background-color: #ffa905
 .item
   margin: 30px
+  display: flex
+  flex-direction: column
+  justify-content: center
 .button
   margin: 30px
+  max-width: 150px
+.checkbox
+  width: 200px
 </style>

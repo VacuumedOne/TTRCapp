@@ -2,14 +2,15 @@ var express = require('express');
 var router = express.Router();
 
 /* ローカルモジュール */
-var UserRegister = require('../lib/controller/User/UserRegister.js');
-var UserLogin = require('../lib/controller/User/UserLogin.js');
-var UserList = require('../lib/controller/User/UserList.js');
-var RecordGroupRegister = require('../lib/controller/RecordGroup/RecordGroupRegister.js');
-var RecordGroupList = require('../lib/controller/RecordGroup/RecordGroupList.js');
-var RecordItemRegister = require('../lib/controller/RecordItem/RecordItemRegister.js');
-var RecordItemList = require('../lib/controller/RecordItem/RecordItemList.js');
-var RecordRegister = require('../lib/controller/Record/RecordRegister.js');
+var UserRegister = require('../lib/controller/User/UserRegister');
+var UserLogin = require('../lib/controller/User/UserLogin');
+var UserList = require('../lib/controller/User/UserList');
+var RecordGroupRegister = require('../lib/controller/RecordGroup/RecordGroupRegister');
+var RecordGroupList = require('../lib/controller/RecordGroup/RecordGroupList');
+var RecordItemRegister = require('../lib/controller/RecordItem/RecordItemRegister');
+var RecordItemList = require('../lib/controller/RecordItem/RecordItemList');
+var RecordRegister = require('../lib/controller/Record/RecordRegister');
+var RecordSearch = require('../lib/controller/Record/RecordSearch')
 
 /* ローカルDB関連モジュール */
 
@@ -53,7 +54,7 @@ router.get('/test/login/register', function(req, res, next) {
 
 router.get('/test/json', function(req, res, next) {
   res.json({
-    "message": "やったぜ。"
+    "message": "success"
   })
 });
 
@@ -94,6 +95,10 @@ router.post('/record-item/list/api', function(req, res, next) {
 //記録の登録
 router.post('/record/register/api', function(req, res, next) {
   RecordRegister(req.body, res, db);
+})
+//記録の取得
+router.post('/record/search/item', function(req, res, next) {
+  RecordSearch(req.body, res, db);
 })
 
 module.exports = router;

@@ -4,21 +4,22 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-import { MdButton, MdContent, MdTabs, MdCard } from 'vue-material/dist/components'
+import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/ja'
-import 'onsenui/css/onsenui.css'
-import 'onsenui/css/onsen-css-components.css'
-import VueOnsen from 'vue-onsenui'
 
-Vue.use(MdButton)
-Vue.use(MdContent)
-Vue.use(MdTabs)
-Vue.use(MdCard)
+import ElementUI from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/ja'
+import 'element-ui/lib/theme-chalk/index.css'
+
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+
+Vue.use(VueMaterial)
 Vue.use(ElementUI, {locale})
-Vue.use(VueOnsen)
+Vue.use(Vuetify, {
+  iconfont: 'md'
+})
 
 Vue.config.productionTip = false
 

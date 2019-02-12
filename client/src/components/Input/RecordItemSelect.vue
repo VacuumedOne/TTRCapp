@@ -1,11 +1,14 @@
 <template>
   <div class="record-item-select">
-    <el-select placeholder="種目を選ぶ" v-model="value" v-on:input="$emit('input', value)">
+    <el-select
+      placeholder="種目を選ぶ"
+      v-model="value"
+      v-on:input="$emit('input', value)">
       <el-option
         v-for="item in items"
-        v-bind:value="item.item_id"
+        v-bind:value="item.id"
         v-bind:label="item.item_name"
-        v-bind:key="item.item_id"
+        v-bind:key="item.id"
         ></el-option>
     </el-select>
   </div>
@@ -35,9 +38,10 @@ export default {
   methods: {
   },
   created: function () {
-    axios.post('/record-item/list/api', {group_id: 3})
+    axios.post('/record-item/list/api', {group_id: 1})
       .then((result) => {
-        this.input = result.data.text
+        console.log(result)
+        this.input = result.data
       }).catch((err) => {
         console.error(err)
       })

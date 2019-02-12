@@ -5,18 +5,38 @@
       v-bind:login-user="loginUser"
       v-on:send="receiveFromChild"
       ></ergo-register>
+    <weight-register
+      v-if="state==='weight'"
+      v-bind:login-user="loginUser"
+      v-on:send="receiveFromChild"
+      ></weight-register>
+    <others-register
+      v-if="state==='others'"
+      v-bind:login-user="loginUser"
+      v-on:send="receiveFromChild"
+      ></others-register>
   </div>
 </template>
 
 <script>
 import ErgoRegister from '@/components/Register/ErgoRecordRegister'
+import WeightRegister from '@/components/Register/WeightRecordRegister'
+import OthersRegister from '@/components/Register/OthersRecordRegister'
 
 export default {
   name: 'Register',
-  props: ['loginUser'],
+  props: ['loginUser', 'mode'],
   data: () => {
     return {
       state: 'ergo'
+    }
+  },
+  mounted: function () {
+    this.state = this.mode
+  },
+  watch: {
+    mode: function () {
+      this.state = this.mode
     }
   },
   methods: {
@@ -28,16 +48,18 @@ export default {
       //ウェイト記録モード
       this.state = 'weight'
     },
-    gotoOtherRegister: function () {
+    gotoOthersRegister: function () {
       //その他記録モード
-      this.state = 'other'
+      this.state = 'others'
     },
     receiveFromChild: function (data) {
       this.$emit('send', data)
     }
   },
   components: {
-    'ergo-register': ErgoRegister
+    'ergo-register': ErgoRegister,
+    'weight-register': WeightRegister,
+    'others-register': OthersRegister
   }
 }
 </script>

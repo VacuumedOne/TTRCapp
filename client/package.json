@@ -19,7 +19,6 @@
     "dotenv": "^6.2.0",
     "element-ui": "^2.4.11",
     "node-sass": "^4.11.0",
-    "onsenui": "^2.10.6",
     "sass-loader": "^7.1.0",
     "vue": "^2.5.2",
     "vue-chartjs": "^3.4.0",

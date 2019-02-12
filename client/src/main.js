@@ -11,10 +11,6 @@ import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/ja'
 import 'element-ui/lib/theme-chalk/index.css'
 
-import VueOnsen from 'vue-onsenui'
-import 'onsenui/css/onsenui.css'
-import 'onsenui/css/onsen-css-components.css'
-
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'

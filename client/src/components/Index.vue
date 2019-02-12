@@ -108,7 +108,7 @@
         </v-list>
       </v-navigation-drawer>
       <v-content>
-        <v-container>
+        <v-container class="content">
           <transition name="fade">
             <top
               class="item top"
@@ -255,4 +255,6 @@ export default {
   transition: all 0.5 ease
 .fade-leave-to
   opacity: 0
+.content
+  // overflow: auto
 </style>

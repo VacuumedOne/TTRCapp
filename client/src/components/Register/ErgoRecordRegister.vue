@@ -14,7 +14,7 @@
       </div>
       <div>
         さらに入力する
-        <v-ons-switch v-model="ext_col_disp_flg"></v-ons-switch>
+        <v-switch v-model="ext_col_disp_flg"></v-switch>
       </div>
       <div class="ext_col" v-show="ext_col_disp_flg">
         <div class="item">

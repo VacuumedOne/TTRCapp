@@ -17,7 +17,6 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.use(VueMaterial)
 Vue.use(ElementUI, {locale})
-Vue.use(VueOnsen)
 Vue.use(Vuetify, {
   iconfont: 'md'
 })

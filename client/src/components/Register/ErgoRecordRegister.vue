@@ -66,7 +66,7 @@ import RecordItemSelect from '@/components/Input/RecordItemSelect'
 import ResultForm from '@/components/Input/ResultForm'
 import Submit from '@/components/Input/Submit'
 import DatePicker from '@/components/Input/DatePicker'
-import TimeResultForm from  '@/components/Input/TimeResultForm'
+import TimeResultForm from '@/components/Input/TimeResultForm'
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true

@@ -49,10 +49,10 @@ export default {
   watch: {
     result_ms: function () {
       console.log(333)
-      let min = Math.floor(this.result_ms/60000)
-      let s   = Math.floor((this.result_ms%60000)/1000)
-      let ms  = (this.result_ms%1000)/100
-      let disp = '' + min + ':' + this.zeroPadding(s,2) + ':' + ms
+      let min = Math.floor(this.result_ms / 60000)
+      let s = Math.floor((this.result_ms % 60000) / 1000)
+      let ms = (this.result_ms % 1000) / 100
+      let disp = '' + min + ':' + this.zeroPadding(s, 2) + ':' + ms
       this.disp_num = disp
       this.$emit('input', disp)
     }
@@ -62,11 +62,11 @@ export default {
       //numをdigit桁で0パディングする
       //例) zeroPadding(5, 3) => 005
       let padded = ''
-      for(let i=0;i<digit;i++){
+      for (let i = 0; i < digit; i++) {
         padded += '0'
       }
       padded += num
-      return padded.slice((-1)*digit)
+      return padded.slice((-1) * digit)
     },
     addToResult: function (num) {
       this.result_ms += num

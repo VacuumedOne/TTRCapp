@@ -11,6 +11,7 @@
       <div class="item">
         <span>アベレージタイムを入力(例:1:50.0)</span>
         <result-form v-model="form.result"></result-form>
+        <time-result-form default="1:50.0"></time-result-form>
       </div>
       <div>
         さらに入力する
@@ -66,6 +67,7 @@ import RecordItemSelect from '@/components/Input/RecordItemSelect'
 import ResultForm from '@/components/Input/ResultForm'
 import Submit from '@/components/Input/Submit'
 import DatePicker from '@/components/Input/DatePicker'
+import TimeResultForm from  '@/components/Input/TimeResultForm'
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
@@ -159,7 +161,8 @@ export default {
     'record-item-select': RecordItemSelect,
     'result-form': ResultForm,
     'submit': Submit,
-    'date-picker': DatePicker
+    'date-picker': DatePicker,
+    'time-result-form': TimeResultForm
   }
 }
 </script>
@@ -168,7 +171,8 @@ export default {
 .ergo-register
 .card
   display: inline-block
-  background-color: springgreen
+  border: solid 2px #fd7e00
+  background-color: #ffa905
 .item
   margin: 30px
 .button

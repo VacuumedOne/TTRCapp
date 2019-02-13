@@ -1,16 +1,20 @@
 <template>
-  <div id='Login'>
-    <h2 id="title">{{ msg }}</h2>
-    <div id="login_form">
-      <div>
-        <text-form name="user_name" placeholder=" ユーザ名(英数字)" v-model="form.user_name"></text-form>
+  <div class='login'>
+    <div class="card elevation-5">
+      <h2 class="title">{{ msg }}</h2>
+      <div class="login_form">
+        <div>
+          <v-text-field v-model="form.email" outline label="メールアドレス"></v-text-field>
+        </div>
+        <div>
+          <v-text-field v-model="form.password" outline label="パスワード" type="password"></v-text-field>
+        </div>
+        <v-btn v-on:click="loginAPI">ログイン</v-btn>
+        {{ form }}
       </div>
-      <password-form name="hashed_pw" placeholder=" パスワード(8文字以上英数字)" v-model="form.password"></password-form>
-      <submit type="button" value="Log in" v-on:click="loginAPI"></submit>
-      {{ form }}
-    </div>
-    <div>
-      <span>{{ msg2 }}</span><a href="/#/user/register">こちら</a>
+      <div>
+        <span>{{ msg2 }}</span><label class="link" @click="sendToParent('signUp')">こちら</label>
+      </div>
     </div>
   </div>
 </template>
@@ -31,7 +35,7 @@ export default {
       msg: 'Welcome Back!',
       msg2: 'アカウントを持っていない方は',
       form: {
-        user_name: '',
+        email: '',
         password: ''
       }
     }
@@ -44,6 +48,9 @@ export default {
         }).catch((err) => {
           console.log(err)
         })
+    },
+    sendToParent: function (msg) {
+      this.$emit('send', msg)
     }
   },
   components: {
@@ -55,9 +62,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-  #Login
-    background-color: #1955A6
-    color: #EEE
-    padding-top: 50px
-    height: 100vh
+.card
+  background-color: white
+  padding: 20px
+  margin: 5px
+  border-radius: 5px
+.link
+  color: blue
 </style>

@@ -1,25 +1,73 @@
 <template>
-  <div id='UserRegister'>
-    <h2 id="title">{{ msg }}</h2>
-    <div id="user_register_form">
-      <div>
-        <text-form class="text" name="user_name" placeholder=" ユーザ名(英数字)" v-model="form.user_name"></text-form>
+  <div class='user_register'>
+    <div class="card elevation-5">
+      <h2 class="title">{{ msg }}</h2>
+      <div class="user_register_form">
+        <v-layout row wrap justify-center>
+          <v-flex md3></v-flex>
+          <v-flex md6>
+            <v-text-field v-model="form.user_name" outline class="input" label="ユーザ名(英数字10文字以下)"></v-text-field>
+          </v-flex>
+          <v-flex md3></v-flex>
+          <v-flex md3></v-flex>
+          <v-flex md6>
+            <v-text-field v-model="form.mail" outline class="input" label="メールアドレス"></v-text-field>
+          </v-flex>
+          <v-flex md3></v-flex>
+          <v-flex md2></v-flex>
+          <v-flex md4>
+            <v-text-field v-model="form.k_lastname" outline class="input" label="姓"></v-text-field>
+          </v-flex>
+          <v-flex md4>
+            <v-text-field v-model="form.k_firstname" outline class="input" label="名"></v-text-field>
+          </v-flex>
+          <v-flex md2></v-flex>
+          <v-flex md2></v-flex>
+          <v-flex md4>
+            <v-text-field v-model="form.h_lastname" outline class="input" label="姓(ふりがな)"></v-text-field>
+          </v-flex>
+          <v-flex md4>
+            <v-text-field v-model="form.h_firstname" outline class="input" label="名(ふりがな)"></v-text-field>
+          </v-flex>
+          <v-flex md2></v-flex>
+          <v-flex md3></v-flex>
+          <v-flex md6>
+            <v-text-field v-model="form.password" outline type="password" class="input" label="パスワード(英数字8文字以上)"></v-text-field>
+          </v-flex>
+          <v-flex md3></v-flex>
+          <v-flex md3></v-flex>
+          <v-flex md6>
+            <v-text-field v-model="confirm" outline type="password" class="input" label="確認のため、もう一度パスワードを入力してください"></v-text-field>
+          </v-flex>
+          <v-flex md3></v-flex>
+          <v-flex md3></v-flex>
+          <v-flex md6>
+            <v-radio-group v-model="form.sex">
+              <v-radio
+                label="男"
+                value="male"
+              ></v-radio>
+              <v-radio
+                label="女"
+                value="female"
+              ></v-radio>
+            </v-radio-group>
+          </v-flex>
+          <v-flex md3></v-flex>
+          <v-flex md3></v-flex>
+          <v-flex md6>
+            <v-select
+              label="役職"
+              :items="roles"
+            ></v-select>
+          </v-flex>
+          <v-flex md3></v-flex>
+        </v-layout>
+        <label>生年月日</label><date-form name="birth_ymd" v-model="form.birth_ymd"></date-form>
+        <label>役職</label><auth-form name="auth" v-model="form.auth"></auth-form>
+        <v-btn v-on:click="postUserRegisterAPI">新規登録！</v-btn>
+        {{ form }}
       </div>
-      <div>
-        <text-form class="text" name="k_lastname" placeholder=" 姓" v-model="form.k_lastname"></text-form>
-        <text-form class="text" name="k_firstname" placeholder=" 名" v-model="form.k_firstname"></text-form>
-      </div>
-      <div>
-        <text-form class="text" name="h_lastname" placeholder=" 姓(ふりがな)" v-model="form.h_lastname"></text-form>
-        <text-form class="text" name="h_firstname" placeholder=" 名(ふりがな)" v-model="form.h_firstname"></text-form>
-      </div>
-      <password-form name="hashed_pw" placeholder=" パスワード(8文字以上英数字)" v-model="form.password"></password-form>
-      <email-form name="mail" placeholder="メールアドレス" v-model="form.mail"></email-form>
-      <label>性別</label><sex-form name="sex" v-model="form.sex"></sex-form>
-      <label>生年月日</label><date-form name="birth_ymd" v-model="form.birth_ymd"></date-form>
-      <label>役職</label><auth-form name="auth" v-model="form.auth"></auth-form>
-      <submit type="button" value="Sign Up" v-on:click="postUserRegisterAPI"></submit>
-      {{ form }}
     </div>
   </div>
 </template>
@@ -53,7 +101,13 @@ export default {
         sex: 'male',
         birth_ymd: '',
         auth: '0'
-      }
+      },
+      confirm: '',
+      roles: [
+        'コックスもしくはマネージャー',
+        '選手',
+        'その他'
+      ]
     }
   },
   methods: {
@@ -79,11 +133,13 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-  #UserRegister
-    background-color: #1955A6
-    color: #EEE
-    padding-top: 50px
-    height: 100vh
-  .text
-    display: inline
+.card
+  background-color: white
+  padding: 20px
+  margin: 5px
+  border-radius: 5px
+.link
+  color: blue
+.input
+  margin-left: 10px
 </style>

@@ -43,16 +43,17 @@ db.sync(function(errs){
   console.log('Model definition has been updated.', errs);
 })
 
+//passport.jsの設定関連
+var passport = require('passport');
+require('../lib/controller/User/Passport')(db)
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/test/login/register', function(req, res, next) {
-  res.render('index', { title: 'UserRegister' });
-});
-
-router.get('/test/json', function(req, res, next) {
+router.get('/test/connect', function(req, res, next) {
   res.json({
     "message": "success"
   })
@@ -68,10 +69,22 @@ router.post('/test/post/api', function(req, res, next) {
 router.post('/user/register/api', function(req, res, next) {
   UserRegister(req.body, res, db);
 });
-//ユーザ認証
-router.post('/user/login/api', function(req, res, next) {
-  UserLogin(req.body, res, db);
+//ユーザ認証からのセッション獲得
+router.post('/login/api',
+  passport.authenticate('local', {sesssion: true}),
+  function(req, res, next) {
+    res.status(200).send('Login Successful.')
 });
+//認証チェック
+router.get('/is-authenticated/api', function(req, res, next) {
+  if (req.isAuthenticated()) {  //認証チェック
+    res.status(200).json({
+      user: req.user
+    });
+  } else {  // 認証されていない
+    res.sendStatus(401);
+  }
+})
 //ユーザ全取得
 router.post('/user/list/api', function(req, res, next) {
   UserList(res, db);

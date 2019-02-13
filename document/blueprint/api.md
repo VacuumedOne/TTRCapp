@@ -290,3 +290,52 @@
 + Response 500
   + サーバ側の問題です。
   + Body
+
+## 記録検索 [/record/search/api]
+
+### 記録検索 [POST]
+
+検索条件に当てはまる記録を取得します。
++ Request example
+  + Body
+     ```json
+      {
+        "user_id": 1,
+        "item_id": 1
+      }
+     ```
++ Response 200
+  + Body
+    ```json
+      [
+        {
+          "id": 11,
+          "player_id": 1,
+          "registerer_id": 1,
+          "item_id": 13,
+          "date": "2019-02-13T00:00:00.000Z",
+          "result": "1:47:4",
+          "extends": null,
+          "createdAt": "2019-02-12T17:11:43.000Z",
+          "updatedAt": "2019-02-12T17:11:43.000Z",
+          "RecordItem": {
+            "item_name": "15分",
+            "group_id": 1,
+            "unit": ""
+          },
+          "User": {
+            "k_lastname": "山田",
+            "k_firstname": "太郎"
+          }
+        }
+      ]
+    ```
++ Response 400
+  + 検索条件が一つも与えられなかった場合、失敗します。
+  + Body
+    ```txt
+      "At least one search condition is required." 
+    ```
++ Response 500
+  + サーバ側の問題です。
+  + Body

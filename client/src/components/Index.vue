@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <v-app>
+    <v-app v-if="is_login">
       <v-toolbar color="indigo" dark fixed app>
         <v-toolbar-side-icon
           @click="toggleDrawer"
@@ -138,6 +138,7 @@
       </v-content>
       
     </v-app>
+    <auth v-if="!is_login"></auth>
   </div>
 </template>
 
@@ -146,12 +147,13 @@
 import Top from '@/components/Top'
 import Register from '@/components/Register'
 import View from '@/components/View'
+import Auth from '@/components/Auth'
 
 export default {
   name: 'Index',
   data: () => {
     return {
-      is_login: true,
+      is_login: false,
       state: 'top',
       login_user: {
         user_id: 1,
@@ -235,7 +237,8 @@ export default {
   components: {
     'top': Top,
     'register': Register,
-    'c-view': View
+    'c-view': View,
+    'auth': Auth
   }
 }
 </script>

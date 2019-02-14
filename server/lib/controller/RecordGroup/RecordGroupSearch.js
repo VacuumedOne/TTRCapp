@@ -12,6 +12,10 @@ module.exports = function(body, res, db) {
   }
 
   RecordGroup.findOne({
+    attributes: [
+      'group_name',
+      'id'
+    ],
     where: {
       group_name: body.group_name
     }

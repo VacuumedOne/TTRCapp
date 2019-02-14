@@ -2,14 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 /* ローカルモジュール */
-var UserRegister = require('../lib/controller/User/UserRegister.js');
-var UserLogin = require('../lib/controller/User/UserLogin.js');
-var UserList = require('../lib/controller/User/UserList.js');
-var RecordGroupRegister = require('../lib/controller/RecordGroup/RecordGroupRegister.js');
-var RecordGroupList = require('../lib/controller/RecordGroup/RecordGroupList.js');
-var RecordItemRegister = require('../lib/controller/RecordItem/RecordItemRegister.js');
-var RecordItemList = require('../lib/controller/RecordItem/RecordItemList.js');
-var RecordRegister = require('../lib/controller/Record/RecordRegister.js');
+var UserRegister = require('../lib/controller/User/UserRegister');
+var UserLogin = require('../lib/controller/User/UserLogin');
+var UserList = require('../lib/controller/User/UserList');
+var RecordGroupRegister = require('../lib/controller/RecordGroup/RecordGroupRegister');
+var RecordGroupList = require('../lib/controller/RecordGroup/RecordGroupList');
+var RecordGroupSearch = require('../lib/controller/RecordGroup/RecordGroupSearch');
+var RecordItemRegister = require('../lib/controller/RecordItem/RecordItemRegister');
+var RecordItemList = require('../lib/controller/RecordItem/RecordItemList');
+var RecordRegister = require('../lib/controller/Record/RecordRegister');
+var RecordSearch = require('../lib/controller/Record/RecordSearch')
 
 /* ローカルDB関連モジュール */
 
@@ -42,18 +44,19 @@ db.sync(function(errs){
   console.log('Model definition has been updated.', errs);
 })
 
+//passport.jsの設定関連
+var passport = require('passport');
+require('../lib/controller/User/Passport')(db)
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/test/login/register', function(req, res, next) {
-  res.render('index', { title: 'UserRegister' });
-});
-
-router.get('/test/json', function(req, res, next) {
+router.get('/test/connect', function(req, res, next) {
   res.json({
-    "message": "やったぜ。"
+    "message": "success"
   })
 });
 
@@ -67,10 +70,24 @@ router.post('/test/post/api', function(req, res, next) {
 router.post('/user/register/api', function(req, res, next) {
   UserRegister(req.body, res, db);
 });
-//ユーザ認証
-router.post('/user/login/api', function(req, res, next) {
-  UserLogin(req.body, res, db);
+//ユーザ認証からのセッション獲得
+router.post('/login/api',
+  passport.authenticate('local', {sesssion: true}),
+  function(req, res, next) {
+    res.status(200).send('Login Successful.')
 });
+//認証チェック
+router.get('/is-authenticated/api', function(req, res, next) {
+  if (req.isAuthenticated()) {  //認証チェック
+    console.log('hogehoge')
+    res.status(200).json({
+      user: req.user
+    });
+  } else {  // 認証されていない
+    console.log('fugafuga')
+    res.sendStatus(401);
+  }
+})
 //ユーザ全取得
 router.post('/user/list/api', function(req, res, next) {
   UserList(res, db);
@@ -83,6 +100,10 @@ router.post('/record-group/register/api', function(req, res, next) {
 router.post('/record-group/list/api', function(req, res, next) {
   RecordGroupList(res, db);
 })
+//記録グループの名前検索
+router.post('/record-group/search/api', function(req, res, next) {
+  RecordGroupSearch(req.body, res, db);
+})
 //記録アイテムの登録
 router.post('/record-item/register/api', function(req, res, next) {
   RecordItemRegister(req.body, res, db);
@@ -94,6 +115,10 @@ router.post('/record-item/list/api', function(req, res, next) {
 //記録の登録
 router.post('/record/register/api', function(req, res, next) {
   RecordRegister(req.body, res, db);
+})
+//記録の取得
+router.post('/record/search/api', function(req, res, next) {
+  RecordSearch(req.body, res, db);
 })
 
 module.exports = router;

@@ -41,5 +41,13 @@ module.exports = function (db) {
       allowNull: true
     }
   })
+  Record.belongsTo(RecordItem, {
+    foreignKey: 'item_id',
+    targetKey: 'id'
+  })
+  Record.belongsTo(User, {
+    foreignKey: 'player_id',
+    targetKey: 'id'
+  })
   return Record
 }

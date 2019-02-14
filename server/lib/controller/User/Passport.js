@@ -14,7 +14,7 @@ module.exports = function (db) {
       usernameField: 'email',
       passwordField: 'password'
     },
-    (email, password, callback) => {
+    (email, password, done) => {
       User.findOne({
         attributes: [
           'id'
@@ -23,15 +23,14 @@ module.exports = function (db) {
           'mail': email,
           'hashed_pw': Hash.getHashedText(password)
         }
-      }).then(result => {
-        if(result === null){
-          return callback(result, false, {'message': 'Incorrect User'})
+      }).then(user => {
+        if(user === null){
+          return done(null, false, {'message': 'Incorrect User'})
         }else{
-          console.log(result.user)
-          return callback(result)
+          return done(null, user)
         }
       }).catch(err => {
-        return callback(err)
+        return done(null, err)
       })
     }
   ));
@@ -41,7 +40,7 @@ module.exports = function (db) {
    * ログインしたユーザの情報を受けて、そのidをセッションに保存する
    */
   passport.serializeUser((user, done) => {
-    console.log('hogehoge')
+    console.log(user.id)
     done(null, user.id);
   })
 
@@ -50,11 +49,26 @@ module.exports = function (db) {
    * セッション情報からユーザ情報を復元して返す。
    */
   passport.deserializeUser((id, done) => {
-    User.findById(id)
-      .then(user => {
-        done(user)
-      }).catch(err => {
-        done(null, false, {'message': 'Server error. Something wrong.'})
-      })
+    User.findOne({
+      attributes: [
+        'id',
+        'user_name',
+        'mail',
+        'sex',
+        'k_lastname',
+        'k_firstname',
+        'h_lastname',
+        'h_firstname',
+        'auth',
+        'birth_ymd'
+      ],
+      where: {
+        id: id
+      }
+    }).then(user => {
+      done(null, user)
+    }).catch(err => {
+      done(null, false, {'message': 'Server error. Something wrong.'})
+    })
   })
 }

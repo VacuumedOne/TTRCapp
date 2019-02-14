@@ -78,10 +78,12 @@ router.post('/login/api',
 //認証チェック
 router.get('/is-authenticated/api', function(req, res, next) {
   if (req.isAuthenticated()) {  //認証チェック
+    console.log('hogehoge')
     res.status(200).json({
       user: req.user
     });
   } else {  // 認証されていない
+    console.log('fugafuga')
     res.sendStatus(401);
   }
 })

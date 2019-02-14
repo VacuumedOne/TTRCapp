@@ -4,7 +4,7 @@
       <h2 class="title">{{ msg }}</h2>
       <div class="login_form">
         <div>
-          <v-text-field v-model="form.email" outline label="メールアドレス"></v-text-field>
+          <v-text-field v-model="form.mail" outline label="メールアドレス"></v-text-field>
         </div>
         <div>
           <v-text-field v-model="form.password" outline label="パスワード" type="password"></v-text-field>
@@ -16,6 +16,62 @@
         <span>{{ msg2 }}</span><label class="link" @click="sendToParent('signUp')">こちら</label>
       </div>
     </div>
+    <v-dialog
+          v-model="err_disp_flg"
+          width="500"
+        >
+          <v-card>
+            <v-card-title
+              class="headline grey lighten-2"
+              primary-title
+            >
+              登録に失敗しました。
+            </v-card-title>
+            <v-card-text>
+              <template v-for="(error, index) in err">
+                <div class="body-2" :key="index">{{error}}</div>
+              </template>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                flat
+                @click="err_disp_flg = false"
+              >
+                OK
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog
+          v-model="success_disp_flg"
+          width="500"
+        >
+          <v-card>
+            <v-card-title
+              class="headline grey lighten-2"
+              primary-title
+            >
+              ようこそ、nullさん。
+            </v-card-title>
+            <v-card-text>
+              <div class="body-2">登録に成功しました。</div>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                flat
+                @click="gotoTop"
+              >
+                OK
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
   </div>
 </template>
 
@@ -35,22 +91,34 @@ export default {
       msg: 'Welcome Back!',
       msg2: 'アカウントを持っていない方は',
       form: {
-        email: '',
+        mail: '',
         password: ''
-      }
+      },
+      err: [],
+      err_disp_flg: false,
+      success_disp_flg: false
     }
   },
   methods: {
-    loginAPI: function () {
-      axios.post('/user/login/api', this.form)
-        .then((result) => {
-          console.log(result)
-        }).catch((err) => {
-          console.log(err)
-        })
+    loginAPI: async function () {
+      try {
+        let res = await axios.post('/login/api', this.form)
+        if (res.status === 200) {
+          this.success_disp_flg = true
+        } else {
+          this.err_disp_flg = true
+          this.err = ['ログインに失敗しました。']
+        }
+      } catch (err) {
+        this.err_disp_flg = true
+        this.err = ['ログインに失敗しました。']
+      }
     },
     sendToParent: function (msg) {
       this.$emit('send', msg)
+    },
+    gotoTop: function () {
+      this.$emit('login')
     }
   },
   components: {

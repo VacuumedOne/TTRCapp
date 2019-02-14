@@ -41,7 +41,7 @@ export default {
       }
     },
     logIn: function (user) {
-      this.$emit('login', user)
+      this.$emit('login')
     }
   },
   components: {

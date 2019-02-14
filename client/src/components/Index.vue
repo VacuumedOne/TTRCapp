@@ -236,8 +236,8 @@ export default {
         this.gotoTop()
       }
     },
-    logIn: function (user) {
-      this.login_user = user
+    logIn: function () {
+      //セッション獲得まで行われていることを前提
       this.is_login = true
     }
   },

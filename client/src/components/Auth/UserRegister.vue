@@ -313,7 +313,7 @@ export default {
     },
     gotoTop: function () {
       this.success_disp_flg = false
-      this.$emit('login', this.login_user)
+      this.$emit('login')
     }
   },
   mounted: function () {

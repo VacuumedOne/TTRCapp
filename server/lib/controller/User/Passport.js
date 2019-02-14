@@ -40,7 +40,6 @@ module.exports = function (db) {
    * ログインしたユーザの情報を受けて、そのidをセッションに保存する
    */
   passport.serializeUser((user, done) => {
-    console.log(user.id)
     done(null, user.id);
   })
 

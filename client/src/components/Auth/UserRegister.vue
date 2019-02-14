@@ -158,7 +158,7 @@
               <v-btn
                 color="primary"
                 flat
-                @click="success_disp_flg = false"
+                @click="gotoTop"
               >
                 OK
               </v-btn>
@@ -221,25 +221,48 @@ export default {
       day_options: [],
       err: [],
       err_disp_flg: false,
-      success_disp_flg: false
+      success_disp_flg: false,
+      login_user: {}
     }
   },
   
   methods: {
-    postUserRegisterAPI: function () {
+    postUserRegisterAPI: async function () {
       this.beforePost()
       console.log(this.form)
       if (this.err.length > 0) {
         this.err_disp_flg = true
         return
       }
-      axios.post('/user/register/api', this.form)
-        .then((result) => {
-          console.log(result)
-        }).catch((err) => {
-          console.log(err)
+      try {
+        //ユーザを登録する
+        let res = await axios.post('/user/register/api', this.form)
+        if (res.status === 200) {
+          this.success_disp_flg = true
+          this.login_user = res.data
+        } else {
+          this.err.push('登録に失敗しました。入力を確認して再度試してください。')
+          this.err.push('(内容が他のユーザと重複している可能性があります)')
+          this.err_disp_flg = true
+        }
+        if (this.err.length > 0) {
+          return
+        }
+        //成功した場合はセッションを取得する
+        res = await axios.post('/login/api', {
+          mail: this.form.mail,
+          password: this.form.password
         })
-      this.success_disp_flg = true
+        if (res.status === 200) {
+          console.log('Login successful.')
+        } else {
+          this.err.push('ユーザ登録は成功しましたが、遷移に失敗しました。再度トップからログインしてください。')
+          this.err_disp_flg = true
+        }
+      } catch (err) {
+        this.err_disp_flg = true
+        this.err.push('不明なエラーです')
+      }
     },
     beforePost: function () {
       let ymd = ''
@@ -287,6 +310,10 @@ export default {
         }
         return arr
       }
+    },
+    gotoTop: function () {
+      this.success_disp_flg = false
+      this.$emit('login', this.login_user)
     }
   },
   mounted: function () {

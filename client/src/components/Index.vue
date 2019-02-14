@@ -138,7 +138,10 @@
       </v-content>
       
     </v-app>
-    <auth v-if="!is_login"></auth>
+    <auth
+      v-if="!is_login"
+      @login="logIn"
+    ></auth>
   </div>
 </template>
 
@@ -232,6 +235,10 @@ export default {
       } else if (data === 'top') {
         this.gotoTop()
       }
+    },
+    logIn: function (user) {
+      this.login_user = user
+      this.is_login = true
     }
   },
   components: {

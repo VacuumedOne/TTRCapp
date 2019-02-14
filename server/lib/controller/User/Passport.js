@@ -11,7 +11,7 @@ module.exports = function (db) {
    * postでemailとpasswordを受け取る
    */
   passport.use(new localStrategy({
-      usernameField: 'email',
+      usernameField: 'mail',
       passwordField: 'password'
     },
     (email, password, done) => {

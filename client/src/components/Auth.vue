@@ -4,11 +4,13 @@
       class="item"
       v-if="state==='signIn'"
       @send="receiveFromChild"
+      @login="logIn"
     ></sign-in>
     <sign-up
       class="item"
       v-if="state==='signUp'"
       @send="receiveFromChild"
+      @login="logIn"
     ></sign-up>
   </div>
 </template>
@@ -37,6 +39,9 @@ export default {
       } else if (msg === 'signIn') {
         this.gotoSignInForm()
       }
+    },
+    logIn: function (user) {
+      this.$emit('login', user)
     }
   },
   components: {

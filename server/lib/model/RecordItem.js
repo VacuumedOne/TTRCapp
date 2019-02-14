@@ -21,5 +21,9 @@ module.exports = function (db) {
       defaultValue: ''
     }
   })
+  RecordItem.belongsTo(RecordGroup, {
+    foreignKey: 'group_id',
+    targetKey: 'id'
+  })
   return RecordItem
 }

@@ -2,7 +2,7 @@ module.exports = function(res, db) {
   var RecordGroup = require('../../model/RecordGroup')(db)
 
   /**
-   * GETで受け取るので引数はなし
+   * 引数はなし
    */
 
   RecordGroup.findAll()

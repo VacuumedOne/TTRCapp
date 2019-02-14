@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 
+var passport = require('passport');
+var session = require('express-session');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -26,6 +29,15 @@ var corsOptions = {
   origin: 'http://localhost:8080'
 };
 app.use(cors(corsOptions));
+
+//passportとセッション
+app.use(session({
+  secret: 'Tsubakuro',
+  resave: true,
+  saveUninitiailzed: true
+}));
+app.use(passport.initialize());
+app.use(passport.session())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

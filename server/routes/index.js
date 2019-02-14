@@ -7,6 +7,7 @@ var UserLogin = require('../lib/controller/User/UserLogin');
 var UserList = require('../lib/controller/User/UserList');
 var RecordGroupRegister = require('../lib/controller/RecordGroup/RecordGroupRegister');
 var RecordGroupList = require('../lib/controller/RecordGroup/RecordGroupList');
+var RecordGroupSearch = require('../lib/controller/RecordGroup/RecordGroupSearch');
 var RecordItemRegister = require('../lib/controller/RecordItem/RecordItemRegister');
 var RecordItemList = require('../lib/controller/RecordItem/RecordItemList');
 var RecordRegister = require('../lib/controller/Record/RecordRegister');
@@ -98,6 +99,10 @@ router.post('/record-group/register/api', function(req, res, next) {
 //記録グループの全取得
 router.post('/record-group/list/api', function(req, res, next) {
   RecordGroupList(res, db);
+})
+//記録グループの名前検索
+router.post('/record-group/search/api', function(req, res, next) {
+  RecordGroupSearch(req.body, res, db);
 })
 //記録アイテムの登録
 router.post('/record-item/register/api', function(req, res, next) {

@@ -44,7 +44,7 @@
             <v-flex xs1 md3></v-flex>
             <v-flex xs10 md6>
               <v-radio-group v-model="form.sex">
-                <label>性別</label>
+                <label class="title">性別</label>
                 <v-radio
                   label="男"
                   value="male"
@@ -59,7 +59,7 @@
             <v-flex xs1 md3></v-flex>
             <v-flex xs10 md6>
               <v-radio-group v-model="form.auth">
-                <label>役職</label>
+                <label class="title">役職</label>
                 <v-radio
                   label="コックス/マネージャー"
                   value="2"
@@ -76,7 +76,8 @@
             </v-flex>
             <v-flex xs1 md3></v-flex>
             <v-flex xs1 md3></v-flex>
-            <v-flex xs10 md6>
+            <v-flex class="birth_ymd" xs10 md6>
+              <label class="title">生年月日</label>
               <v-layout row wrap>
                 <v-flex xs4 md4>
                   <v-select
@@ -322,4 +323,6 @@ export default {
   margin: 15px
 .submit
   margin-bottom: 50px
+.birth_ymd
+  text-align: left
 </style>

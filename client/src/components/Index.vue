@@ -6,6 +6,10 @@
           @click="toggleDrawer"
         ></v-toolbar-side-icon>
         <v-toolbar-title v-ripple @click="gotoTop">Tsubakuro</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <label class="body-1">
+          {{login_user.k_lastname + login_user.k_firstname}}
+        </label>
       </v-toolbar>
       <v-navigation-drawer
         v-model="drawer_disp_flg"
@@ -152,36 +156,44 @@ import Register from '@/components/Register'
 import View from '@/components/View'
 import Auth from '@/components/Auth'
 
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.withCredentials = true
+
 export default {
   name: 'Index',
   data: () => {
     return {
       is_login: false,
       state: 'top',
-      login_user: {
-        user_id: 1,
-        user_name: 'シモン',
-        sex: 'male',
-        auth: 2,
-        is_active: true
-      },
+      login_user: null,
       register_mode: '',
       view_mode: '',
       drawer_disp_flg: null
     }
   },
   mounted: function () {
-    if (this.$vuetify.breakpoint.width < 1013) {
+    if (this.$vuetify.breakpoint.width < 1020) {
       //小さい画面の時、デフォルトでDrawerは閉じている
       this.drawer_disp_flg = false
     } else {
       //大きい画面の時、デフォルトでDrawerは開いている
       this.drawer_disp_flg = true
     }
+    this.isAuthenticated()
   },
   methods: {
-    isAuthenticated: function () {
+    isAuthenticated: async function () {
       //認証してログイン情報を取得する
+      let res = await axios.get('/is-authenticated/api')
+      if (res.status === 200 || res.status === 304) {
+        console.log('Welocome!')
+        this.login_user = res.data.user
+        this.is_login = true
+      } else {
+        console.log('Please login.')
+        this.is_login = false
+      }
     },
     logout: function () {
       //ログアウトする
@@ -216,7 +228,10 @@ export default {
       this.state = 'loading'
     },
     beforeGoto: function () {
-
+      if (this.$vuetify.breakpoint.width < 1020) {
+        //小さい画面の時、遷移時にメニューは閉じる
+        this.drawer_disp_flg = false
+      }
     },
     toggleDrawer: function () {
       this.drawer_disp_flg = !this.drawer_disp_flg
@@ -239,6 +254,15 @@ export default {
     logIn: function () {
       //セッション獲得まで行われていることを前提
       this.is_login = true
+    },
+    logOut: async function () {
+      //ログアウトを行う
+      let res = await axios.get('/logout/api')
+      if (res.status === 200) {
+        console.log('Logout successful.')
+        this.login_user = null
+        this.is_login = false
+      }
     }
   },
   components: {

@@ -91,7 +91,7 @@ router.get('/is-authenticated/api', function(req, res, next) {
 //ログアウト
 router.get('/logout/api', function(req, res, next) {
   req.logout();
-  res.sendStatus(200);
+  res.status(200).send('Logout Successful.');
 })
 //ユーザ全取得
 router.post('/user/list/api', function(req, res, next) {

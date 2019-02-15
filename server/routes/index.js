@@ -88,6 +88,11 @@ router.get('/is-authenticated/api', function(req, res, next) {
     res.sendStatus(401);
   }
 })
+//ログアウト
+router.get('/logout/api', function(req, res, next) {
+  req.logout();
+  res.sendStatus(200);
+})
 //ユーザ全取得
 router.post('/user/list/api', function(req, res, next) {
   UserList(res, db);

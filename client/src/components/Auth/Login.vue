@@ -54,12 +54,8 @@
               class="headline grey lighten-2"
               primary-title
             >
-              ようこそ、nullさん。
+              ログインに成功しました。
             </v-card-title>
-            <v-card-text>
-              <div class="body-2">登録に成功しました。</div>
-            </v-card-text>
-            <v-divider></v-divider>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn

@@ -147,7 +147,7 @@
               class="headline grey lighten-2"
               primary-title
             >
-              ようこそ、nullさん。
+              ようこそ、{{form.k_lastname + form.k_firstname}}さん。
             </v-card-title>
             <v-card-text>
               <div class="body-2">登録に成功しました。</div>

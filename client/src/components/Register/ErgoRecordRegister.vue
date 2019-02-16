@@ -1,7 +1,7 @@
 <template>
   <div class="ergo-register">
     <div class="card elevation-5">
-      <h2>エルゴを記録</h2>
+      <h2 class="display-1">エルゴを記録</h2>
       <div class="item">
         <span>種目を選ぶ</span>
         <record-item-select
@@ -15,36 +15,34 @@
       <div class="item checkbox">
         <v-checkbox v-model="ext_col_disp_flg" color="indigo" label="さらに入力する"></v-checkbox>
       </div>
-      <div class="ext_col" v-show="ext_col_disp_flg">
-        <div class="item">
-          <span>レート(stroke/min)</span>
-          <el-input-number
-            class="number_form"
-            v-model="form.rate"
-            size="medium"
-            :min="1"
-            :max="100"></el-input-number>
-        </div>
-        <div class="item">
-          エルゴの種類
-          <v-radio-group v-model="form.type">
-            <v-radio
-              label="ノーマル"
-              value="normal"
-            ></v-radio>
-            <v-radio
-              label="ダイナミック"
-              value="dinamic"
-            ></v-radio>
-          </v-radio-group>
-        </div>
-        <div class="item">
-          <span>実施日を入れる(当日入力の場合は自動で設定されます)</span>
-          <date-picker
-            v-model="form.date"
-            type="date">
-          </date-picker>
-        </div>
+      <div class="item" v-if="ext_col_disp_flg">
+        <span>レート(stroke/min)</span>
+        <el-input-number
+          class="number_form"
+          v-model="form.rate"
+          size="medium"
+          :min="1"
+          :max="100"></el-input-number>
+      </div>
+      <div class="item" v-if="ext_col_disp_flg">
+        エルゴの種類
+        <v-radio-group v-model="form.type">
+          <v-radio
+            label="ノーマル"
+            value="normal"
+          ></v-radio>
+          <v-radio
+            label="ダイナミック"
+            value="dinamic"
+          ></v-radio>
+        </v-radio-group>
+      </div>
+      <div class="item" v-if="ext_col_disp_flg">
+        <span>実施日を入れる(当日入力の場合は自動で設定されます)</span>
+        <date-picker
+          v-model="form.date"
+          type="date">
+        </date-picker>
       </div>
       <v-template v-for="(error, index) in err" :key="index">
         <v-alert type="error" :value="err_disp_flg">{{error}}</v-alert>
@@ -86,9 +84,9 @@ export default {
         result: '1:50.0',
         rate: 20,
         type: 'normal',
-        date: ''
+        date: new Date()
       },
-      err: null,
+      err: [],
       env: process.env.VUE_APP_SERVER_URL_BASE,
       checked: true,
       submit_body: null
@@ -115,9 +113,9 @@ export default {
       } else {
         err.push('日付の取得に失敗しました')
       }
-      if (this.loginUser.user_id !== -1) {
-        body.player_id = this.loginUser.user_id
-        body.registerer_id = this.loginUser.user_id
+      if (this.loginUser !== null) {
+        body.player_id = this.loginUser.id
+        body.registerer_id = this.loginUser.id
       } else {
         err.push('ユーザ情報が取得できませんでした')
       }
@@ -129,7 +127,7 @@ export default {
         if (this.form.type !== null) {
           extend.type = this.form.type
         }
-        body.extend = extend
+        body.extends = extend
       }
       this.err = err
       this.submit_body = body
@@ -137,7 +135,7 @@ export default {
     submitRecord: async function () {
       this.beforeSubmit()
       //エラーがあれば止める
-      if (this.err !== null && this.err.length > 0) {
+      if (this.err.length > 0) {
         this.err_disp_flg = true
       } else {
         this.dialog_disp_flg = true
@@ -169,7 +167,8 @@ export default {
 .card
   display: flex
   flex-direction: column
-  justify-items: start
+  justify-content: start
+  align-items: center
   border: solid 2px #fd7e00
   background-color: #ffa905
 .item
@@ -181,5 +180,5 @@ export default {
   margin: 30px
   max-width: 150px
 .checkbox
-  width: 200px
+  display: inline-block
 </style>

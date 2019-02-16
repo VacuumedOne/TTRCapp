@@ -48,7 +48,6 @@ export default {
   },
   watch: {
     result_ms: function () {
-      console.log(333)
       let min = Math.floor(this.result_ms / 60000)
       let s = Math.floor((this.result_ms % 60000) / 1000)
       let ms = (this.result_ms % 1000) / 100

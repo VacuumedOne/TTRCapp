@@ -6,7 +6,7 @@
         <span>種目を選ぶ</span>
         <record-item-select
           v-bind:group_id="3"
-          v-model="form.record_item_id"></record-item-select>
+          v-model="form.record_item"></record-item-select>
       </div>
       <div class="item">
         <span>アベレージタイムを入力(例:1:50.0)</span>
@@ -44,19 +44,98 @@
           type="date">
         </date-picker>
       </div>
-      <v-template v-for="(error, index) in err" :key="index">
-        <v-alert type="error" :value="err_disp_flg">{{error}}</v-alert>
-      </v-template>
-      <el-button class="button" type="danger" v-on:click="submitRecord">記録を送信！</el-button>
-      <el-dialog
-        title="記録の送信"
-        :visible.sync="dialog_disp_flg"
-        width="30%">
-        <span>{{ submit_body }}</span>
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="dialog_disp_flg=false">確認</el-button>
-        </span>
-      </el-dialog>
+      <template v-for="(error, index) in err">
+        <v-alert type="error" :value="err_disp_flg" :key="index">
+          {{error}}
+        </v-alert>
+      </template>
+      <v-btn class="button" color="error" v-on:click="submitRecord">記録を送信！</v-btn>
+      <v-dialog
+        v-model="success_disp_flg"
+        width="400"
+        persistent
+      >
+        <v-card>
+          <v-card-title
+              class="headline grey lighten-2"
+              primary-title
+            >
+              登録に成功しました。
+            </v-card-title>
+            <v-card-text width="300">
+              <v-list dense>
+                <v-list-tile v-if="form.record_item!==null">
+                  <v-list-tile-content class="headline">種目:</v-list-tile-content>
+                  <v-list-tile-content class="align-end headline">
+                    エルゴ/{{form.record_item.item_name}}
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile>
+                  <v-list-tile-content class="headline">記録:</v-list-tile-content>
+                  <v-list-tile-content class="align-end headline">
+                    {{form.result}}
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile v-if="ext_col_disp_flg">
+                  <v-list-tile-content class="headline">レート:</v-list-tile-content>
+                  <v-list-tile-content class="align-end headline">
+                    {{form.rate}}
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile v-if="ext_col_disp_flg">
+                  <v-list-tile-content class="headline">エルゴの種類:</v-list-tile-content>
+                  <v-list-tile-content class="align-end headline">
+                    {{(form.type==='normal')?'ノーマル':'ダイナミック'}}
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile>
+                  <v-list-tile-content class="headline">実施日:</v-list-tile-content>
+                  <v-list-tile-content class="align-end headline">
+                    {{form.date}}
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                flat
+                @click="sendToParent"
+              >
+                OK
+              </v-btn>
+            </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-dialog
+        v-model="failure_disp_flg"
+        width="400"
+      >
+        <v-card>
+          <v-card-title
+              class="headline grey lighten-2"
+              primary-title
+            >
+              登録に失敗しました。
+            </v-card-title>
+            <v-card-text width="300">
+              通信状況を確かめて、再度試してください。
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                flat
+                @click="failure_disp_flg=false"
+              >
+                OK
+              </v-btn>
+            </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </div>
 </template>
@@ -77,10 +156,11 @@ export default {
   data: () => {
     return {
       ext_col_disp_flg: false, //拡張項目表示フラグ
-      dialog_disp_flg: false,
+      success_disp_flg: false,
+      failure_disp_flg: false,
       err_disp_flg: false,
       form: {
-        record_item_id: -1,
+        record_item: null,
         result: '1:50.0',
         rate: 20,
         type: 'normal',
@@ -97,9 +177,9 @@ export default {
       let body = {}
       let err = []
 
-      if (this.form.record_item_id !== -1) {
-        console.log(this.form.record_item_id)
-        body.item_id = this.form.record_item_id
+      if (this.form.record_item !== null) {
+        console.log(this.form.record_item)
+        body.item_id = this.form.record_item.id
       } else {
         err.push('種目が選択されていません')
       }
@@ -138,14 +218,13 @@ export default {
       if (this.err.length > 0) {
         this.err_disp_flg = true
       } else {
-        this.dialog_disp_flg = true
-        await axios
-          .post('/record/register/api', this.submit_body)
-          .then(result => {
-            console.log(result)
-          }).catch(err => {
-            console.error(err)
-          })
+        console.log(this.submit_body)
+        let res = await axios.post('/record/register/api', this.submit_body)
+        if (res.status === 200) {
+          this.success_disp_flg = true
+        } else {
+          this.failure_disp_flg = true
+        }
       }
     },
     sendToParent: function () {

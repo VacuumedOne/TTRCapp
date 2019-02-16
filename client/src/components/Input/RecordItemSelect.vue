@@ -2,13 +2,14 @@
   <div class="record-item-select">
     <el-select
       placeholder="種目を選ぶ"
-      v-model="value"
-      v-on:input="$emit('input', value)">
+      v-model="selected_id"
+      v-on:input="selectOption"
+    >
       <el-option
         v-for="item in items"
-        v-bind:value="item.id"
-        v-bind:label="item.item_name"
-        v-bind:key="item.id"
+        :value="item.id"
+        :label="item.item_name"
+        :key="item.id"
         ></el-option>
     </el-select>
   </div>
@@ -24,7 +25,21 @@ export default {
   data: () => {
     return {
       input: [],
-      value: null
+      selected_id: '',
+      selected_item: null
+    }
+  },
+  methods: {
+    selectOption: function () {
+      this.findOption()
+      this.$emit('input', this.selected_item)
+    },
+    findOption: function () {
+      for (let item of this.items) {
+        if (item.id === this.selected_id) {
+          this.selected_item = item
+        }
+      }
     }
   },
   computed: {
@@ -35,16 +50,11 @@ export default {
   props: {
     'group_id': Number
   },
-  methods: {
-  },
-  created: function () {
-    axios.post('/record-item/list/api', {group_id: 1})
-      .then((result) => {
-        console.log(result)
-        this.input = result.data
-      }).catch((err) => {
-        console.error(err)
-      })
+  created: async function () {
+    let res = await axios.post('/record-item/list/api', {group_id: 1})
+    if (res.status === 200) {
+      this.input = res.data
+    }
   }
 }
 

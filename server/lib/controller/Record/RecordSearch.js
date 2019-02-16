@@ -45,7 +45,10 @@ module.exports = function(body, res, db) {
           'group_id',
           'unit'
         ],  
-        where: whereClause2
+        where: whereClause2,
+        include: [{
+          model: RecordGroup
+        }]
       },
       {
         model: User,

@@ -73,9 +73,6 @@
 </template>
 
 <script>
-import TextForm from '@/components/Input/TextForm'
-import PasswordForm from '@/components/Input/PasswordForm'
-import Submit from '@/components/Input/Submit'
 
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000'
@@ -119,9 +116,6 @@ export default {
     }
   },
   components: {
-    'text-form': TextForm,
-    'password-form': PasswordForm,
-    'submit': Submit
   }
 }
 </script>

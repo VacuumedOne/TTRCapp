@@ -172,13 +172,6 @@
 </template>
 
 <script>
-import TextForm from '@/components/Input/TextForm'
-import AuthForm from '@/components/Input/AuthForm'
-import DateForm from '@/components/Input/DateForm'
-import EmailForm from '@/components/Input/EmailForm'
-import PasswordForm from '@/components/Input/PasswordForm'
-import SexForm from '@/components/Input/SexForm'
-import Submit from '@/components/Input/Submit'
 
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000'
@@ -323,13 +316,6 @@ export default {
     this.day_options = this.makeArr(1, 31)
   },
   components: {
-    'text-form': TextForm,
-    'auth-form': AuthForm,
-    'date-form': DateForm,
-    'email-form': EmailForm,
-    'password-form': PasswordForm,
-    'sex-form': SexForm,
-    'submit': Submit
   }
 }
 </script>

@@ -5,37 +5,24 @@
       <div class="item">
         <span>種目を選ぶ</span>
         <record-item-select
-          v-bind:group_id="3"
+          group_name="ウェイト"
           v-model="form.record_item"></record-item-select>
       </div>
       <div class="item">
-        <span>アベレージタイムを入力(例:1:50.0)</span>
+        <span>1セット目の重量を入力(例:52.5kg)</span>
         <time-result-form :default="form.result" v-model="form.result" ></time-result-form>
       </div>
       <div class="item checkbox">
         <v-checkbox v-model="ext_col_disp_flg" color="indigo" label="さらに入力する"></v-checkbox>
       </div>
       <div class="item" v-if="ext_col_disp_flg">
-        <span>レート(stroke/min)</span>
+        <span>1セット目の回数</span>
         <el-input-number
           class="number_form"
-          v-model="form.rate"
+          v-model="form.reps"
           size="medium"
           :min="1"
           :max="100"></el-input-number>
-      </div>
-      <div class="item" v-if="ext_col_disp_flg">
-        エルゴの種類
-        <v-radio-group v-model="form.type">
-          <v-radio
-            label="ノーマル"
-            value="normal"
-          ></v-radio>
-          <v-radio
-            label="ダイナミック"
-            value="dinamic"
-          ></v-radio>
-        </v-radio-group>
       </div>
       <div class="item" v-if="ext_col_disp_flg">
         <span>実施日を入れる(当日入力の場合は自動で設定されます)</span>
@@ -67,25 +54,19 @@
                 <v-list-tile v-if="form.record_item!==null">
                   <v-list-tile-content class="headline">種目:</v-list-tile-content>
                   <v-list-tile-content class="align-end headline">
-                    エルゴ/{{form.record_item.item_name}}
+                    ウェイト/{{form.record_item.item_name}}
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile>
                   <v-list-tile-content class="headline">記録:</v-list-tile-content>
                   <v-list-tile-content class="align-end headline">
-                    {{form.result}}
+                    {{form.result}}/kg
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile v-if="ext_col_disp_flg">
                   <v-list-tile-content class="headline">レート:</v-list-tile-content>
                   <v-list-tile-content class="align-end headline">
-                    {{form.rate}}
-                  </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile v-if="ext_col_disp_flg">
-                  <v-list-tile-content class="headline">エルゴの種類:</v-list-tile-content>
-                  <v-list-tile-content class="align-end headline">
-                    {{(form.type==='normal')?'ノーマル':'ダイナミック'}}
+                    {{form.reps}}
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile>
@@ -160,8 +141,7 @@ export default {
       form: {
         record_item: null,
         result: '1:50.0',
-        rate: 20,
-        type: 'normal',
+        reps: 10,
         date: new Date()
       },
       err: [],
@@ -199,11 +179,8 @@ export default {
       }
       if (this.ext_col_disp_flg) {
         let extend = {}
-        if (this.form.rate !== null) {
-          extend.rate = this.form.rate
-        }
-        if (this.form.type !== null) {
-          extend.type = this.form.type
+        if (this.form.reps !== null) {
+          extend.reps = this.form.reps
         }
         body.extends = extend
       }
@@ -238,5 +215,21 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
+.card
+  display: flex
+  flex-direction: column
+  justify-content: start
+  align-items: center
+  border: solid 2px #fd7e00
+  background-color: #ffa905
+.item
+  margin: 30px
+  display: flex
+  flex-direction: column
+  justify-content: center
+.button
+  margin: 30px
+  max-width: 150px
+.checkbox
+  display: inline-block
 </style>

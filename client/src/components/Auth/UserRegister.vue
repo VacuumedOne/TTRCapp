@@ -141,6 +141,7 @@
         <v-dialog
           v-model="success_disp_flg"
           width="500"
+          persistent
         >
           <v-card>
             <v-card-title

@@ -5,7 +5,7 @@
       <div class="item">
         <span>種目を選ぶ</span>
         <record-item-select
-          v-bind:group_id="3"
+          group_name="エルゴ"
           v-model="form.record_item"></record-item-select>
       </div>
       <div class="item">
@@ -142,8 +142,6 @@
 
 <script>
 import RecordItemSelect from '@/components/Input/RecordItemSelect'
-import ResultForm from '@/components/Input/ResultForm'
-import Submit from '@/components/Input/Submit'
 import DatePicker from '@/components/Input/DatePicker'
 import TimeResultForm from '@/components/Input/TimeResultForm'
 import axios from 'axios'
@@ -233,8 +231,6 @@ export default {
   },
   components: {
     'record-item-select': RecordItemSelect,
-    'result-form': ResultForm,
-    'submit': Submit,
     'date-picker': DatePicker,
     'time-result-form': TimeResultForm
   }
@@ -242,7 +238,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.ergo-register
 .card
   display: flex
   flex-direction: column

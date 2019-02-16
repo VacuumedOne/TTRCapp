@@ -1,3 +1,5 @@
+// グループIDもしくはグループ名を指定して、それを選択できる様にする
+
 <template>
   <div class="record-item-select">
     <el-select
@@ -48,12 +50,25 @@ export default {
     }
   },
   props: {
-    'group_id': Number
+    'group_id': {type: Number, default: null},
+    'group_name': {type: String, default: null}
   },
   created: async function () {
-    let res = await axios.post('/record-item/list/api', {group_id: 1})
-    if (res.status === 200) {
-      this.input = res.data
+    console.log(this.group_id)
+    console.log(this.group_name)
+    if (this.group_id !== null) {
+      let res = await axios.post('/record-item/list/api', {group_id: this.group_id})
+      if (res.status === 200) {
+        this.input = res.data
+      }
+    } else if (this.group_name !== null) {
+      let res1 = await axios.post('/record-group/search/api', {group_name: this.group_name})
+      if (res1.status === 200) {
+        let res2 = await axios.post('/record-item/list/api', {group_id: res1.data.id})
+        if (res2.status === 200) {
+          this.input = res2.data
+        }
+      }
     }
   }
 }

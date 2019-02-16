@@ -11,7 +11,7 @@
               </v-card>
             </v-flex>
             <v-flex grow d-flex md4>
-              <v-card class="card" v-ripple color="orange">
+              <v-card class="card" v-ripple color="orange" @click="sendToParent('WeightRegister')">
                 <v-card-title primary class="title">ウェイトを記録する</v-card-title>
                 <v-card-text>強靭な肉体を求める人に。</v-card-text>
               </v-card>

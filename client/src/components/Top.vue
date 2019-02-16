@@ -27,7 +27,7 @@
         <v-flex xs12 md6>
           <v-layout column wrap justify-space-around class="column">
             <v-flex grow d-flex md6>
-              <v-card class="card" v-ripple color="green">
+              <v-card class="card" v-ripple color="green" @click="sendToParent('PersonalView')">
                 <v-card-title primary class="title">自分の記録を見る</v-card-title>
                 <v-card-text>自分の成長を噛み締めろ。</v-card-text>
               </v-card>

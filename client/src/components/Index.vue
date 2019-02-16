@@ -253,6 +253,7 @@ export default {
     },
     logIn: function () {
       //セッション獲得まで行われていることを前提
+      this.isAuthenticated()
       this.is_login = true
     },
     logOut: async function () {

@@ -176,7 +176,6 @@ export default {
       let err = []
 
       if (this.form.record_item !== null) {
-        console.log(this.form.record_item)
         body.item_id = this.form.record_item.id
       } else {
         err.push('種目が選択されていません')
@@ -216,7 +215,6 @@ export default {
       if (this.err.length > 0) {
         this.err_disp_flg = true
       } else {
-        console.log(this.submit_body)
         let res = await axios.post('/record/register/api', this.submit_body)
         if (res.status === 200) {
           this.success_disp_flg = true

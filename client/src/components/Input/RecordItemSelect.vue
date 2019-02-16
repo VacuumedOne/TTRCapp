@@ -54,8 +54,6 @@ export default {
     'group_name': {type: String, default: null}
   },
   created: async function () {
-    console.log(this.group_id)
-    console.log(this.group_name)
     if (this.group_id !== null) {
       let res = await axios.post('/record-item/list/api', {group_id: this.group_id})
       if (res.status === 200) {

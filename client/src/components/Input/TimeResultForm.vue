@@ -79,6 +79,7 @@ export default {
 
 <style lang="sass" scoped>
 .window_box
+  width: 300px
   display: inline-block
   background-color: white
   border-radius: 4px

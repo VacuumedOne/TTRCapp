@@ -10,7 +10,7 @@
       </div>
       <div class="item">
         <span>1セット目の重量を入力(例:52.5kg)</span>
-        <time-result-form :default="form.result" v-model="form.result" ></time-result-form>
+        <number-result-form :default="form.result" v-model="form.result" ></number-result-form>
       </div>
       <div class="item checkbox">
         <v-checkbox v-model="ext_col_disp_flg" color="indigo" label="さらに入力する"></v-checkbox>
@@ -54,13 +54,13 @@
                 <v-list-tile v-if="form.record_item!==null">
                   <v-list-tile-content class="headline">種目:</v-list-tile-content>
                   <v-list-tile-content class="align-end headline">
-                    ウェイト/{{form.record_item.item_name}}
+                    {{form.record_item.item_name}}
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile>
                   <v-list-tile-content class="headline">記録:</v-list-tile-content>
                   <v-list-tile-content class="align-end headline">
-                    {{form.result}}/kg
+                    {{form.result}}kg
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile v-if="ext_col_disp_flg">
@@ -125,6 +125,8 @@
 import RecordItemSelect from '@/components/Input/RecordItemSelect'
 import DatePicker from '@/components/Input/DatePicker'
 import TimeResultForm from '@/components/Input/TimeResultForm'
+import NumberResultForm from '@/components/Input/NumberResultForm'
+
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
@@ -140,7 +142,7 @@ export default {
       err_disp_flg: false,
       form: {
         record_item: null,
-        result: '1:50.0',
+        result: 50,
         reps: 10,
         date: new Date()
       },
@@ -156,7 +158,6 @@ export default {
       let err = []
 
       if (this.form.record_item !== null) {
-        console.log(this.form.record_item)
         body.item_id = this.form.record_item.id
       } else {
         err.push('種目が選択されていません')
@@ -193,7 +194,6 @@ export default {
       if (this.err.length > 0) {
         this.err_disp_flg = true
       } else {
-        console.log(this.submit_body)
         let res = await axios.post('/record/register/api', this.submit_body)
         if (res.status === 200) {
           this.success_disp_flg = true
@@ -209,7 +209,8 @@ export default {
   components: {
     'record-item-select': RecordItemSelect,
     'date-picker': DatePicker,
-    'time-result-form': TimeResultForm
+    'time-result-form': TimeResultForm,
+    'number-result-form': NumberResultForm
   }
 }
 </script>

@@ -60,7 +60,7 @@
                 <v-list-tile>
                   <v-list-tile-content class="headline">記録:</v-list-tile-content>
                   <v-list-tile-content class="align-end headline">
-                    {{form.result}}kg
+                    {{convert.convert_weight_result(form.result)}}kg
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile v-if="ext_col_disp_flg">
@@ -72,7 +72,7 @@
                 <v-list-tile>
                   <v-list-tile-content class="headline">実施日:</v-list-tile-content>
                   <v-list-tile-content class="align-end headline">
-                    {{form.date}}
+                    {{convert.convert_date(form.date)}}
                   </v-list-tile-content>
                 </v-list-tile>
               </v-list>
@@ -126,6 +126,7 @@ import RecordItemSelect from '@/components/Input/RecordItemSelect'
 import DatePicker from '@/components/Input/DatePicker'
 import TimeResultForm from '@/components/Input/TimeResultForm'
 import NumberResultForm from '@/components/Input/NumberResultForm'
+import Convert from '@/util/js/Convert'
 
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
@@ -142,14 +143,15 @@ export default {
       err_disp_flg: false,
       form: {
         record_item: null,
-        result: 50,
+        result: 50000,
         reps: 10,
         date: new Date()
       },
       err: [],
       env: process.env.VUE_APP_SERVER_URL_BASE,
       checked: true,
-      submit_body: null
+      submit_body: null,
+      convert: Convert //変換ライブラリ
     }
   },
   methods: {

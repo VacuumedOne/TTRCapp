@@ -2,8 +2,8 @@
   <div class="time-result-form">
     <div class="window">
       <div class="window_box">
-        <label class="num">{{disp_num}}</label>
-        <label class="unit">{{unit}}</label>
+        <label class="num">{{ convert.convert_time_result(result_ms) }}</label>
+        <label class="unit">{{ unit }}</label>
       </div>
     </div>
     <div class="buttons">
@@ -34,41 +34,24 @@
 </template>
 
 <script>
+import Convert from '@/util/js/Convert'
+
 export default {
   name: 'TimeResultForm',
   props: {
-    default: String
+    default: Number
   },
   data: () => {
     return {
-      disp_num: '1:50.0',
-      result_ms: 110000, // 表示する値の内蔵値。110000msなら、110000ms->110.0s->1:50.0
-      unit: '/500m'
-    }
-  },
-  watch: {
-    result_ms: function () {
-      let min = Math.floor(this.result_ms / 60000)
-      let s = Math.floor((this.result_ms % 60000) / 1000)
-      let ms = (this.result_ms % 1000) / 100
-      let disp = '' + min + ':' + this.zeroPadding(s, 2) + ':' + ms
-      this.disp_num = disp
-      this.$emit('input', disp)
+      result_ms: 110000, // 表示する値の内蔵値。110000msなら、110000ms->1:50.0
+      unit: '/500m',
+      convert: Convert
     }
   },
   methods: {
-    zeroPadding: function (num, digit) {
-      //numをdigit桁で0パディングする
-      //例) zeroPadding(5, 3) => 005
-      let padded = ''
-      for (let i = 0; i < digit; i++) {
-        padded += '0'
-      }
-      padded += num
-      return padded.slice((-1) * digit)
-    },
     addToResult: function (num) {
       this.result_ms += num
+      this.$emit('input', this.result_ms)
     }
   },
   mounted: function () {

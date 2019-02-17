@@ -92,7 +92,7 @@ export default {
   },
   mounted: async function () {
     let res = 
-      await axios.post('/record/search/api', {user_id: this.loginUser.id})
+      await axios.post('/record/search/api', {user_id: this.loginUser.id, limit: 25})
     if (res.status === 200) {
       this.plane_data = res.data
     }

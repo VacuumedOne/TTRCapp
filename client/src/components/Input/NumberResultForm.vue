@@ -2,31 +2,31 @@
   <div class="number-result-form">
     <div class="window">
       <div class="window_box">
-        <label class="num">{{result}}</label>
+        <label class="num">{{result/1000}}</label>
         <label class="unit">{{unit}}</label>
       </div>
     </div>
     <div class="buttons">
       <div class="negative-buttons">
         <div class="cntl-button negative">
-          <v-btn @click="addToResult(-2.5)">-2.5</v-btn>
+          <v-btn @click="addToResult(-2500)">-2.5</v-btn>
         </div>
         <div class="cntl-button negative">
-          <v-btn @click="addToResult(-5)">-5</v-btn>
+          <v-btn @click="addToResult(-5000)">-5</v-btn>
         </div>
         <div class="cntl-button negative">
-          <v-btn @click="addToResult(-10)">-10</v-btn>
+          <v-btn @click="addToResult(-10000)">-10</v-btn>
         </div>
       </div>
       <div class="positive-buttons">
         <div class="cntl-button positive">
-          <v-btn @click="addToResult(2.5)">+2.5</v-btn>
+          <v-btn @click="addToResult(2500)">+2.5</v-btn>
         </div>
         <div class="cntl-button positive">
-          <v-btn @click="addToResult(5)">+5</v-btn>
+          <v-btn @click="addToResult(5000)">+5</v-btn>
         </div>
         <div class="cntl-button positive">
-          <v-btn @click="addToResult(10)">+10</v-btn>
+          <v-btn @click="addToResult(10000)">+10</v-btn>
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@ export default {
   },
   data: () => {
     return {
-      result: 50, // 表示する値。
+      result: 500000, // 表示する値。
       unit: 'kg'
     }
   },

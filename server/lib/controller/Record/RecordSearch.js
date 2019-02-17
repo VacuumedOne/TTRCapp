@@ -15,7 +15,7 @@ module.exports = function(body, res, db) {
   let cond_user_id = body.user_id || false
   let cond_item_id = body.item_id || false
   let cond_group_id = body.group_id || false
-  let limit = body.limit || 30
+  let limit = body.limit || 10000
 
   if(!cond_user_id && !cond_item_id && !cond_group_id){
     res.status(500).send('At least one search condition is required.');

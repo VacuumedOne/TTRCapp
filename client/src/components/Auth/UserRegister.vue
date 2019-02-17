@@ -7,11 +7,6 @@
           <v-layout row wrap justify-center>
             <v-flex xs1 md3></v-flex>
             <v-flex xs10 md6>
-              <v-text-field v-model="form.user_name" outline class="input" label="ユーザ名(英数字10文字以下)" :rules="textRules"></v-text-field>
-            </v-flex>
-            <v-flex xs1 md3></v-flex>
-            <v-flex xs1 md3></v-flex>
-            <v-flex xs10 md6>
               <v-text-field v-model="form.mail" outline class="input" label="メールアドレス" :rules="emailRules"></v-text-field>
             </v-flex>
             <v-flex xs1 md3></v-flex>
@@ -183,7 +178,6 @@ export default {
     return {
       msg: 'アカウントを作りましょう。',
       form: {
-        user_name: '',
         k_lastname: '',
         k_firstname: '',
         h_lastname: '',
@@ -207,7 +201,7 @@ export default {
         v => (v && v.length >= 8) || 'This field must have at least 8 characters.'
       ],
       confirm: '',
-      year: '1990',
+      year: '2000',
       year_options: [],
       month: '1',
       month_options: [],
@@ -266,9 +260,6 @@ export default {
       this.form.birth_ymd = ymd
 
       this.err = []
-      if (this.form.user_name === '') {
-        this.err.push('ユーザ名が入力されていません。')
-      }
       if (/.+@.+/.test(this.form.email)) {
         this.err.push('メールアドレスに不備があります。')
       }

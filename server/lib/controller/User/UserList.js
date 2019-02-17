@@ -10,7 +10,6 @@ module.exports = function(res, db) {
   User.findAll({
     attributes: [
       'id',
-      'user_name',
       'mail',
       'sex',
       'auth',

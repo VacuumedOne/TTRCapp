@@ -5,7 +5,6 @@ module.exports = function(body, res, db) {
 
   /**
    * POST内容
-   * user_name: ログイン用のアルファベット名
    * password: 素のパスワード。ハッシュ化前。
    * mail: メールアドレス。
    * sex: 性別。"male" or "female"
@@ -20,9 +19,6 @@ module.exports = function(body, res, db) {
   /* 入力のバリデーション */
   console.log(body);
   var err = [];
-  if(body.user_name == null) {
-    err.push('ユーザ名が入力されていません。');
-  }
   if(body.password == null) {
     err.push('パスワードが入力されていません。');
   }
@@ -64,7 +60,6 @@ module.exports = function(body, res, db) {
   body.hashed_pw = Hash.getHashedText(body.password + salt);
 
   let new_user = new User({
-    'user_name': body.user_name,
     'hashed_pw': body.hashed_pw,
     'salt': salt,
     'mail': body.mail,

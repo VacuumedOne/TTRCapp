@@ -58,7 +58,8 @@ module.exports = function(body, res, db) {
         ]
       }
     ],
-    limit: limit
+    limit: limit,
+    order: [['updatedAt', 'DESC']],
   }).then(result => {
     res.json(result);
   }).catch(err => {

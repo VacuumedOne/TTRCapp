@@ -10,7 +10,6 @@
           <v-text-field v-model="form.password" outline label="パスワード" type="password"></v-text-field>
         </div>
         <v-btn v-on:click="loginAPI">ログイン</v-btn>
-        {{ form }}
       </div>
       <div>
         <span>{{ msg2 }}</span><label class="link" @click="sendToParent('signUp')">こちら</label>

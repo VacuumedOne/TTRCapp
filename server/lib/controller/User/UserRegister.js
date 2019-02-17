@@ -1,6 +1,7 @@
 module.exports = function(body, res, db) {
   var User = require('../../model/User')(db);
   var Hash = require('../../util/Hash');
+  var Salt = require('../../util/Salt');
 
   /**
    * POST内容
@@ -56,12 +57,16 @@ module.exports = function(body, res, db) {
     return;
   }
 
+  //ソルトの発行
+  let salt = Salt.getSalt(30);
+
   //パスワードのハッシュ化
-  body.hashed_pw = Hash.getHashedText(body.password);
+  body.hashed_pw = Hash.getHashedText(body.password + salt);
 
   let new_user = new User({
     'user_name': body.user_name,
     'hashed_pw': body.hashed_pw,
+    'salt': salt,
     'mail': body.mail,
     'sex': body.sex,
     'auth': body.auth,

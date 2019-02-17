@@ -10,7 +10,6 @@ module.exports = function(body, res, db) {
    */
 
   //入力のバリデーション
-  console.log(body);
   var err = [];
   var data = {};
   if(body.item_id == null) {

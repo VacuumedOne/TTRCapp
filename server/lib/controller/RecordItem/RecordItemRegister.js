@@ -10,11 +10,14 @@ module.exports = function(body, res, db) {
   //入力のバリデーション
   console.log(body);
   var err = []
-  if(body.item_name == null) {
+  if(body.item_name === null) {
     err.push('アイテム名が入力されていません。');
   }
-  if(body.group_id == null) {
+  if(body.group_id === null) {
     err.push('グループidが入力されていません。');
+  }
+  if(body.format === null) {
+    err.push('フォーマットが入力されていません')
   }
   if(err.length > 0){
     res.status(400).json(err)
@@ -23,7 +26,8 @@ module.exports = function(body, res, db) {
 
   var data = {
     item_name: body.item_name,
-    group_id: body.group_id
+    group_id: body.group_id,
+    format: body.format
   }
 
   if(body.unit !== null){

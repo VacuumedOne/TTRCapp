@@ -3,7 +3,6 @@ var router = express.Router();
 
 /* ローカルモジュール */
 var UserRegister = require('../lib/controller/User/UserRegister');
-var UserLogin = require('../lib/controller/User/UserLogin');
 var UserList = require('../lib/controller/User/UserList');
 var RecordGroupRegister = require('../lib/controller/RecordGroup/RecordGroupRegister');
 var RecordGroupList = require('../lib/controller/RecordGroup/RecordGroupList');

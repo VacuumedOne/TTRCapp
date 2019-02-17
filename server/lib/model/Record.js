@@ -33,7 +33,7 @@ module.exports = function (db) {
       allowNull: false
     },
     result: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false
     },
     extends: {

@@ -66,13 +66,6 @@ module.exports = function(body, res, db) {
     console.log(err)
     res.sendStatus(500);
   })
-
-  // RecordGroup.findAll()
-  //   .then(result => {
-  //     res.status(200).json(result)
-  //   }).catch(err => {
-  //     console.log(err)
-  //     res.status(500).end()
-  //   })
+  
   return;
 }

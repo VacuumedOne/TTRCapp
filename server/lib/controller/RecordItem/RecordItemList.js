@@ -5,7 +5,6 @@ module.exports = function(body, res, db) {
    * POST内容
    * group_id 指定するグループID
    */
-  console.log(body);
   if(body.group_id == null){
     res.json({
       state: "failure",
@@ -17,7 +16,8 @@ module.exports = function(body, res, db) {
     attributes: [
       'id',
       'item_name',
-      'unit'
+      'unit',
+      'format'
     ],
     where: {
       group_id: body.group_id

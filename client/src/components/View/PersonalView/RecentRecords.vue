@@ -36,31 +36,31 @@ export default {
       items: [ //ダミーデータ
         {
           id: 1,
-          group_name: 'エルゴ',
+          group_name: 'ダミー',
           item_name: '2000m',
           date: '2019-02-01'
         },
         {
           id: 2,
-          group_name: 'エルゴ',
+          group_name: 'ダミー',
           item_name: '10分',
           date: '2019-02-02'
         },
         {
           id: 3,
-          group_name: 'ウェイト',
+          group_name: 'ダミー',
           item_name: 'ベンチプレス',
           date: '2019-02-03'
         },
         {
           id: 4,
-          group_name: 'ウェイト',
+          group_name: 'ダミー',
           item_name: 'スクワット',
           date: '2019-02-03'
         },
         {
           id: 5,
-          group_name: 'ウェイト',
+          group_name: 'ダミー',
           item_name: 'デッドリフト',
           date: '2019-02-03'
         }
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     formatDate: function (date) {
-      let formated= ''
+      let formated = ''
       formated += date.getFullYear() + '/'
       formated += (date.getMonth() + 1) + '/'
       formated += date.getDate()
@@ -85,7 +85,7 @@ export default {
         processed.group_name = data.RecordItem.RecordGroup.group_name
         processed.item_name = data.RecordItem.item_name
         processed.result = data.result + data.RecordItem.unit
-        processed.date = data.date.substr(0,10)
+        processed.date = data.date.substr(0, 10)
         this.items.push(processed)
       }
     }

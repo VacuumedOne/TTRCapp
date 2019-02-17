@@ -1,12 +1,12 @@
 <template>
-  <v-conteiner class="table_view">
+  <v-container class="table_view">
     <h2>グラフで記録を見る</h2>
     <line-chart
       class="chart"
       :data="chartdata"
       :options="options"
     ></line-chart>
-  </v-conteiner>
+  </v-container>
 </template>
 
 <script>

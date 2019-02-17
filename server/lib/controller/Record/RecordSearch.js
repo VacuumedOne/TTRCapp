@@ -43,7 +43,8 @@ module.exports = function(body, res, db) {
         attributes: [
           'item_name',
           'group_id',
-          'unit'
+          'unit',
+          'format'
         ],  
         where: whereClause2,
         include: [{

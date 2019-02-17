@@ -28,5 +28,14 @@ module.exports = {
     let ms = (result % 1000) / 100
     s = ('0' + s).slice(-2)
     return '' + m + ':' + s + '.' + ms
+  },
+  convert_result: function (result, type) {
+    if (type === 'ms') {
+      return this.convert_time_result(result)
+    } else if (type === 'g') {
+      return this.convert_weight_result(result)
+    } else {
+      return result
+    }
   }
 }

@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import Convert from '@/util/js/Convert'
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
@@ -64,7 +65,8 @@ export default {
           item_name: 'デッドリフト',
           date: '2019-02-03'
         }
-      ]
+      ],
+      convert: Convert
     }
   },
   methods: {
@@ -78,13 +80,14 @@ export default {
   },
   watch: {
     plane_data: function () {
+      console.log(this.plane_data)
       this.items = []
       for (let data of this.plane_data) {
         let processed = {}
         processed.id = data.id
         processed.group_name = data.RecordItem.RecordGroup.group_name
         processed.item_name = data.RecordItem.item_name
-        processed.result = data.result + data.RecordItem.unit
+        processed.result = this.convert.convert_result(data.result, data.RecordItem.format) + data.RecordItem.unit
         processed.date = data.date.substr(0, 10)
         this.items.push(processed)
       }

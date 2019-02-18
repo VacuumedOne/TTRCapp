@@ -35,7 +35,6 @@
       </v-layout>
       <v-btn color="error" v-if="selected_item!==null" @click="updateTable">表をつくる！</v-btn>
     </v-container>
-    {{order}}
     <v-data-table
       v-if="table_disp_flg"
       :headers="headers"
@@ -114,19 +113,23 @@ export default {
       this.item_selected_flg = true
     },
     beforeUpdate: function () {
-      this.order = []
-      // orderには対象にするカラム名と、降順かどうかの情報を入れる(昇順の場合省略可)
-      // 例)['result', 'DESC']
-      this.order.push(this.order_column)
-      // 結果順の時、
-      // 記録フォーマットがgであれば降順
-      if (this.order_column === 'result' && this.selectItem.format === 'g') {
-        this.order.push('DESC')
-      }
-      // 実施日順の時、
-      // 自動的に降順(新しい順)
-      if (this.order_column === 'date') {
-        this.order.push('DESC')
+      if (this.order_column !== '') {
+        this.order = []
+        // orderには対象にするカラム名と、降順かどうかの情報を入れる(昇順の場合省略可)
+        // 例)['result', 'DESC']
+        this.order.push(this.order_column)
+        // 結果順の時、
+        // 記録フォーマットがgであれば降順
+        if (this.order_column === 'result' && this.selected_item.format === 'g') {
+          this.order.push('DESC')
+        }
+        // 実施日順の時、
+        // 自動的に降順(新しい順)
+        if (this.order_column === 'date') {
+          this.order.push('DESC')
+        }
+      } else {
+        this.order = []
       }
     },
     updateTable: update

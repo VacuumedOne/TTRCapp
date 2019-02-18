@@ -5,7 +5,7 @@
 <template>
   <div class="record-group-select">
     <el-select
-      placeholder="グループを選ぶ"
+      placeholder="並べ方を選ぶ"
       v-model="selected_option"
       v-on:input="selectOption"
     >

@@ -4,7 +4,7 @@
     <v-container class="condition_box">
       <v-layout row wrap>
         <v-flex class="condition">
-          <div class="title">表示する項目</div>
+          <div class="title">検索条件</div>
           <v-layout column>
             <v-flex>
               <div>種目のグループ</div>
@@ -24,16 +24,15 @@
           </v-layout>
         </v-flex>
         <v-flex class="order">
-          <div class="title">表示する順序</div>
+          <div class="title">並べ方</div>
           <v-layout column>
             <v-flex>
-              <div>順序を選んでください</div>
               <order-select v-model="order_column"></order-select>
             </v-flex>
           </v-layout>
         </v-flex>
       </v-layout>
-      <v-btn color="error" v-if="selected_item!==null" @click="updateTable">表をつくる！</v-btn>
+      <v-btn color="error" :disabled="selected_item===null" @click="updateTable">表をつくる！</v-btn>
     </v-container>
     <v-data-table
       v-if="table_disp_flg"
@@ -161,6 +160,9 @@ export default {
   border: solid 2px green
   background-color: lightgreen
   margin-bottom: 30px
-.order
+.condition, .order
   margin-top: 20px
+  margin-bottom: 20px
+.title
+  margin: 10px
 </style>

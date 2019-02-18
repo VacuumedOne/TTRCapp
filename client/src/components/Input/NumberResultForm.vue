@@ -48,6 +48,7 @@ export default {
   methods: {
     addToResult: function (num) {
       this.result += num
+      this.$emit('input', this.result)
     }
   },
   mounted: function () {

@@ -69,15 +69,6 @@ export default {
       convert: Convert
     }
   },
-  methods: {
-    formatDate: function (date) {
-      let formated = ''
-      formated += date.getFullYear() + '/'
-      formated += (date.getMonth() + 1) + '/'
-      formated += date.getDate()
-      return formated
-    }
-  },
   watch: {
     plane_data: function () {
       console.log(this.plane_data)

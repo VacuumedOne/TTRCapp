@@ -17,6 +17,13 @@ module.exports = function(body, res, db) {
   let cond_group_id = body.group_id || false
   let limit = body.limit || 10000
 
+  let order = body.order || []
+  if (order.length === 0) {
+    order = ['updatedAt', 'DESC']
+  }
+
+  console.log(order)
+
   if(!cond_user_id && !cond_item_id && !cond_group_id){
     res.status(500).send('At least one search condition is required.');
     return;
@@ -60,7 +67,7 @@ module.exports = function(body, res, db) {
       }
     ],
     limit: limit,
-    order: [['updatedAt', 'DESC']],
+    order: [order],
   }).then(result => {
     res.json(result);
   }).catch(err => {

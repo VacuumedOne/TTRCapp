@@ -7,17 +7,18 @@
           <div class="title">表示する項目</div>
           <v-layout column>
             <v-flex>
-              <div>種目のグループを選んでください</div>
+              <div>種目のグループ</div>
               <record-group-select
                 v-model="selected_group"
-                @input="changeGroup"
+                @input="selectGroup"
               ></record-group-select>
             </v-flex>
-            <v-flex v-if="selected_group_id!==null">
-              <div>種目はを選んでください</div>
+            <v-flex v-if="group_selected_flg">
+              <div>種目</div>
               <record-item-select
                 v-model="selected_item"
                 :group_id="selected_group_id"
+                @click="selectItem"
                 ></record-item-select>
             </v-flex>
           </v-layout>
@@ -27,17 +28,18 @@
           <v-layout column>
             <v-flex>
               <div>順序を選んでください</div>
-              <div></div>
+              <order-select v-model="order_column"></order-select>
             </v-flex>
           </v-layout>
         </v-flex>
       </v-layout>
       <v-btn color="error" v-if="selected_item!==null" @click="updateTable">表をつくる！</v-btn>
     </v-container>
+    {{order}}
     <v-data-table
       v-if="table_disp_flg"
       :headers="headers"
-      :items="items"
+      :items="records"
       class="elevation-3"
     >
       <template slot="items" slot-scope="props">
@@ -53,17 +55,21 @@
 <script>
 import RecordItemSelect from '@/components/Input/RecordItemSelect'
 import RecordGroupSelect from '@/components/Input/RecordGroupSelect'
+import OrderSelect from '@/components/Input/OrderSelect'
+import Convert from '@/util/js/Convert'
 
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
 
 let update = async function () {
-  let res = 
+  this.beforeUpdate()
+  let res =
     await axios
       .post('/record/search/api', {
         user_id: this.loginUser.id,
-        item_id: this.selected_item.id
+        item_id: this.selected_item.id,
+        order: this.order
       })
   if (res.status === 200) {
     this.table_disp_flg = true
@@ -78,6 +84,8 @@ export default {
   },
   data: () => {
     return {
+      group_selected_flg: false,
+      item_selected_flg: false,
       table_disp_flg: false,
       plane_data: [],
       headers: [
@@ -85,44 +93,62 @@ export default {
         {text: '記録', align: 'center', sortable: false, value: 'result'},
         {text: '記録日', align: 'center', sortable: false, value: 'date'}
       ],
-      items: [
+      records: [
       ],
       selected_group: null,
       selected_group_id: null,
-      selected_item: null
+      selected_item: null,
+      order_column: '',
+      order: [],
+      convert: Convert
     }
   },
   methods: {
-    formatDate: function (date) {
-      let formated = ''
-      formated += date.getFullYear() + '/'
-      formated += (date.getMonth() + 1) + '/'
-      formated += date.getDate()
-      return formated
-    },
-    changeGroup: function () {
+    selectGroup: function () {
       this.selected_group_id = this.selected_group.id
       this.selected_item = null
+      this.group_selected_flg = true
+      this.item_selected_flg = false
+    },
+    selectItem: function () {
+      this.item_selected_flg = true
+    },
+    beforeUpdate: function () {
+      this.order = []
+      // orderには対象にするカラム名と、降順かどうかの情報を入れる(昇順の場合省略可)
+      // 例)['result', 'DESC']
+      this.order.push(this.order_column)
+      // 結果順の時、
+      // 記録フォーマットがgであれば降順
+      if (this.order_column === 'result' && this.selectItem.format === 'g') {
+        this.order.push('DESC')
+      }
+      // 実施日順の時、
+      // 自動的に降順(新しい順)
+      if (this.order_column === 'date') {
+        this.order.push('DESC')
+      }
     },
     updateTable: update
   },
   watch: {
     plane_data: function () {
-      this.items = []
+      this.records = []
       for (let data of this.plane_data) {
         let processed = {}
         processed.id = data.id
         processed.group_name = data.RecordItem.RecordGroup.group_name
         processed.item_name = data.RecordItem.item_name
-        processed.result = data.result + data.RecordItem.unit
+        processed.result = this.convert.convert_result(data.result, data.RecordItem.format) + data.RecordItem.unit
         processed.date = data.date.substr(0, 10)
-        this.items.push(processed)
+        this.records.push(processed)
       }
     }
   },
   components: {
     'record-group-select': RecordGroupSelect,
-    'record-item-select': RecordItemSelect
+    'record-item-select': RecordItemSelect,
+    'order-select': OrderSelect
   }
 }
 </script>

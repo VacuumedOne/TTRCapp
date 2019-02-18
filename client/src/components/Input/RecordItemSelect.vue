@@ -6,6 +6,7 @@
       placeholder="種目を選ぶ"
       v-model="selected_id"
       v-on:input="selectOption"
+      :disabled="disabled"
     >
       <el-option
         v-for="item in items"
@@ -70,7 +71,8 @@ export default {
   },
   props: {
     'group_id': {type: Number, default: null},
-    'group_name': {type: String, default: null}
+    'group_name': {type: String, default: null},
+    'disabled': Boolean
   },
   created: update,
   watch: {

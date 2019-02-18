@@ -22,12 +22,31 @@ import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
 
+let update = async function () {
+  this.selected_id = null
+  this.selected_item = null
+  if (this.group_id !== null) {
+    let res = await axios.post('/record-item/list/api', {group_id: this.group_id})
+    if (res.status === 200) {
+      this.input = res.data
+    }
+  } else if (this.group_name !== null) {
+    let res1 = await axios.post('/record-group/search/api', {group_name: this.group_name})
+    if (res1.status === 200) {
+      let res2 = await axios.post('/record-item/list/api', {group_id: res1.data.id})
+      if (res2.status === 200) {
+        this.input = res2.data
+      }
+    }
+  }
+}
+
 export default {
   name: 'RecordItemSelect',
   data: () => {
     return {
       input: [],
-      selected_id: '',
+      selected_id: null,
       selected_item: null
     }
   },
@@ -53,21 +72,10 @@ export default {
     'group_id': {type: Number, default: null},
     'group_name': {type: String, default: null}
   },
-  created: async function () {
-    if (this.group_id !== null) {
-      let res = await axios.post('/record-item/list/api', {group_id: this.group_id})
-      if (res.status === 200) {
-        this.input = res.data
-      }
-    } else if (this.group_name !== null) {
-      let res1 = await axios.post('/record-group/search/api', {group_name: this.group_name})
-      if (res1.status === 200) {
-        let res2 = await axios.post('/record-item/list/api', {group_id: res1.data.id})
-        if (res2.status === 200) {
-          this.input = res2.data
-        }
-      }
-    }
+  created: update,
+  watch: {
+    group_id: update,
+    group_name: update
   }
 }
 

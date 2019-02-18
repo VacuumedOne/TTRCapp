@@ -1,7 +1,25 @@
 <template>
   <v-container class="recent_records">
     <h2>表で記録を見る</h2>
-    
+    <v-container class="condition_box">
+      <div class="title">表示する項目</div>
+      <v-layout column>
+        <v-flex>
+          <div>種目のグループは？</div>
+          <record-group-select
+            v-model="selected_group"
+            v-on:input="changeGroup"
+          ></record-group-select>
+        </v-flex>
+        <v-flex v-if="selected_group_id!==null">
+          <div>種目は？</div>
+          <record-item-select
+            v-model="selected_item"
+            :group_id="selected_group_id"
+            ></record-item-select>
+        </v-flex>
+      </v-layout>
+    </v-container>
     <v-data-table
       :headers="headers"
       :items="items"
@@ -17,6 +35,9 @@
 </template>
 
 <script>
+import RecordItemSelect from '@/components/Input/RecordItemSelect'
+import RecordGroupSelect from '@/components/Input/RecordGroupSelect'
+
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
@@ -46,26 +67,11 @@ export default {
           group_name: 'ダミー',
           item_name: '10分',
           date: '2019-02-02'
-        },
-        {
-          id: 3,
-          group_name: 'ダミー',
-          item_name: 'ベンチプレス',
-          date: '2019-02-03'
-        },
-        {
-          id: 4,
-          group_name: 'ダミー',
-          item_name: 'スクワット',
-          date: '2019-02-03'
-        },
-        {
-          id: 5,
-          group_name: 'ダミー',
-          item_name: 'デッドリフト',
-          date: '2019-02-03'
         }
-      ]
+      ],
+      selected_group: null,
+      selected_group_id: null,
+      selected_item: null
     }
   },
   methods: {
@@ -75,6 +81,10 @@ export default {
       formated += (date.getMonth() + 1) + '/'
       formated += date.getDate()
       return formated
+    },
+    changeGroup: function () {
+      console.log(this.selected_group)
+      this.selected_group_id = this.selected_group.id
     }
   },
   watch: {
@@ -97,6 +107,10 @@ export default {
     if (res.status === 200) {
       this.plane_data = res.data
     }
+  },
+  components: {
+    'record-group-select': RecordGroupSelect,
+    'record-item-select': RecordItemSelect
   }
 }
 </script>

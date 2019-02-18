@@ -30,9 +30,9 @@ export default {
     return {
       plane_data: [],
       headers: [
-        {text: '種目名', align: 'center', sortable: false, value: 'item_name'},
-        {text: '記録', align: 'center', sortable: false, value: 'result'},
-        {text: '記録日', align: 'center', sortable: false, value: 'date'}
+        {text: '種目名', align: 'center', sortable: false},
+        {text: '記録', align: 'center', sortable: false},
+        {text: '記録日', align: 'center', sortable: false}
       ],
       items: [ //ダミーデータ
         {

@@ -2,25 +2,40 @@
   <v-container class="recent_records">
     <h2>表で記録を見る</h2>
     <v-container class="condition_box">
-      <div class="title">表示する項目</div>
-      <v-layout column>
-        <v-flex>
-          <div>種目のグループは？</div>
-          <record-group-select
-            v-model="selected_group"
-            v-on:input="changeGroup"
-          ></record-group-select>
+      <v-layout row wrap>
+        <v-flex class="condition">
+          <div class="title">表示する項目</div>
+          <v-layout column>
+            <v-flex>
+              <div>種目のグループを選んでください</div>
+              <record-group-select
+                v-model="selected_group"
+                @input="changeGroup"
+              ></record-group-select>
+            </v-flex>
+            <v-flex v-if="selected_group_id!==null">
+              <div>種目はを選んでください</div>
+              <record-item-select
+                v-model="selected_item"
+                :group_id="selected_group_id"
+                ></record-item-select>
+            </v-flex>
+          </v-layout>
         </v-flex>
-        <v-flex v-if="selected_group_id!==null">
-          <div>種目は？</div>
-          <record-item-select
-            v-model="selected_item"
-            :group_id="selected_group_id"
-            ></record-item-select>
+        <v-flex class="order">
+          <div class="title">表示する順序</div>
+          <v-layout column>
+            <v-flex>
+              <div>順序を選んでください</div>
+              <div></div>
+            </v-flex>
+          </v-layout>
         </v-flex>
       </v-layout>
+      <v-btn color="error" v-if="selected_item!==null" @click="updateTable">表をつくる！</v-btn>
     </v-container>
     <v-data-table
+      v-if="table_disp_flg"
       :headers="headers"
       :items="items"
       class="elevation-3"
@@ -31,6 +46,7 @@
         <td class="caption">{{ props.item.date }}</td>
       </template>
     </v-data-table>
+    <div v-else>上のメニューより、条件,順序を入力してください。</div>
   </v-container>
 </template>
 
@@ -42,6 +58,19 @@ import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
 
+let update = async function () {
+  let res = 
+    await axios
+      .post('/record/search/api', {
+        user_id: this.loginUser.id,
+        item_id: this.selected_item.id
+      })
+  if (res.status === 200) {
+    this.table_disp_flg = true
+    this.plane_data = res.data
+  }
+}
+
 export default {
   name: 'RecentRecords',
   props: {
@@ -49,25 +78,14 @@ export default {
   },
   data: () => {
     return {
+      table_disp_flg: false,
       plane_data: [],
       headers: [
         {text: '種目名', align: 'center', sortable: false, value: 'item_name'},
         {text: '記録', align: 'center', sortable: false, value: 'result'},
         {text: '記録日', align: 'center', sortable: false, value: 'date'}
       ],
-      items: [ //ダミーデータ
-        {
-          id: 1,
-          group_name: 'ダミー',
-          item_name: '2000m',
-          date: '2019-02-01'
-        },
-        {
-          id: 2,
-          group_name: 'ダミー',
-          item_name: '10分',
-          date: '2019-02-02'
-        }
+      items: [
       ],
       selected_group: null,
       selected_group_id: null,
@@ -83,9 +101,10 @@ export default {
       return formated
     },
     changeGroup: function () {
-      console.log(this.selected_group)
       this.selected_group_id = this.selected_group.id
-    }
+      this.selected_item = null
+    },
+    updateTable: update
   },
   watch: {
     plane_data: function () {
@@ -101,13 +120,6 @@ export default {
       }
     }
   },
-  mounted: async function () {
-    let res = 
-      await axios.post('/record/search/api', {user_id: this.loginUser.id})
-    if (res.status === 200) {
-      this.plane_data = res.data
-    }
-  },
   components: {
     'record-group-select': RecordGroupSelect,
     'record-item-select': RecordItemSelect
@@ -116,4 +128,10 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.condition_box
+  border: solid 2px green
+  background-color: lightgreen
+  margin-bottom: 30px
+.order
+  margin-top: 20px
 </style>

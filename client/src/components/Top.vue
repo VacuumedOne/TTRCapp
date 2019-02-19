@@ -17,7 +17,7 @@
               </v-card>
             </v-flex>
             <v-flex grow d-flex md4>
-              <v-card class="card" v-ripple color="orange">
+              <v-card class="card yet" v-ripple color="orange">
                 <v-card-title primary class="title">その他の種目を記録する</v-card-title>
                 <v-card-text>自由になんでも管理したい人に。</v-card-text>
               </v-card>
@@ -33,7 +33,7 @@
               </v-card>
             </v-flex>
             <v-flex grow d-flex md6>
-              <v-card class="card" v-ripple color="green">
+              <v-card class="card yet" v-ripple color="green">
                 <v-card-title primary class="title">チームの記録を見る</v-card-title>
                 <v-card-text>部の状況を把握しよう。</v-card-text>
               </v-card>
@@ -75,4 +75,6 @@ export default {
   vertical-align: middle
 .card
   margin: 0.5%
+.yet
+  opacity: 0.4
 </style>

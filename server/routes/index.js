@@ -3,7 +3,6 @@ var router = express.Router();
 
 /* ローカルモジュール */
 var UserRegister = require('../lib/controller/User/UserRegister');
-var UserLogin = require('../lib/controller/User/UserLogin');
 var UserList = require('../lib/controller/User/UserList');
 var RecordGroupRegister = require('../lib/controller/RecordGroup/RecordGroupRegister');
 var RecordGroupList = require('../lib/controller/RecordGroup/RecordGroupList');
@@ -87,6 +86,11 @@ router.get('/is-authenticated/api', function(req, res, next) {
     console.log('fugafuga')
     res.sendStatus(401);
   }
+})
+//ログアウト
+router.get('/logout/api', function(req, res, next) {
+  req.logout();
+  res.status(200).send('Logout Successful.');
 })
 //ユーザ全取得
 router.post('/user/list/api', function(req, res, next) {

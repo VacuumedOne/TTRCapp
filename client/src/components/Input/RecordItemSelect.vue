@@ -1,14 +1,18 @@
+// グループIDもしくはグループ名を指定して、それを選択できる様にする
+
 <template>
   <div class="record-item-select">
     <el-select
       placeholder="種目を選ぶ"
-      v-model="value"
-      v-on:input="$emit('input', value)">
+      v-model="selected_id"
+      v-on:input="selectOption"
+      :disabled="disabled"
+    >
       <el-option
         v-for="item in items"
-        v-bind:value="item.id"
-        v-bind:label="item.item_name"
-        v-bind:key="item.id"
+        :value="item.id"
+        :label="item.item_name"
+        :key="item.id"
         ></el-option>
     </el-select>
   </div>
@@ -19,12 +23,45 @@ import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
 
+let update = async function () {
+  this.selected_id = null
+  this.selected_item = null
+  if (this.group_id !== null) {
+    let res = await axios.post('/record-item/list/api', {group_id: this.group_id})
+    if (res.status === 200) {
+      this.input = res.data
+    }
+  } else if (this.group_name !== null) {
+    let res1 = await axios.post('/record-group/search/api', {group_name: this.group_name})
+    if (res1.status === 200) {
+      let res2 = await axios.post('/record-item/list/api', {group_id: res1.data.id})
+      if (res2.status === 200) {
+        this.input = res2.data
+      }
+    }
+  }
+}
+
 export default {
   name: 'RecordItemSelect',
   data: () => {
     return {
       input: [],
-      value: null
+      selected_id: null,
+      selected_item: null
+    }
+  },
+  methods: {
+    selectOption: function () {
+      this.findOption()
+      this.$emit('input', this.selected_item)
+    },
+    findOption: function () {
+      for (let item of this.items) {
+        if (item.id === this.selected_id) {
+          this.selected_item = item
+        }
+      }
     }
   },
   computed: {
@@ -33,18 +70,14 @@ export default {
     }
   },
   props: {
-    'group_id': Number
+    'group_id': {type: Number, default: null},
+    'group_name': {type: String, default: null},
+    'disabled': Boolean
   },
-  methods: {
-  },
-  created: function () {
-    axios.post('/record-item/list/api', {group_id: 1})
-      .then((result) => {
-        console.log(result)
-        this.input = result.data
-      }).catch((err) => {
-        console.error(err)
-      })
+  created: update,
+  watch: {
+    group_id: update,
+    group_name: update
   }
 }
 

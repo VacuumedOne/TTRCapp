@@ -1,18 +1,18 @@
 <template>
-  <div class="time-result-form">
+  <div class="number-result-form">
     <div class="window">
       <div class="window_box">
-        <label class="num">{{ convert.convert_time_result(result_ms) }}</label>
-        <label class="unit">{{ unit }}</label>
+        <label class="num">{{result/1000}}</label>
+        <label class="unit">{{unit}}</label>
       </div>
     </div>
     <div class="buttons">
       <div class="negative-buttons">
         <div class="cntl-button negative">
-          <v-btn @click="addToResult(-100)">-0.1</v-btn>
+          <v-btn @click="addToResult(-2500)">-2.5</v-btn>
         </div>
         <div class="cntl-button negative">
-          <v-btn @click="addToResult(-1000)">-1</v-btn>
+          <v-btn @click="addToResult(-5000)">-5</v-btn>
         </div>
         <div class="cntl-button negative">
           <v-btn @click="addToResult(-10000)">-10</v-btn>
@@ -20,10 +20,10 @@
       </div>
       <div class="positive-buttons">
         <div class="cntl-button positive">
-          <v-btn @click="addToResult(100)">+0.1</v-btn>
+          <v-btn @click="addToResult(2500)">+2.5</v-btn>
         </div>
         <div class="cntl-button positive">
-          <v-btn @click="addToResult(1000)">+1</v-btn>
+          <v-btn @click="addToResult(5000)">+5</v-btn>
         </div>
         <div class="cntl-button positive">
           <v-btn @click="addToResult(10000)">+10</v-btn>
@@ -34,28 +34,25 @@
 </template>
 
 <script>
-import Convert from '@/util/js/Convert'
-
 export default {
-  name: 'TimeResultForm',
+  name: 'NumberResultForm',
   props: {
     default: Number
   },
   data: () => {
     return {
-      result_ms: 110000, // 表示する値の内蔵値。110000msなら、110000ms->1:50.0
-      unit: '/500m',
-      convert: Convert
+      result: 500000, // 表示する値。
+      unit: 'kg'
     }
   },
   methods: {
     addToResult: function (num) {
-      this.result_ms += num
-      this.$emit('input', this.result_ms)
+      this.result += num
+      this.$emit('input', this.result)
     }
   },
   mounted: function () {
-    this.disp_num = this.default
+    this.result = this.default
   }
 }
 </script>

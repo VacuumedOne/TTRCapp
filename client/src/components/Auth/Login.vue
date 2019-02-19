@@ -1,24 +1,77 @@
 <template>
-  <div id='Login'>
-    <h2 id="title">{{ msg }}</h2>
-    <div id="login_form">
-      <div>
-        <text-form name="user_name" placeholder=" ユーザ名(英数字)" v-model="form.user_name"></text-form>
+  <div class='login'>
+    <div class="card elevation-5">
+      <h2 class="title">{{ msg }}</h2>
+      <div class="login_form">
+        <div>
+          <v-text-field v-model="form.mail" outline label="メールアドレス"></v-text-field>
+        </div>
+        <div>
+          <v-text-field v-model="form.password" outline label="パスワード" type="password"></v-text-field>
+        </div>
+        <v-btn v-on:click="loginAPI">ログイン</v-btn>
       </div>
-      <password-form name="hashed_pw" placeholder=" パスワード(8文字以上英数字)" v-model="form.password"></password-form>
-      <submit type="button" value="Log in" v-on:click="loginAPI"></submit>
-      {{ form }}
+      <div>
+        <span>{{ msg2 }}</span><label class="link" @click="sendToParent('signUp')">こちら</label>
+      </div>
     </div>
-    <div>
-      <span>{{ msg2 }}</span><a href="/#/user/register">こちら</a>
-    </div>
+    <v-dialog
+          v-model="err_disp_flg"
+          width="500"
+        >
+          <v-card>
+            <v-card-title
+              class="headline grey lighten-2"
+              primary-title
+            >
+              登録に失敗しました。
+            </v-card-title>
+            <v-card-text>
+              <template v-for="(error, index) in err">
+                <div class="body-2" :key="index">{{error}}</div>
+              </template>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                flat
+                @click="err_disp_flg = false"
+              >
+                OK
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog
+          v-model="success_disp_flg"
+          width="500"
+          persistent
+        >
+          <v-card>
+            <v-card-title
+              class="headline grey lighten-2"
+              primary-title
+            >
+              ログインに成功しました。
+            </v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                flat
+                @click="gotoTop"
+              >
+                OK
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
   </div>
 </template>
 
 <script>
-import TextForm from '@/components/Input/TextForm'
-import PasswordForm from '@/components/Input/PasswordForm'
-import Submit from '@/components/Input/Submit'
 
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000'
@@ -31,33 +84,47 @@ export default {
       msg: 'Welcome Back!',
       msg2: 'アカウントを持っていない方は',
       form: {
-        user_name: '',
+        mail: '',
         password: ''
-      }
+      },
+      err: [],
+      err_disp_flg: false,
+      success_disp_flg: false
     }
   },
   methods: {
-    loginAPI: function () {
-      axios.post('/user/login/api', this.form)
-        .then((result) => {
-          console.log(result)
-        }).catch((err) => {
-          console.log(err)
-        })
+    loginAPI: async function () {
+      try {
+        let res = await axios.post('/login/api', this.form)
+        if (res.status === 200) {
+          this.success_disp_flg = true
+        } else {
+          this.err_disp_flg = true
+          this.err = ['ログインに失敗しました。']
+        }
+      } catch (err) {
+        this.err_disp_flg = true
+        this.err = ['ログインに失敗しました。']
+      }
+    },
+    sendToParent: function (msg) {
+      this.$emit('send', msg)
+    },
+    gotoTop: function () {
+      this.$emit('login')
     }
   },
   components: {
-    'text-form': TextForm,
-    'password-form': PasswordForm,
-    'submit': Submit
   }
 }
 </script>
 
 <style lang="sass" scoped>
-  #Login
-    background-color: #1955A6
-    color: #EEE
-    padding-top: 50px
-    height: 100vh
+.card
+  background-color: white
+  padding: 20px
+  margin: 5px
+  border-radius: 5px
+.link
+  color: blue
 </style>

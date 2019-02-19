@@ -15,43 +15,48 @@ module.exports = function(body, res, db) {
   let cond_user_id = body.user_id || false
   let cond_item_id = body.item_id || false
   let cond_group_id = body.group_id || false
+  let limit = body.limit || 10000
+
+  let order = body.order || []
+  if (order.length === 0) {
+    order = ['updatedAt', 'DESC']
+  }
+
+  console.log(order)
 
   if(!cond_user_id && !cond_item_id && !cond_group_id){
     res.status(500).send('At least one search condition is required.');
     return;
   }
 
+  let whereClause = {}
+  if (cond_user_id) {
+    whereClause.player_id = cond_user_id
+  }
+  if (cond_item_id) {
+    whereClause.item_id = cond_item_id
+  }
+  let whereClause2 = {}
+  if (cond_group_id) {
+    whereClause2.group_id = cond_group_id
+  }
+
+
   Record.findAll({
-    where: {
-      player_id: {
-        [Op.or]: [
-          {[Op.eq]: cond_user_id}, //cond_user_idに数値が入っていれば一致検索
-          cond_user_id===false //cond_user_idにfalseが入っていれば絞り込みなし
-        ]
-      },
-      item_id: {
-        [Op.or]: [
-          {[Op.eq]: cond_item_id},
-          cond_item_id===false
-        ]
-      }
-    },
+    where: whereClause,
     include: [
       {
         model: RecordItem,
         attributes: [
           'item_name',
           'group_id',
-          'unit'
+          'unit',
+          'format'
         ],  
-        where: {
-          group_id: {
-            [Op.or]: [
-              {[Op.eq]: cond_group_id},
-              cond_group_id===false
-            ]
-          }
-        }
+        where: whereClause2,
+        include: [{
+          model: RecordGroup
+        }]
       },
       {
         model: User,
@@ -60,20 +65,15 @@ module.exports = function(body, res, db) {
           'k_firstname'
         ]
       }
-    ]
+    ],
+    limit: limit,
+    order: [order],
   }).then(result => {
     res.json(result);
   }).catch(err => {
     console.log(err)
     res.sendStatus(500);
   })
-
-  // RecordGroup.findAll()
-  //   .then(result => {
-  //     res.status(200).json(result)
-  //   }).catch(err => {
-  //     console.log(err)
-  //     res.status(500).end()
-  //   })
+  
   return;
 }

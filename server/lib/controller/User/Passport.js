@@ -11,23 +11,30 @@ module.exports = function (db) {
    * postでemailとpasswordを受け取る
    */
   passport.use(new localStrategy({
-      usernameField: 'email',
+      usernameField: 'mail',
       passwordField: 'password'
     },
     (email, password, done) => {
       User.findOne({
         attributes: [
-          'id'
+          'id',
+          'salt',
+          'hashed_pw'
         ],
         where: {
-          'mail': email,
-          'hashed_pw': Hash.getHashedText(password)
+          'mail': email  //メールアドレスで検索
         }
       }).then(user => {
         if(user === null){
-          return done(null, false, {'message': 'Incorrect User'})
+          return done(null, false, {'message': 'Login Failure'})
         }else{
-          return done(null, user)
+          let salt = user.salt
+          let hashed_pw = Hash.getHashedText(password + salt)
+          if(hashed_pw === user.hashed_pw) {
+            return done(null, user)
+          } else {
+            return done(null, false, {'message': 'Login Failure'})
+          }
         }
       }).catch(err => {
         return done(null, err)
@@ -40,7 +47,6 @@ module.exports = function (db) {
    * ログインしたユーザの情報を受けて、そのidをセッションに保存する
    */
   passport.serializeUser((user, done) => {
-    console.log(user.id)
     done(null, user.id);
   })
 
@@ -49,10 +55,10 @@ module.exports = function (db) {
    * セッション情報からユーザ情報を復元して返す。
    */
   passport.deserializeUser((id, done) => {
+    console.log('id: ' + id)
     User.findOne({
       attributes: [
         'id',
-        'user_name',
         'mail',
         'sex',
         'k_lastname',

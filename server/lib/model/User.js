@@ -2,14 +2,13 @@ const Sequelize = require('sequelize');
 
 module.exports = function (db) {
   let User = db.define('User', {
-    user_name: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      unique: true
-    },
     hashed_pw: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
+    },
+    salt: {
+      type: Sequelize.STRING,
+      allowNull: false
     },
     mail: {
       type: Sequelize.STRING,
@@ -26,6 +25,14 @@ module.exports = function (db) {
         isIn: [['male', 'female']]
       }
     },
+    /**
+     * authは権限情報。
+     * 0: unauthorized 権限無し(凍結)
+     * 1: administrator 管理者　全ての記録操作を行える
+     * 2: supporter サポーター　他人の記録を操作できる
+     * 3: player 選手　自分の記録を操作できる
+     * 4: viewer 監視　チームの記録を見ることができる
+     */
     auth: {
       type: Sequelize.INTEGER,
       allowNull: false,

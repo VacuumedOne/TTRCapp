@@ -110,13 +110,94 @@
   + サーバ側の問題です。
   + Body
 
+## ログイン [/login/api]
+
+### ログイン [POST]
+メールアドレスとパスワードでログイン認証を行います。
+ユーザが確認できたらセッションを獲得します。
+セッション獲得後は/is-authenticated/apiでログイン情報を取得できます。
+
++ Request example
+  + Body
+      ```json
+      {
+        "mail": "tsubakuro@m.titech.ac.jp",
+        "password": "abcd1234"
+      }
+      ```
+
++ Response 200
+  + Body
+    ```txt
+      Login Successful.
+    ```
++ Response 500
+  + サーバ側の問題です。
+  + Body
+
+## ログイン情報取得 [/is-authenticated/api]
+
+### ログイン情報取得 [GET]
+既にセッションを獲得しているセッション情報から、ログイン情報を取得します。セッションを獲得していない場合は401:Unauthorizedが返ります。
+
++ Response 200
+  + Body
+    ```json
+      {
+        "id": 10,
+        "user_name": "tsubakuro",
+        "mail": "tsubakuro@m.titech.ac.jp",
+        "sex": "male",
+        "auth": 3,
+        "birth_ymd": "1995-04-01",
+        "k_lastname": "燕",
+        "k_firstname": "太郎",
+        "h_lastname": "つばくろ",
+        "h_firstname": "たろう"
+      }
+    ```
+
++ Response 401
+  + ログイン処理が完了していません。
+  + Body
+    ```txt
+      Unauthorized
+    ```
+
++ Response 500
+  + サーバ側の問題です。
+  + Body
+
+## ログアウト [/logout/api]
+
+### ログアウト [GET]
+セッションを捨て、ログアウトを行います。
+
++ Request example
+  + Body
+    ```
+      {
+        "mail": "tsubakuro@m.titech.ac.jp",
+        "password": "abcd1234"
+      }
+    ```
+
++ Response 200
+  + Body
+    ```txt
+      Logout Successful.
+    ```
++ Response 500
+  + サーバ側の問題です。
+  + Body
+
 # Group RecordGroup
 
 + RecordGroupについて
   + RecordGroupは記録のグループを保持します。
   + 記録のグループとは、例えばエルゴ、ウェイト、体組成などの、グループです。
   + RecordGroupと以下に記載するRecordItemで、一つの種目("エルゴ"の"2000m"など)を一意に決定します。
-  + 操作の頻度はかなり少ないです。
+  + 操作の頻度はかなり低いです。
 
 ## 新規記録グループ登録 [/record-group/register/api]
 
@@ -168,6 +249,33 @@
         {
           "id": 1,
           "group_name": "ウェイト"
+        }
+      ]
+    ```
++ Response 500
+  + サーバ側の問題です。
+  + Body
+
+## 記録グループ検索 [/record-group/search/api]
+
+### 記録グループ検索 [POST]
+記録グループをグループ名で検索します。
+
++ Request example
+  + Body
+    ```json
+      {
+        "group_name": "エルゴ"
+      }
+    ```
+
++ Response 200
+  + Body
+    ```json
+      [
+        {
+          "id": 0,
+          "group_name": "エルゴ"
         }
       ]
     ```

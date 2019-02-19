@@ -11,7 +11,6 @@
       <div class="item">
         <span>1セット目の重量を入力(例:52.5kg)</span>
         <number-result-form :default="form.result" v-model="form.result" ></number-result-form>
-        {{form.result}}
       </div>
       <div class="item checkbox">
         <v-checkbox v-model="ext_col_disp_flg" color="indigo" label="さらに入力する"></v-checkbox>

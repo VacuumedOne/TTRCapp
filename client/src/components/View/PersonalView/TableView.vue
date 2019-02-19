@@ -18,7 +18,7 @@
               <record-item-select
                 v-model="selected_item"
                 :group_id="selected_group_id"
-                @click="selectItem"
+                @input="selectItem"
                 ></record-item-select>
             </v-flex>
           </v-layout>
@@ -60,21 +60,6 @@ import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
 
-let update = async function () {
-  this.beforeUpdate()
-  let res =
-    await axios
-      .post('/record/search/api', {
-        user_id: this.loginUser.id,
-        item_id: this.selected_item.id,
-        order: this.order
-      })
-  if (res.status === 200) {
-    this.table_disp_flg = true
-    this.plane_data = res.data
-  }
-}
-
 export default {
   name: 'RecentRecords',
   props: {
@@ -86,18 +71,17 @@ export default {
       item_selected_flg: false,
       table_disp_flg: false,
       plane_data: [],
-      headers: [
-        {text: '種目名', align: 'center', sortable: false, value: 'item_name'},
-        {text: '記録', align: 'center', sortable: false, value: 'result'},
-        {text: '記録日', align: 'center', sortable: false, value: 'date'}
-      ],
-      records: [
-      ],
+      records: [],
       selected_group: null,
       selected_group_id: null,
       selected_item: null,
       order_column: '',
       order: [],
+      headers: [
+        {text: '種目名', align: 'center', sortable: false, value: 'item_name'},
+        {text: '記録', align: 'center', sortable: false, value: 'result'},
+        {text: '記録日', align: 'center', sortable: false, value: 'date'}
+      ],
       convert: Convert
     }
   },
@@ -131,7 +115,20 @@ export default {
         this.order = []
       }
     },
-    updateTable: update
+    updateTable: async function () {
+      this.beforeUpdate()
+      let res =
+        await axios
+          .post('/record/search/api', {
+            user_id: this.loginUser.id,
+            item_id: this.selected_item.id,
+            order: this.order
+          })
+      if (res.status === 200) {
+        this.table_disp_flg = true
+        this.plane_data = res.data
+      }
+    }
   },
   watch: {
     plane_data: function () {

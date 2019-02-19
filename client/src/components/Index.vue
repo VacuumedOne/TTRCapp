@@ -157,7 +157,7 @@ import View from '@/components/View'
 import Auth from '@/components/Auth'
 
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
 
 export default {

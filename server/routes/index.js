@@ -14,15 +14,13 @@ var RecordSearch = require('../lib/controller/Record/RecordSearch')
 
 /* ローカルDB関連モジュール */
 
-
-
 //DB接続
 var Sequelize = require('sequelize').Sequelize;
 var db = new Sequelize(
-  'tsubakuro',
-  'root',
-  'password',
-  {host: 'localhost',
+  process.env.DATABASE_NAME,
+  process.env.DATABASE_USER,
+  process.env.DATABASE_PASSWORD,
+  {host: process.env.DATABASE_HOST,
    dialect: 'mysql',
    port: 3306});
 //接続チェック

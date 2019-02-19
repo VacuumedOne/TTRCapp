@@ -1,6 +1,13 @@
 #!/usr/bin/env node
 
 /**
+ * environment variable setup
+ */
+
+var dotenv = require('dotenv')
+dotenv.config(); // .envをprocess.envに固定
+
+/**
  * Module dependencies.
  */
 

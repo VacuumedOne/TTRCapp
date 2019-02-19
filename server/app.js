@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // CORS対策。localhost:8080からのAjaxリクエストを受け付ける
 var corsOptions = {
   credentials: true,
-  origin: 'http://localhost:8080'
+  origin: '*'
 };
 app.use(cors(corsOptions));
 

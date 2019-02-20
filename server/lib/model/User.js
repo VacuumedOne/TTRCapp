@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = function (db) {
-  let User = db.define('User', {
+  let User = db.define('user', {
     hashed_pw: {
       type: Sequelize.STRING,
       allowNull: false

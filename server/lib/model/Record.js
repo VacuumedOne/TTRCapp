@@ -3,7 +3,7 @@ var Sequelize = require('sequelize');
 module.exports = function (db) {
   var RecordItem = require('./RecordItem')(db)
   var User = require('./User')(db)
-  let Record = db.define('Record', {
+  let Record = db.define('record', {
     player_id: {
       type: Sequelize.INTEGER,
       allowNull: false,

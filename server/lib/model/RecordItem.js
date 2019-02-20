@@ -2,7 +2,7 @@ var Sequelize = require('sequelize');
 
 module.exports = function (db) {
   var RecordGroup = require('./RecordGroup')(db)
-  let RecordItem = db.define('RecordItem', {
+  let RecordItem = db.define('recorditem', {
     item_name: {
       type: Sequelize.STRING,
       allowNull: false,

@@ -74,12 +74,15 @@
 <script>
 
 import axios from 'axios'
-axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
+axios.defaults.baseURL = 'http://rowingkuramae.com:3000'
 // axios.defaults.headers.common['Content-Type'] = 'application/json'
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 axios.defaults.withCredentials = true
 
 export default {
+  created: function () {
+    console.log('baseURL is ' + process.env.VUE_APP_API_SERVER_BASE_URL)
+  },
   name: 'UserRegister',
   data: () => {
     return {

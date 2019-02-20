@@ -157,7 +157,7 @@ import View from '@/components/View'
 import Auth from '@/components/Auth'
 
 import axios from 'axios'
-axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
+axios.defaults.baseURL = 'localhost:3000'// process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
 
 export default {
@@ -173,14 +173,11 @@ export default {
     }
   },
   created: function () {
-    console.log(this.$vuetify.breakpoint.width)
     if (this.$vuetify.breakpoint.width < 1300) {
       //小さい画面の時、デフォルトでDrawerは閉じている
-      console.log('SmallWindow')
       this.drawer_disp_flg = false
     } else {
       //大きい画面の時、デフォルトでDrawerは開いている
-      console.log('LargeWindow')
       this.drawer_disp_flg = true
     }
     this.isAuthenticated()

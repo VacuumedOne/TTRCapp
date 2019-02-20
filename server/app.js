@@ -23,12 +23,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// CORS対策。localhost:8080からのAjaxリクエストを受け付ける
 var corsOptions = {
   credentials: true,
   origin: '*'
 };
 app.use(cors(corsOptions));
+
+// CORS対策。どのオリジンからもAjaxリクエストを受け付ける
+// var allowCrossDomain = function(req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+//   next();
+// }
+// app.use(allowCrossDomain);
 
 //passportとセッション
 app.use(session({

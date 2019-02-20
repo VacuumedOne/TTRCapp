@@ -47,6 +47,7 @@ module.exports = function (db) {
    * ログインしたユーザの情報を受けて、そのidをセッションに保存する
    */
   passport.serializeUser((user, done) => {
+    console.log('serialize: ' + user.id)
     done(null, user.id);
   })
 
@@ -55,7 +56,7 @@ module.exports = function (db) {
    * セッション情報からユーザ情報を復元して返す。
    */
   passport.deserializeUser((id, done) => {
-    console.log('id: ' + id)
+    console.log('deserialize: ' + id)
     User.findOne({
       attributes: [
         'id',

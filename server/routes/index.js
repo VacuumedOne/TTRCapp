@@ -33,10 +33,10 @@ db
     console.error('Unable to connect to the database:', err);
   });
 //model定義
-var User = require('../lib/model/User')(db)
-var RecordGroup = require('../lib/model/RecordGroup')(db)
-var RecordItem = require('../lib/model/RecordItem')(db)
-var Record = require('../lib/model/Record')(db)
+require('../lib/model/User')(db)
+require('../lib/model/RecordGroup')(db)
+require('../lib/model/RecordItem')(db)
+require('../lib/model/Record')(db)
 db.sync(function(errs){
   console.log('Model definition has been updated.', errs);
 })
@@ -76,12 +76,10 @@ router.post('/login/api',
 //認証チェック
 router.get('/is-authenticated/api', function(req, res, next) {
   if (req.isAuthenticated()) {  //認証チェック
-    console.log('hogehoge')
     res.status(200).json({
       user: req.user
     });
   } else {  // 認証されていない
-    console.log('fugafuga')
     res.sendStatus(401);
   }
 })

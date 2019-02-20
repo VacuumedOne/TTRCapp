@@ -75,6 +75,8 @@
 
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
+// axios.defaults.headers.common['Content-Type'] = 'application/json'
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 axios.defaults.withCredentials = true
 
 export default {

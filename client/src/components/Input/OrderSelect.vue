@@ -22,7 +22,7 @@
 <script>
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = false
 
 export default {
   name: 'RecordGroupSelect',

@@ -24,7 +24,7 @@
               class="headline grey lighten-2"
               primary-title
             >
-              登録に失敗しました。
+              ログインに失敗しました。
             </v-card-title>
             <v-card-text>
               <template v-for="(error, index) in err">

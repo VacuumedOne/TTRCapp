@@ -4,7 +4,7 @@ module.exports = function (db) {
   var RecordGroup = require('./RecordGroup')(db)
   let RecordItem = db.define('recorditem', {
     item_name: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(100),
       allowNull: false,
     },
     group_id: {

@@ -3,15 +3,15 @@ const Sequelize = require('sequelize');
 module.exports = function (db) {
   let User = db.define('user', {
     hashed_pw: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(200),
       allowNull: false
     },
     salt: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(100),
       allowNull: false
     },
     mail: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(100),
       allowNull: false,
       validate: {
         isEmail: true
@@ -19,7 +19,7 @@ module.exports = function (db) {
       unique: true
     },
     sex: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(10),
       allowNull: false,
       validate: {
         isIn: [['male', 'female']]

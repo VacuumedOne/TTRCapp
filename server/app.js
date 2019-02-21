@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // CORS対策。どのオリジンからもAjaxリクエストを受け付ける
 var allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://rowingkuramae.com:3000');
+  res.header('Access-Control-Allow-Origin', 'http://rowingkuramae.com:8080');
   res.header('Access-Control-Allow-Credentials', true);
   next();
 }

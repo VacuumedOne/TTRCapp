@@ -19,6 +19,17 @@ nodebrew install-binary {version}
 node -v
 ```
 
+- /server 配下に.envファイルを置いてください
+.env(例)
+```
+DATABASE_NAME=ttrc
+DATABASE_USER=root
+DATABASE_PASSWORD=password
+DATABASE_HOST=localhost
+
+FRONT_END_URL=http://localhost:8080
+```
+
 ---
 ---
 

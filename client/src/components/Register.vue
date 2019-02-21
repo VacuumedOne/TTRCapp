@@ -74,5 +74,6 @@ export default {
 .back
   border-radius : 30%
   padding : 5px
+  margin-bottom : 3px
 
 </style>

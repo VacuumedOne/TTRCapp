@@ -7,6 +7,11 @@ module.exports = function (db) {
       allowNull: false,
       unique: true
     }
+  },
+  {
+    engine: 'InnoDB',
+    charset: 'utf8',
+    paranoid: true
   })
   return RecordGroup
 }

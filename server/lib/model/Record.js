@@ -40,6 +40,10 @@ module.exports = function (db) {
       type: Sequelize.JSON,
       allowNull: true
     }
+  },
+  {
+    engine: 'InnoDB',
+    charset: 'utf8'
   })
   Record.belongsTo(RecordItem, {
     foreignKey: 'item_id',

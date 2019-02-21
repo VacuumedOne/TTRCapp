@@ -63,12 +63,12 @@ module.exports = function (db) {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: true
-    },
-    d_flg: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
     }
+  },
+  {
+    engine: 'InnoDB',
+    charset: 'utf8',
+    paranoid: true
   })
   return User
 }

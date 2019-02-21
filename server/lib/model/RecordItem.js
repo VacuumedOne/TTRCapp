@@ -31,6 +31,11 @@ module.exports = function (db) {
       allowNull: false,
       isIn: [['plane', 'ms', 'g']]
     }
+  },
+  {
+    engine: 'InnoDB',
+    charset: 'utf8',
+    paranoid: true
   })
   RecordItem.belongsTo(RecordGroup, {
     foreignKey: 'group_id',

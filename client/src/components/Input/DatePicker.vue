@@ -18,9 +18,9 @@
 <script>
 export default {
   name: 'DatePicker',
-  date: () => {
+  data: () => {
     return {
-      date: null, 
+      date: null,
       temp: null
     }
   },
@@ -31,14 +31,14 @@ export default {
       this.$emit('input', value)
       console.log(value)
     }
-  }
-  // created: function () {
-  //   this.date = new Date()
-  //   this.temp = this.date.toISOString().substr(0, 10)
-  // },
-  // mounted: function () {
-  //   this.$emit('input', this.date)
-  // }
+  },
+   created: function () {
+     this.date = new Date()
+     this.temp = this.date.toISOString().substr(0, 10)
+   },
+   mounted: function () {
+     this.$emit('input', this.date)
+   }
 }
 </script>
 

@@ -23,19 +23,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// var corsOptions = {
-//   credentials: true,
-//   origin: 'http://rowingkuramae.com:3000'
-// };
-// app.use(cors(corsOptions));
+var corsOptions = {
+  credentials: true,
+  origin: 'http://rowingkuramae.com:8080'
+};
+app.use(cors(corsOptions));
 
 // CORS対策。どのオリジンからもAjaxリクエストを受け付ける
-var allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://rowingkuramae.com:8080');
-  res.header('Access-Control-Allow-Credentials', true);
-  next();
-}
-app.use(allowCrossDomain);
+// var allowCrossDomain = function(req, res, next) {
+//   res.header('Access-Control-Allow-Origin', 'http://rowingkuramae.com:8080');
+//   res.header('Access-Control-Allow-Credentials', true);
+//   next();
+// }
+// app.use(allowCrossDomain);
 
 //passportとセッション
 app.use(session({

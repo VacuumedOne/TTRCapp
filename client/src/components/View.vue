@@ -61,7 +61,7 @@ export default {
 <style lang="sass" scoped>
 
 .back
-  border-radius : 50%
+  border-radius : 30%
   padding : 5px
 
 </style>

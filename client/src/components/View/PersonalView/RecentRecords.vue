@@ -76,9 +76,9 @@ export default {
       for (let data of this.plane_data) {
         let processed = {}
         processed.id = data.id
-        processed.group_name = data.RecordItem.RecordGroup.group_name
-        processed.item_name = data.RecordItem.item_name
-        processed.result = this.convert.convert_result(data.result, data.RecordItem.format) + data.RecordItem.unit
+        processed.group_name = data.recorditem.recordgroup.group_name
+        processed.item_name = data.recorditem.item_name
+        processed.result = this.convert.convert_result(data.result, data.recorditem.format) + data.recorditem.unit
         processed.date = data.date.substr(0, 10)
         this.items.push(processed)
       }

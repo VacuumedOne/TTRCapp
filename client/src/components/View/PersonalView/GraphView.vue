@@ -73,14 +73,21 @@ export default {
       chartdata: {
         datasets: [
           {
-            label: '2000m',
             borderColor: '#f87979',
             fill: false,
+            label: 'hoge',
             data: []
           }
         ]
       },
       options: {
+        legend: {
+          display: false
+        },
+        tooltips: {
+          callbacks: {
+          }
+        },
         scales: {
           xAxes: [{
             type: 'linear',
@@ -91,7 +98,7 @@ export default {
             },
             ticks: {
               callback: (label) => {
-                return ''
+                return label
               }
             }
           }],
@@ -160,6 +167,12 @@ export default {
       this.options.scales.yAxes[0].ticks.callback = (label) => {
         return this.convert.convert_result(label, this.data_format)
       }
+      // this.options.tooltips.callbacks.title = function (toolTipItem, data) {
+      //   return this.convert.convert_date(new Date(toolTipItem[0].xLabel))
+      // }
+      // this.options.tooltips.callbacks.label = function (toolTipItem, data) {
+      //   return this.convert.convert_result(toolTipItem[0].yLabel, this.data_format)
+      // }
       this.graph_disp_flg = true
     },
     dataPreprocess: function () {
@@ -170,8 +183,8 @@ export default {
         point.y = data.result
         points.push(point)
       }
-      this.graph_label = this.plane_data[0].RecordItem.RecordGroup.group_name + '/' + this.plane_data[0].RecordItem.item_name
-      this.data_format = this.plane_data[0].RecordItem.format
+      this.graph_label = this.plane_data[0].recorditem.recordgroup.group_name + '/' + this.plane_data[0].recorditem.item_name
+      this.data_format = this.plane_data[0].recorditem.format
       this.graph_data = points
     }
   },
@@ -184,8 +197,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.chart
-  padding: 50px
 .condition_box
   border: solid 2px green
   background-color: lightgreen

@@ -24,7 +24,7 @@
               class="headline grey lighten-2"
               primary-title
             >
-              登録に失敗しました。
+              ログインに失敗しました。
             </v-card-title>
             <v-card-text>
               <template v-for="(error, index) in err">
@@ -78,6 +78,9 @@ axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
 
 export default {
+  created: function () {
+    console.log('baseURL is ' + process.env.VUE_APP_API_SERVER_BASE_URL)
+  },
   name: 'UserRegister',
   data: () => {
     return {

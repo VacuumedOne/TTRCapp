@@ -23,12 +23,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// CORS対策。localhost:8080からのAjaxリクエストを受け付ける
+// CORS対策。どのオリジンからもAjaxリクエストを受け付ける
 var corsOptions = {
   credentials: true,
-  origin: '*'
+  origin: process.env.FRONT_END_URL
 };
 app.use(cors(corsOptions));
+
 
 //passportとセッション
 app.use(session({

@@ -1,17 +1,17 @@
 const Sequelize = require('sequelize');
 
 module.exports = function (db) {
-  let User = db.define('User', {
+  let User = db.define('user', {
     hashed_pw: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(200),
       allowNull: false
     },
     salt: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(100),
       allowNull: false
     },
     mail: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(100),
       allowNull: false,
       validate: {
         isEmail: true
@@ -19,7 +19,7 @@ module.exports = function (db) {
       unique: true
     },
     sex: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(10),
       allowNull: false,
       validate: {
         isIn: [['male', 'female']]
@@ -63,12 +63,12 @@ module.exports = function (db) {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: true
-    },
-    d_flg: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
     }
+  },
+  {
+    engine: 'InnoDB',
+    charset: 'utf8',
+    paranoid: true
   })
   return User
 }

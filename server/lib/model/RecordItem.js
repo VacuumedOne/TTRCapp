@@ -2,9 +2,9 @@ var Sequelize = require('sequelize');
 
 module.exports = function (db) {
   var RecordGroup = require('./RecordGroup')(db)
-  let RecordItem = db.define('RecordItem', {
+  let RecordItem = db.define('recorditem', {
     item_name: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(100),
       allowNull: false,
     },
     group_id: {
@@ -31,6 +31,11 @@ module.exports = function (db) {
       allowNull: false,
       isIn: [['plane', 'ms', 'g']]
     }
+  },
+  {
+    engine: 'InnoDB',
+    charset: 'utf8',
+    paranoid: true
   })
   RecordItem.belongsTo(RecordGroup, {
     foreignKey: 'group_id',

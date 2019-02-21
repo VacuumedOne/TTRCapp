@@ -3,7 +3,7 @@ var Sequelize = require('sequelize');
 module.exports = function (db) {
   var RecordItem = require('./RecordItem')(db)
   var User = require('./User')(db)
-  let Record = db.define('Record', {
+  let Record = db.define('record', {
     player_id: {
       type: Sequelize.INTEGER,
       allowNull: false,
@@ -40,6 +40,10 @@ module.exports = function (db) {
       type: Sequelize.JSON,
       allowNull: true
     }
+  },
+  {
+    engine: 'InnoDB',
+    charset: 'utf8'
   })
   Record.belongsTo(RecordItem, {
     foreignKey: 'item_id',

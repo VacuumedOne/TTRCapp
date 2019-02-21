@@ -3,7 +3,7 @@
     <div class="card elevation-5">
       <h2 class="display-1">エルゴを記録</h2>
       <div class="item">
-        <span>種目を選ぶ</span>hoge
+        <span>種目を選ぶ</span>
         <record-item-select
           group_name="エルゴ"
           v-model="form.record_item"></record-item-select>

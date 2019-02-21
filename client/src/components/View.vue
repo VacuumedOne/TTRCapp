@@ -1,5 +1,7 @@
 <template>
   <div class="view">
+    <v-icon class="elevation-5 back"
+          @click="sendToParent()">arrow_back</v-icon>
     <personal-view
       class="personal_view"
       v-if="state==='personal'"
@@ -44,7 +46,10 @@ export default {
     },
     receiveFromChild: function (data) {
       this.$emit('send', data)
-    }
+    },
+    sendToParent: function () {
+      this.$emit('send', 'top')
+    },
   },
   components: {
     'personal-view': PersonalView,
@@ -54,5 +59,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+
+.back
+  border-radius : 50%
+  padding : 5px
 
 </style>

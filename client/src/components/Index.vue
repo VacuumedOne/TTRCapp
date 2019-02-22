@@ -92,7 +92,7 @@
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
-          <v-list-tile class="drawer_column" @click="gotoConfig">
+          <v-list-tile class="drawer_column" @click="gotoConfig('user')">
             <v-list-tile-action>
               <v-icon>settings</v-icon>
             </v-list-tile-action>
@@ -124,8 +124,8 @@
             <register
               class="item register"
               v-if="state==='register'"
-              v-bind:login-user="login_user"
-              v-bind:mode="register_mode"
+              :login-user="login_user"
+              :mode="register_mode"
               v-on:send="receiveFromChild"
               ></register>
           </transition>
@@ -133,10 +133,19 @@
             <c-view
               class="item view"
               v-if="state==='view'"
-              v-bind:login-user="login_user"
-              v-bind:mode="view_mode"
+              :login-user="login_user"
+              :mode="view_mode"
               v-on:send="receiveFromChild"
               ></c-view>
+          </transition>
+          <transition name="fade">
+            <config
+              class="item config"
+              v-if="state==='config'"
+              :login-user="login_user"
+              :mode="config_mode"
+              v-on:send="receiveFromChild"
+              ></config>
           </transition>
         </v-container>
       </v-content>
@@ -155,6 +164,7 @@ import Top from '@/components/Top'
 import Register from '@/components/Register'
 import View from '@/components/View'
 import Auth from '@/components/Auth'
+import Config from '@/components/Config'
 
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
@@ -169,6 +179,7 @@ export default {
       login_user: null,
       register_mode: '',
       view_mode: '',
+      config_mode: '',
       drawer_disp_flg: null
     }
   },
@@ -206,9 +217,10 @@ export default {
       this.beforeGoto()
       this.state = 'top'
     },
-    gotoConfig: function () {
+    gotoConfig: function (mode) {
       //設定画面に遷移する
       this.beforeGoto()
+      this.config_mode = mode
       this.state = 'config'
     },
     gotoRegister: function (mode) {
@@ -274,7 +286,8 @@ export default {
     'top': Top,
     'register': Register,
     'c-view': View,
-    'auth': Auth
+    'auth': Auth,
+    'config': Config
   }
 }
 </script>

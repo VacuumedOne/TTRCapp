@@ -6,17 +6,17 @@
       v-if="state==='ergo'"
       v-bind:login-user="loginUser"
       v-on:send="receiveFromChild"
-      ></ergo-register>
+    ></ergo-register>
     <weight-register
       v-if="state==='weight'"
       v-bind:login-user="loginUser"
       v-on:send="receiveFromChild"
-      ></weight-register>
+    ></weight-register>
     <others-register
       v-if="state==='others'"
       v-bind:login-user="loginUser"
       v-on:send="receiveFromChild"
-      ></others-register>
+    ></others-register>
   </div>
 </template>
 

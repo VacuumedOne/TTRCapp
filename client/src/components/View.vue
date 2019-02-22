@@ -49,7 +49,7 @@ export default {
     },
     sendToParent: function () {
       this.$emit('send', 'top')
-    },
+    }
   },
   components: {
     'personal-view': PersonalView,

@@ -78,9 +78,6 @@ axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
 axios.defaults.withCredentials = true
 
 export default {
-  created: function () {
-    console.log('baseURL is ' + process.env.VUE_APP_API_SERVER_BASE_URL)
-  },
   name: 'UserRegister',
   data: () => {
     return {

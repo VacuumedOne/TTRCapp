@@ -1,5 +1,7 @@
 <template>
   <div class="register">
+    <v-icon class="elevation-5 back"
+          @click="sendToParent()">arrow_back</v-icon>
     <ergo-register
       v-if="state==='ergo'"
       v-bind:login-user="loginUser"
@@ -54,6 +56,9 @@ export default {
     },
     receiveFromChild: function (data) {
       this.$emit('send', data)
+    },
+    sendToParent: function () {
+      this.$emit('send', 'top')
     }
   },
   components: {
@@ -65,5 +70,10 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+
+.back
+  border-radius : 30%
+  padding : 5px
+  margin-bottom : 3px
 
 </style>

@@ -44,7 +44,7 @@
           </v-list-tile>
           <v-list-tile class="drawer_column" @click="gotoRegister('ergo')">
             <v-list-tile-action>
-              <v-icon>library_books</v-icon>
+              <v-icon>donut_small</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="subheading">エルゴを記録</v-list-tile-title>
@@ -52,7 +52,7 @@
           </v-list-tile>
           <v-list-tile class="drawer_column" @click="gotoRegister('weight')">
             <v-list-tile-action>
-              <v-icon>library_books</v-icon>
+              <v-icon>fitness_center</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="subheading">ウェイトを記録</v-list-tile-title>
@@ -60,7 +60,7 @@
           </v-list-tile>
           <v-list-tile class="drawer_column" @click="gotoRegister('others')">
             <v-list-tile-action>
-              <v-icon>library_books</v-icon>
+              <v-icon>apps</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="subheading">その他の種目を記録</v-list-tile-title>
@@ -77,7 +77,7 @@
           </v-list-tile>
           <v-list-tile class="drawer_column" @click="gotoView('personal')">
             <v-list-tile-action>
-              <v-icon>library_books</v-icon>
+              <v-icon>person</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="subheading">自分の記録を見る</v-list-tile-title>
@@ -85,25 +85,25 @@
           </v-list-tile>
           <v-list-tile class="drawer_column" @click="gotoView('team')">
             <v-list-tile-action>
-              <v-icon>library_books</v-icon>
+              <v-icon>group</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="subheading">チームの記録を見る</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
-          <v-list-tile class="drawer_column" @click="gotoConfig()">
+          <v-list-tile class="drawer_column" @click="gotoConfig">
             <v-list-tile-action>
-              <v-icon>home</v-icon>
+              <v-icon>settings</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="title">設定</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
-          <v-list-tile class="drawer_column" @click="gotoTop()">
+          <v-list-tile class="drawer_column" @click="gotoWiki">
             <v-list-tile-action>
-              <v-icon>home</v-icon>
+              <v-icon>library_books</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="title">Wiki</v-list-tile-title>
@@ -222,6 +222,10 @@ export default {
       this.beforeGoto()
       this.view_mode = mode
       this.state = 'view'
+    },
+    gotoWiki: function () {
+      //Wikiにリンクを飛ばす
+      window.location.href = 'http://rowingkuramae.com:3001'
     },
     loading: function () {
       //読み込み中

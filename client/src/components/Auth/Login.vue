@@ -9,10 +9,11 @@
         <div>
           <v-text-field v-model="form.password" outline label="パスワード" type="password"></v-text-field>
         </div>
-        <v-btn v-on:click="loginAPI">ログイン</v-btn>
+        <v-btn @click="loginAPI" class="login_button" color="red accent-2">ログイン</v-btn>
       </div>
       <div>
-        <span>{{ msg2 }}</span><label class="link" @click="sendToParent('signUp')">こちら</label>
+        <span>{{ msg2 }}</span>
+        <v-btn class="link" color="" @click="sendToParent('signUp')">こちら</v-btn>
       </div>
     </div>
     <v-dialog
@@ -127,4 +128,6 @@ export default {
   border-radius: 5px
 .link
   color: blue
+.login_button
+  color: white
 </style>

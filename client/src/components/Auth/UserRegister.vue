@@ -1,39 +1,86 @@
 <template>
   <div class='user_register'>
     <v-app class="card elevation-5">
-      <v-form lazy-validation :valid="true">  
+      <v-form
+        lazy-validation
+        v-model="form.valid"
+        ref="form"
+      >
         <div class="display-1 form-title">{{ msg }}</div>
         <div class="user_register_form">
           <v-layout row wrap justify-center>
             <v-flex xs1 md3></v-flex>
             <v-flex xs10 md6>
-              <v-text-field v-model="form.mail" outline class="input" label="メールアドレス" :rules="emailRules"></v-text-field>
+              <v-text-field
+                v-model="form.mail"
+                outline class="input"
+                label="メールアドレス"
+                :rules="emailRules"
+              ></v-text-field>
             </v-flex>
             <v-flex xs1 md3></v-flex>
             <v-flex xs1 md2></v-flex>
             <v-flex xs5 md4>
-              <v-text-field v-model="form.k_lastname" outline class="input" label="姓" :rules="textRules"></v-text-field>
+              <v-text-field
+                v-model="form.k_lastname"
+                outline
+                class="input"
+                label="姓"
+                :rules="nameRules"
+              ></v-text-field>
             </v-flex>
             <v-flex xs5 md4>
-              <v-text-field v-model="form.k_firstname" outline class="input" label="名" :rules="textRules"></v-text-field>
+              <v-text-field
+                v-model="form.k_firstname"
+                outline
+                class="input"
+                label="名"
+                :rules="nameRules"
+              ></v-text-field>
             </v-flex>
             <v-flex xs1 md2></v-flex>
             <v-flex xs1 md2></v-flex>
             <v-flex xs5 md4>
-              <v-text-field v-model="form.h_lastname" outline class="input" label="姓(ふりがな)" :rules="textRules"></v-text-field>
+              <v-text-field
+                v-model="form.h_lastname"
+                outline
+                class="input"
+                label="姓(ふりがな)"
+                :rules="nameRules"
+              ></v-text-field>
             </v-flex>
             <v-flex xs5 md4>
-              <v-text-field v-model="form.h_firstname" outline class="input" label="名(ふりがな)" :rules="textRules"></v-text-field>
+              <v-text-field
+                v-model="form.h_firstname"
+                outline
+                class="input"
+                label="名(ふりがな)"
+                :rules="nameRules"
+              ></v-text-field>
             </v-flex>
             <v-flex xs1 md2></v-flex>
             <v-flex xs1 md3></v-flex>
             <v-flex xs10 md6>
-              <v-text-field v-model="form.password" outline type="password" class="input" label="パスワード(英数字8文字以上)" :rules="passwordRules"></v-text-field>
+              <v-text-field
+                v-model="form.password"
+                outline
+                type="password"
+                class="input"
+                label="パスワード(英数字8文字以上)"
+                :rules="passwordRules"
+            ></v-text-field>
             </v-flex>
             <v-flex xs1 md3></v-flex>
             <v-flex xs1 md3></v-flex>
             <v-flex xs10 md6>
-              <v-text-field v-model="confirm" outline type="password" class="input" label="確認のため、もう一度パスワードを入力してください" :rules="passwordRules"></v-text-field>
+              <v-text-field
+                v-model="confirm"
+                outline
+                type="password"
+                class="input"
+                label="確認のため、もう一度パスワードを入力してください"
+                :rules="passwordRules"
+              ></v-text-field>
             </v-flex>
             <v-flex xs1 md3></v-flex>
             <v-flex xs1 md3></v-flex>
@@ -167,6 +214,7 @@
 </template>
 
 <script>
+import validator from '@/util/js/Validate'
 
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
@@ -178,6 +226,7 @@ export default {
     return {
       msg: 'アカウントを作りましょう。',
       form: {
+        valid: false,
         k_lastname: '',
         k_firstname: '',
         h_lastname: '',
@@ -185,21 +234,12 @@ export default {
         password: '',
         mail: '',
         sex: 'male',
-        birth_ymd: '1990-01-01',
+        birth_ymd: '2000-01-01',
         auth: '3'
       },
-      textRules: [
-        v => !!v || 'This field is required.',
-        v => (v && v.length <= 10) || 'This field must have less than 10 characters.'
-      ],
-      emailRules: [
-        v => !!v || 'This field is required.',
-        v => /.+@.+/.test(v) || 'This is not a valid email address.'
-      ],
-      passwordRules: [
-        v => !!v || 'This field is required.',
-        v => (v && v.length >= 8) || 'This field must have at least 8 characters.'
-      ],
+      nameRules: validator.nameRules,
+      emailRules: validator.emailRules,
+      passwordRules: validator.passwordRules,
       confirm: '',
       year: '2000',
       year_options: [],
@@ -216,8 +256,13 @@ export default {
   
   methods: {
     postUserRegisterAPI: async function () {
+      //Vuetifyの機能によるバリデーション
+      if (!this.$refs.form.validate()) {
+        this.snackbar = true
+        return
+      }
+      //生年月日の前処理とバリデーション
       this.beforePost()
-      console.log(this.form)
       if (this.err.length > 0) {
         this.err_disp_flg = true
         return
@@ -260,18 +305,6 @@ export default {
       this.form.birth_ymd = ymd
 
       this.err = []
-      if (/.+@.+/.test(this.form.email)) {
-        this.err.push('メールアドレスに不備があります。')
-      }
-      if (this.form.k_lastname === '' ||
-          this.form.k_firstname === '' ||
-          this.form.h_lastname === '' ||
-          this.form.h_firstname === '') {
-        this.err.push('姓名またはふりがなに不備があります。')
-      }
-      if (this.form.password.length < 8) {
-        this.err.push('パスワードは8文字以上にしてください。')
-      }
       if (this.form.password !== this.confirm) {
         this.err.push('パスワードが確認入力と異なります。')
       }
@@ -302,7 +335,7 @@ export default {
     }
   },
   mounted: function () {
-    this.year_options = this.makeArr(1970, 2030)
+    this.year_options = this.makeArr(1990, 2030)
     this.month_options = this.makeArr(1, 12)
     this.day_options = this.makeArr(1, 31)
   },

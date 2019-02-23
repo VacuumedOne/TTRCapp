@@ -5,7 +5,7 @@
         <v-toolbar-side-icon
           @click="toggleDrawer"
         ></v-toolbar-side-icon>
-        <v-toolbar-title v-ripple @click="gotoTop">Tsubakuro</v-toolbar-title>
+        <v-toolbar-title v-ripple @click="gotoTop">Tsubakuro(仮)</v-toolbar-title>
         <v-spacer></v-spacer>
         <label class="body-1">
           {{login_user.k_lastname + login_user.k_firstname}}
@@ -42,7 +42,7 @@
               <v-list-tile-title class="title">記録する</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile class="drawer_column" @click="gotoRegister('ergo')">
+          <v-list-tile class="drawer_column">
             <v-list-tile-action>
               <v-icon>donut_small</v-icon>
             </v-list-tile-action>

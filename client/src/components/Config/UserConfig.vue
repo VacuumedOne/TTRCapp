@@ -75,7 +75,7 @@
               <v-flex xs4 md4>
                 <v-select
                   :items="year_options"
-                  v-model="year"
+                  v-model="form.year"
                   box
                   label="年"
                 ></v-select>
@@ -83,7 +83,7 @@
               <v-flex xs3 md3>
                 <v-select
                   :items="month_options"
-                  v-model="month"
+                  v-model="form.month"
                   box
                   label="月"
                 ></v-select>
@@ -91,7 +91,7 @@
               <v-flex xs3 md3>
                 <v-select
                   :items="day_options"
-                  v-model="day"
+                  v-model="form.day"
                   box
                   label="日"
                 ></v-select>
@@ -173,7 +173,10 @@ export default {
         confirm: '',
         mail: '',
         auth: '0',
-        sex: ''
+        sex: '',
+        year: '2000',
+        month: '1',
+        day: '1'
       },
       body: {
 
@@ -186,11 +189,8 @@ export default {
       emailRules: validator.emailRules,
       passwordRules: validator.passwordRules,
       confirm: '',
-      year: '2000',
       year_options: [],
-      month: '1',
       month_options: [],
-      day: '1',
       day_options: [],
       err: [],
       dialog_disp_flg: false
@@ -199,7 +199,34 @@ export default {
   methods: {
     closeDialog: function () {
       this.dialog_disp_flg = false
+    },
+    makeArr: function (first, end) {
+      if (first > end) {
+        return []
+      } else {
+        let arr = []
+        for (let i = first; i <= end; i++) {
+          arr.push(i + '')
+        }
+        return arr
+      }
     }
+  },
+  mounted: function () {
+    this.year_options = this.makeArr(1990, 2030)
+    this.month_options = this.makeArr(1, 12)
+    this.day_options = this.makeArr(1, 31)
+
+    this.form.mail = this.loginUser.mail
+    this.form.k_lastname = this.loginUser.k_lastname
+    this.form.k_firstname = this.loginUser.k_firstname
+    this.form.h_lastname = this.loginUser.h_lastname
+    this.form.h_firstname = this.loginUser.h_firstname
+    this.form.sex = this.loginUser.sex
+    this.form.auth = this.loginUser.auth + ''
+    this.form.year = this.loginUser.birth_ymd.substr(0, 4)
+    this.form.month = Number(this.loginUser.birth_ymd.substr(5, 2)) + ''
+    this.form.day = Number(this.loginUser.birth_ymd.substr(8, 2)) + ''
   }
 }
 </script>

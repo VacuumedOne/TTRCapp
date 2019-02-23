@@ -1,5 +1,6 @@
 <template>
   <div class="config">
+    <v-btn @click="gotoUserSetting">ユーザ管理</v-btn>
     <user-config
       v-if="state==='user'"
       :login-user="loginUser"
@@ -21,7 +22,7 @@ export default {
     mode: String,
     loginUser: Object
   },
-  date: () => {
+  data: () => {
     return {
       state: 'user'
     }
@@ -35,7 +36,7 @@ export default {
     }
   },
   mounted: function () {
-    this.state = this.configState
+    this.state = this.mode
   },
   components: {
     'user-config': UserConfig,

@@ -9,7 +9,11 @@ export default new Router({
     {
       path: '/',
       name: 'Index',
-      component: Index
+      component: Index,
+      meta: {
+        title: '東工大端艇部アプリ',
+        desc: '東工大端艇部員向けサポートアプリです。'
+      }
     }
   ]
 })

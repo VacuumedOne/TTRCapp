@@ -32,13 +32,13 @@ export default {
       console.log(value)
     }
   },
-   created: function () {
-     this.date = new Date()
-     this.temp = this.date.toISOString().substr(0, 10)
-   },
-   mounted: function () {
-     this.$emit('input', this.date)
-   }
+  created: function () {
+    this.date = new Date()
+    this.temp = this.date.toISOString().substr(0, 10)
+  },
+  mounted: function () {
+    this.$emit('input', this.date)
+  }
 }
 </script>
 

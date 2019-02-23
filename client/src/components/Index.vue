@@ -5,7 +5,7 @@
         <v-toolbar-side-icon
           @click="toggleDrawer"
         ></v-toolbar-side-icon>
-        <v-toolbar-title v-ripple @click="gotoTop">Tsubakuro</v-toolbar-title>
+        <v-toolbar-title v-ripple @click="gotoTop">Tsubakuro(仮)</v-toolbar-title>
         <v-spacer></v-spacer>
         <label class="body-1">
           {{login_user.k_lastname + login_user.k_firstname}}
@@ -42,9 +42,9 @@
               <v-list-tile-title class="title">記録する</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile class="drawer_column" @click="gotoRegister('ergo')">
+          <v-list-tile class="drawer_column">
             <v-list-tile-action>
-              <v-icon>library_books</v-icon>
+              <v-icon>donut_small</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="subheading">エルゴを記録</v-list-tile-title>
@@ -52,7 +52,7 @@
           </v-list-tile>
           <v-list-tile class="drawer_column" @click="gotoRegister('weight')">
             <v-list-tile-action>
-              <v-icon>library_books</v-icon>
+              <v-icon>fitness_center</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="subheading">ウェイトを記録</v-list-tile-title>
@@ -60,7 +60,7 @@
           </v-list-tile>
           <v-list-tile class="drawer_column" @click="gotoRegister('others')">
             <v-list-tile-action>
-              <v-icon>library_books</v-icon>
+              <v-icon>apps</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="subheading">その他の種目を記録</v-list-tile-title>
@@ -77,7 +77,7 @@
           </v-list-tile>
           <v-list-tile class="drawer_column" @click="gotoView('personal')">
             <v-list-tile-action>
-              <v-icon>library_books</v-icon>
+              <v-icon>person</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="subheading">自分の記録を見る</v-list-tile-title>
@@ -85,25 +85,25 @@
           </v-list-tile>
           <v-list-tile class="drawer_column" @click="gotoView('team')">
             <v-list-tile-action>
-              <v-icon>library_books</v-icon>
+              <v-icon>group</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="subheading">チームの記録を見る</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
-          <v-list-tile class="drawer_column" @click="gotoConfig()">
+          <v-list-tile class="drawer_column" @click="gotoConfig('user')">
             <v-list-tile-action>
-              <v-icon>home</v-icon>
+              <v-icon>settings</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="title">設定</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
-          <v-list-tile class="drawer_column" @click="gotoTop()">
+          <v-list-tile class="drawer_column" @click="gotoWiki">
             <v-list-tile-action>
-              <v-icon>home</v-icon>
+              <v-icon>library_books</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="title">Wiki</v-list-tile-title>
@@ -124,8 +124,8 @@
             <register
               class="item register"
               v-if="state==='register'"
-              v-bind:login-user="login_user"
-              v-bind:mode="register_mode"
+              :login-user="login_user"
+              :mode="register_mode"
               v-on:send="receiveFromChild"
               ></register>
           </transition>
@@ -133,10 +133,19 @@
             <c-view
               class="item view"
               v-if="state==='view'"
-              v-bind:login-user="login_user"
-              v-bind:mode="view_mode"
+              :login-user="login_user"
+              :mode="view_mode"
               v-on:send="receiveFromChild"
               ></c-view>
+          </transition>
+          <transition name="fade">
+            <config
+              class="item config"
+              v-if="state==='config'"
+              :login-user="login_user"
+              :mode="config_mode"
+              v-on:send="receiveFromChild"
+              ></config>
           </transition>
         </v-container>
       </v-content>
@@ -155,6 +164,7 @@ import Top from '@/components/Top'
 import Register from '@/components/Register'
 import View from '@/components/View'
 import Auth from '@/components/Auth'
+import Config from '@/components/Config'
 
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
@@ -169,6 +179,7 @@ export default {
       login_user: null,
       register_mode: '',
       view_mode: '',
+      config_mode: '',
       drawer_disp_flg: null
     }
   },
@@ -206,9 +217,10 @@ export default {
       this.beforeGoto()
       this.state = 'top'
     },
-    gotoConfig: function () {
+    gotoConfig: function (mode) {
       //設定画面に遷移する
       this.beforeGoto()
+      this.config_mode = mode
       this.state = 'config'
     },
     gotoRegister: function (mode) {
@@ -222,6 +234,10 @@ export default {
       this.beforeGoto()
       this.view_mode = mode
       this.state = 'view'
+    },
+    gotoWiki: function () {
+      //Wikiにリンクを飛ばす
+      window.location.href = 'http://rowingkuramae.com:3001'
     },
     loading: function () {
       //読み込み中
@@ -270,7 +286,8 @@ export default {
     'top': Top,
     'register': Register,
     'c-view': View,
-    'auth': Auth
+    'auth': Auth,
+    'config': Config
   }
 }
 </script>

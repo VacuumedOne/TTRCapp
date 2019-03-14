@@ -226,7 +226,7 @@ export default {
       }
     },
     sendToParent: function () {
-      this.$emit('send', 'top')
+      this.$emit('send', 'Top')
     }
   },
   components: {

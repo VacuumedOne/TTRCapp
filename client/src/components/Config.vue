@@ -4,6 +4,7 @@
     <user-config
       v-if="state==='user'"
       :login-user="loginUser"
+      @send="receiveFromChild"
     ></user-config>
     <team-config
       v-if="state==='team'"
@@ -33,6 +34,15 @@ export default {
     },
     gotoTeamSetting: function () {
       this.state = 'team'
+    },
+    receiveFromChild: function (data) {
+      if (data === 'UserConfig') {
+        this.gotoUserSetting()
+      } else if (data === 'TeamSetting') {
+        this.gotoTeamSetting()
+      } else {
+        this.$emit('send', data)
+      }
     }
   },
   mounted: function () {

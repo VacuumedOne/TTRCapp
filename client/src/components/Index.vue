@@ -263,7 +263,7 @@ export default {
         this.gotoView('personal')
       } else if (data === 'TeamView') {
         this.gotoView('team')
-      } else if (data === 'top') {
+      } else if (data === 'Top') {
         this.gotoTop()
       }
     },

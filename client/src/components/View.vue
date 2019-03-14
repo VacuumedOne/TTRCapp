@@ -48,7 +48,7 @@ export default {
       this.$emit('send', data)
     },
     sendToParent: function () {
-      this.$emit('send', 'top')
+      this.$emit('send', 'Top')
     }
   },
   components: {

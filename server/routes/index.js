@@ -4,6 +4,7 @@ var router = express.Router();
 /* ローカルモジュール */
 var UserRegister = require('../lib/controller/User/UserRegister');
 var UserList = require('../lib/controller/User/UserList');
+var UserUpdate = require('../lib/controller/User/UserUpdate');
 var RecordGroupRegister = require('../lib/controller/RecordGroup/RecordGroupRegister');
 var RecordGroupList = require('../lib/controller/RecordGroup/RecordGroupList');
 var RecordGroupSearch = require('../lib/controller/RecordGroup/RecordGroupSearch');
@@ -66,6 +67,10 @@ router.post('/test/post/api', function(req, res, next) {
 //ユーザ追加
 router.post('/user/register/api', function(req, res, next) {
   UserRegister(req.body, res, db);
+});
+//ユーザ情報更新
+router.post('/user/update/api', function(req, res, next) {
+  UserUpdate(req.body, res, db);
 });
 //ユーザ認証からのセッション獲得
 router.post('/login/api',

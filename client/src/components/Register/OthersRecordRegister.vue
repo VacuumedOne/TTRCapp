@@ -10,7 +10,7 @@ export default {
   name: 'OthersRegister',
   methods: {
     sendToParent: function () {
-      this.$emit('send', 'top')
+      this.$emit('send', 'Top')
     }
   }
 }

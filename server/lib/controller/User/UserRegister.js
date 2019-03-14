@@ -17,7 +17,6 @@ module.exports = function(body, res, db) {
    */
   
   /* 入力のバリデーション */
-  console.log(body);
   var err = [];
   if(body.password == null) {
     err.push('パスワードが入力されていません。');

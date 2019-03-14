@@ -243,16 +243,60 @@ export default {
       this.postUpdate(this.body)
     },
     updateName: function () {
-
+      //全体の更新前処理
+      this.beforeUpdate()
+      //バリデーション
+      this.$refs.name_form.validate()
+      if (!this.valid.name) {
+        this.openErrorDialog('入力に問題があります')
+        return
+      }
+      if (this.form.mail === this.loginUser.mail) {
+        this.openErrorDialog('入力が変更されていません')
+        return
+      }
+      this.body.k_lastname = this.form.k_lastname
+      this.body.k_firstname = this.form.k_firstname
+      this.body.h_lastname = this.form.h_lastname
+      this.body.h_firstname = this.form.h_firstname
+      //APIへのポスト
+      this.postUpdate(this.body)
     },
     updatePassword: function () {
-
+      //全体の更新前処理
+      this.beforeUpdate()
+      //バリデーション
+      this.$refs.password_form.validate()
+      if (!this.valid.password) {
+        this.openErrorDialog('入力に問題があります')
+        return
+      }
+      if (this.form.password !== this.form.confirm) {
+        this.openErrorDialog('確認用の入力と異なります')
+        return
+      }
+      this.body.password = this.form.password
+      //APIへのポスト
+      this.postUpdate(this.body)
     },
     updateAuth: function () {
-
+      //全体の更新前処理
+      this.beforeUpdate()
+      this.body.auth = this.form.auth
+      //APIへのポスト
+      this.postUpdate(this.body)
     },
     updateBirth: function () {
-
+      //全体の更新前処理
+      this.beforeUpdate()
+      let birth_ymd = ''
+      birth_ymd += this.form.year + '-'
+      birth_ymd += (('0' + this.form.month).slice(-2)) + '-'
+      birth_ymd += (('0' + this.form.day).slice(-2))
+      console.log(birth_ymd)
+      this.body.birth_ymd = birth_ymd
+      //APIへのポスト
+      this.postUpdate(this.body)
     },
     postUpdate: async function (body) {
       try {

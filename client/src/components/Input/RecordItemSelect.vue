@@ -21,7 +21,7 @@
 <script>
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER_BASE_URL
-axios.defaults.withCredentials = false
+axios.defaults.withCredentials = true
 
 let update = async function () {
   this.selected_id = null

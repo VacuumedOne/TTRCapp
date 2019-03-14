@@ -8,10 +8,6 @@
       format="yyyy-MM-dd"
       :clearable="false"
     ></el-date-picker>
-    <div>
-      ↑現在表示がうまく動いていません。内部的には日付は入力できているので、一度だけ操作してください。
-    </div>
-    
   </div>
 </template>
 
